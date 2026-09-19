@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>讓每個學生用適合自己的速度學習</title>
+  <style>
+    :root {
+      --ink: #4d4842;
+      --ink-soft: #716a61;
+      --paper: #fffaf3;
+      --cream: #fffaf3;
+      --peach: #f8e9e1;
+      --pink: #f8e9e1;
+      --mint: #f8e9e1;
+      --blue: #f8e9e1;
+      --line: #e3d6ca;
+      --terracotta: #bd7b68;
+      --green: #8c665b;
+      --white: rgba(255,255,253,.75);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #615e56; }
+    body {
+      overflow: hidden; color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; opacity: .25; pointer-events: none; z-index: 9;
+      background-image: radial-gradient(rgba(81,67,52,.22) .55px, transparent .7px);
+      background-size: 6px 6px; mix-blend-mode: multiply;
+    }
+    .deck { min-height: 100vh; }
+    .slide {
+      display: none; min-height: 100vh; padding: 8.5vh 10vw 9vh; position: relative; overflow: auto;
+      background:
+        radial-gradient(circle at 87% 14%, rgba(255,255,255,.68) 0 7%, transparent 7.2%),
+        linear-gradient(135deg, rgba(255,255,255,.32), transparent 48%),
+        var(--paper);
+    }
+    .slide.active { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 11vh; }
+    .slide.active > .eyebrow,
+    .slide.active > .overline { min-height: 34px; margin-bottom: 18px; }
+    .slide.active > h1,
+    .slide.active > h2 { min-height: 1.24em; }
+    .slide::before {
+      content: ""; width: 118px; height: 19px; position: absolute; top: 4.2vh; left: 8vw;
+      background: repeating-linear-gradient(140deg, transparent 0 6px, rgba(200,115,92,.65) 7px 9px, transparent 10px 15px);
+      opacity: .58; transform: rotate(-1deg);
+    }
+    .slide::after {
+      content: ""; position: absolute; right: 8vw; bottom: 6vh; width: 67px; height: 45px;
+      border-right: 2px solid var(--green); border-bottom: 2px solid var(--green); border-radius: 0 0 10px 0;
+      transform: rotate(2deg); opacity: .55;
+    }
+    .section, .final { background:
+      radial-gradient(circle at 87% 14%, rgba(255,255,255,.68) 0 7%, transparent 7.2%),
+      linear-gradient(135deg, rgba(255,255,255,.32), transparent 48%),
+      var(--paper); }
+    .activity {
+      background: #f0e3d7; color: var(--ink);
+      background-image: radial-gradient(circle at 88% 15%, rgba(255,255,255,.48) 0 7%, transparent 7.2%);
+    }
+    .activity::before { background: repeating-linear-gradient(140deg, transparent 0 6px, rgba(189,123,104,.54) 7px 9px, transparent 10px 15px); }
+    .activity::after { border-color: #c69585; }
+    .activity .eyebrow, .activity .overline, .activity .page { color: #986353; }
+    .activity .lead, .activity .caption { color: #62584f; }
+    .activity .caption { font-weight: 700; }
+    .eyebrow { margin: 0 0 20px; color: var(--green); font-size: clamp(17px, 1.45vw, 24px); font-weight: 800; letter-spacing: .12em; }
+    .overline { color: var(--terracotta); font-size: clamp(18px, 1.6vw, 25px); font-weight: 800; letter-spacing: .08em; margin: 0 0 17px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(56px, 6.15vw, 98px); letter-spacing: -.06em; line-height: 1.18; margin-bottom: 26px; max-width: 1400px; }
+    h2 { font-size: clamp(43px, 4.45vw, 72px); letter-spacing: -.055em; line-height: 1.24; margin-bottom: 28px; max-width: 1400px; }
+    h3 { font-size: clamp(24px, 2.35vw, 37px); line-height: 1.25; margin: 0 0 10px; }
+    .lead { max-width: 930px; font-size: clamp(24px, 2.35vw, 37px); line-height: 1.55; color: var(--ink-soft); }
+    .big { font-size: clamp(30px, 3.3vw, 51px); line-height: 1.5; max-width: 1050px; letter-spacing: -.035em; }
+    .hand { font-family: "Comic Sans MS", "DFKai-SB", cursive; color: var(--terracotta); letter-spacing: .02em; }
+    .tag { display: inline-block; padding: 8px 15px; border-radius: 999px; font-size: clamp(16px, 1.3vw, 21px); font-weight: 800; background: var(--mint); color: #805f55; transform: rotate(-2deg); }
+    .lecturer { margin-top: 36px; display: inline-flex; align-items: center; gap: 14px; font-size: clamp(21px, 1.75vw, 29px); font-weight: 700; }
+    .lecturer::before { content: ""; display: block; width: 15px; height: 15px; border-radius: 50%; background: var(--terracotta); box-shadow: 11px 0 0 #eed6cb; }
+    .grid { display: grid; gap: 32px; max-width: 1180px; }
+    .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .equal-cards { grid-template-rows: repeat(2, minmax(0, 1fr)); height: min(52vh, 440px); }
+    .equal-cards .card { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+    .card { background: var(--white); border: 1px solid rgba(184,160,132,.55); border-radius: 5px; padding: 28px; position: relative; box-shadow: 3px 5px 0 rgba(184,160,132,.11); }
+    .card:nth-child(2) { transform: rotate(.45deg); }
+    .card:nth-child(3) { transform: rotate(-.45deg); }
+    .card p { color: var(--ink-soft); font-size: clamp(19px, 1.65vw, 27px); line-height: 1.5; margin: 0; }
+    .no { display: block; color: var(--terracotta); font-size: 18px; font-weight: 800; margin-bottom: 14px; letter-spacing: .08em; }
+    .quote { border-left: 7px solid var(--terracotta); padding: 10px 0 10px 30px; font-size: clamp(34px, 4vw, 63px); line-height: 1.45; letter-spacing: -.04em; max-width: 1060px; }
+    .caption { position: absolute; left: 10vw; bottom: 3.8vh; color: #5a5248; font-size: 20px; font-weight: 700; letter-spacing: .025em; }
+    .page { position: absolute; right: 10vw; bottom: 3.8vh; color: #456d60; font-size: 20px; font-weight: 800; }
+    .path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; max-width: 1180px; align-items: stretch; }
+    .path div { min-height: 163px; background: var(--white); border: 1px solid var(--line); padding: 22px 20px; position: relative; }
+    .path b { display: block; font-size: clamp(22px, 1.9vw, 31px); margin-bottom: 14px; }
+    .path span { display: block; color: var(--ink-soft); font-size: clamp(17px, 1.4vw, 22px); line-height: 1.5; }
+    .agenda { max-width: 1180px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .agenda div { min-height: 145px; padding: 24px; border: 1px solid var(--line); background: var(--white); display: grid; grid-template-columns: 52px 1fr; gap: 16px; align-items: start; font-size: clamp(21px, 1.75vw, 28px); }
+    .agenda b { color: var(--terracotta); }
+    .sticker { position: absolute; background: var(--pink); border-radius: 50% 47% 51% 45%; width: 145px; height: 104px; right: 14vw; top: 16vh; transform: rotate(10deg); opacity: .7; }
+    .sticker::after { content: "一起想"; color: #9c5547; font-family: "Comic Sans MS", "DFKai-SB", cursive; position: absolute; left: 31px; top: 35px; font-size: 22px; font-weight: bold; transform: rotate(-12deg); }
+    .list { list-style: none; margin: 0; padding: 0; max-width: 1040px; }
+    .list li { border-bottom: 1px solid var(--line); padding: 19px 0; font-size: clamp(24px, 2.25vw, 36px); line-height: 1.4; display: flex; gap: 20px; }
+    .list li::before { content: "✦"; color: var(--terracotta); font-size: .8em; padding-top: .2em; }
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 1140px; align-items: stretch; }
+    .comparison > div { padding: 32px; min-height: 250px; }
+    .comparison .left { background: var(--blue); }
+    .comparison .right { background: var(--mint); }
+    .comparison .arrow { display: none; }
+    .comparison p { margin: 0; color: var(--ink-soft); font-size: clamp(20px, 1.75vw, 28px); line-height: 1.55; }
+    .comparison b { display: block; font-size: clamp(27px, 2.5vw, 40px); margin-bottom: 20px; }
+    .toolgrid { max-width: 1180px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+    .tool { min-height: 184px; padding: 24px; background: var(--white); border: 1px solid var(--line); border-top: 7px solid #ecd1c5; }
+    .tool b { display: block; font-size: clamp(22px, 1.8vw, 29px); margin-bottom: 13px; }
+    .tool span { color: var(--ink-soft); font-size: clamp(17px, 1.4vw, 22px); line-height: 1.5; }
+    .case { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1180px; gap: 28px; }
+    .case div { min-height: 235px; background: var(--white); padding: 29px; }
+    .case b { display: block; color: var(--terracotta); font-size: 19px; letter-spacing: .08em; margin-bottom: 17px; }
+    .case p { font-size: clamp(21px, 1.8vw, 28px); line-height: 1.55; margin: 0; color: var(--ink-soft); }
+    .role { display: grid; grid-template-columns: 1fr 1fr; max-width: 1180px; gap: 28px; }
+    .role div { min-height: 278px; padding: 34px; }
+    .role .system, .role .teacher { background: var(--peach); }
+    .role b { display: block; font-size: clamp(26px, 2.4vw, 39px); margin-bottom: 21px; }
+    .role p { font-size: clamp(22px, 1.9vw, 30px); line-height: 1.55; margin: 0; }
+    .source-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 34px; }
+    .source-links a {
+      display: inline-flex; align-items: center; gap: 11px; padding: 17px 23px;
+      color: #674f47; background: #faece5; border: 1px solid #d7a392; border-radius: 5px;
+      font-size: clamp(19px, 1.55vw, 25px); font-weight: 800; text-decoration: none;
+      box-shadow: 3px 5px 0 rgba(189,123,104,.13); transition: transform .2s ease, background-color .2s ease;
+    }
+    .source-links a::after { content: "↗"; color: var(--terracotta); font-size: 1.15em; }
+    .source-links a:hover, .source-links a:focus-visible { background: #f5ddd3; transform: translateY(-3px); outline: 3px solid rgba(189,123,104,.25); outline-offset: 3px; }
+    .activity h2 { font-size: clamp(48px, 4.9vw, 78px); }
+    .activity-prompt { margin: -8px 0 24px; color: #765b51; font-size: clamp(22px, 1.7vw, 28px); font-weight: 800; letter-spacing: .04em; }
+    .activity-prompt span { display: inline-block; margin-right: 12px; padding: 5px 12px; color: #fffaf3; background: var(--terracotta); border-radius: 999px; font-size: .8em; letter-spacing: .08em; }
+    .activity-options { max-width: 1180px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .activity-options > div {
+      min-height: 126px; padding: 28px 24px 23px; position: relative; background: #fff9f2;
+      border: 2px solid #d1a797; box-shadow: 4px 5px 0 rgba(151,99,83,.16);
+      font-size: clamp(25px, 1.95vw, 32px); line-height: 1.38; font-weight: 700; display: grid; grid-template-columns: 43px 1fr; gap: 15px; align-items: center;
+    }
+    .activity-options > div::before {
+      content: ""; display: block; width: 37px; height: 37px;
+      border: 4px solid var(--terracotta); border-radius: 50%; background: #fffdf9;
+    }
+    .activity-options > div::after {
+      content: ""; position: absolute; top: -8px; left: 50%; width: 52px; height: 15px;
+      transform: translateX(-50%) rotate(-1.5deg); background: rgba(235,202,187,.7);
+      border-left: 1px solid rgba(189,123,104,.16); border-right: 1px solid rgba(189,123,104,.16);
+    }
+    .activity-options > div:nth-child(3n + 2) { transform: rotate(.35deg); }
+    .activity-options > div:nth-child(3n + 3) { transform: rotate(-.3deg); }
+    .reveal-card {
+      opacity: .56; transition: opacity .22s ease, background-color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+    }
+    .is-highlighted {
+      opacity: 1; background: #faece5 !important; border-color: #d7a392 !important;
+      box-shadow: 5px 8px 0 rgba(189,123,104,.16) !important; transform: translateY(-4px) rotate(-.2deg) !important;
+    }
+    .controls { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 10; }
+    .controls button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(93,82,70,.35); background: rgba(255,250,241,.87); color: var(--terracotta); cursor: pointer; font-size: 27px; }
+    .controls button:hover { background: var(--peach); }
+    .progress { position: fixed; left: 0; bottom: 0; height: 7px; background: var(--terracotta); width: 3.333%; transition: width .25s ease; z-index: 12; }
+    .hint { position: fixed; right: 24px; bottom: 14px; font-size: 13px; color: rgba(255,255,255,.88); z-index: 12; }
+    @media (max-width: 850px) {
+      .slide { padding: 62px 32px 72px; justify-content: flex-start !important; }
+      .slide::before, .slide::after { display: none; }
+      .two, .three, .agenda, .role, .case, .activity-options { grid-template-columns: 1fr; }
+      .equal-cards { grid-template-rows: none; height: auto; }
+      .path, .toolgrid { grid-template-columns: 1fr 1fr; }
+      .comparison { grid-template-columns: 1fr; }
+      .caption { left: 32px; bottom: 25px; font-size: 17px; } .page { right: 32px; bottom: 25px; font-size: 17px; }
+      .sticker { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="課程開發與設計分享簡報">
+    <section class="slide active">
+      <p class="eyebrow">資訊科技課程（ESP32 × motoBlockly） · 2026.10.08</p>
+      <h1>讓每個學生都能<br><span class="hand">用適合自己的速度學習。</span></h1>
+      <p class="lead">從 Gemini 單頁原型到可持續維護的數位課程網站：<br>ESP32 × motoBlockly 的設計、測試與 AI 協作歷程</p>
+      <p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p>
+      <span class="page">01 / 30</span>
+    </section>
+
+    <section class="slide"><p class="overline">今天想分享的，不是工具清單。</p><div class="quote">而是：如何讓不同基礎、不同理解速度的學生，都能在同一個單元中找到可前進的下一步。</div><p class="caption">分享的主線</p><span class="page">02 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">分享架構</p><h2>今天的旅程</h2><div class="agenda"><div class="reveal-card"><b>01</b><span>從教學問題出發</span></div><div class="reveal-card"><b>02</b><span>設計學習路徑</span></div><div class="reveal-card"><b>03</b><span>從原型到網站</span></div><div class="reveal-card"><b>04</b><span>網站體驗與交流</span></div><div class="reveal-card"><b>05</b><span>工具、資料與 AI 協作</span></div><div class="reveal-card"><b>06</b><span>測試、反思與帶走的方法</span></div></div><p class="caption">依現場交流情況，彈性調整分享節奏</p><span class="page">03 / 30</span></section>
+
+    <section class="slide section"><p class="eyebrow">Part 1 · Why</p><h2>從 ESP32 × motoBlockly 課程，<br>看見學生<span class="hand">學習差異。</span></h2><p class="lead">先理解學生的基礎、理解速度與卡關方式，再設計能支持每個人的路徑。</p><span class="page">04 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">教學現場</p><h2>同一間教室裡，<br>學生的起點並不相同。</h2><div class="grid three"><div class="card"><span class="no">01</span><h3>基礎不同</h3><p>有些學生熟悉積木與接線；有些人還在理解基本概念。</p></div><div class="card"><span class="no">02</span><h3>理解速度不同</h3><p>有些人很快能連結邏輯；有些人需要範例、重看與多一次練習。</p></div><div class="card"><span class="no">03</span><h3>卡關方式不同</h3><p>有人卡在操作，有人卡在程式邏輯，也有人不知道如何開始。</p></div></div><p class="caption">課程設計必須容納學生不同的起點與速度</p><span class="page">05 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">教學現場</p><h2>同一個任務，<br>學生需要的支持也不一樣。</h2><ul class="list"><li>有人需要先看一個明確範例，才敢開始接線或寫程式。</li><li>有人完成基本任務後，需要下一階段的挑戰，才能繼續投入。</li><li>有人卡關時，需要的是除錯路徑，而不是另一份更長的講義。</li></ul><p class="caption">核心不是讓所有人走一樣快，而是讓每個人都能繼續前進</p><span class="page">06 / 30</span></section>
+
+    <section class="slide activity"><p class="eyebrow">活動 01 · 自己選，不必分享</p><h2>在你的單元中，<br>學生最常卡在哪一步？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項最貼近的觀察</p><div class="activity-options"><div>基礎概念還不穩</div><div>不知道為什麼要學</div><div>不知道第一步做什麼</div><div>理解速度跟不上</div><div>不清楚完成標準</div><div>操作或工具容易出錯</div><div>作品做不出預期結果</div><div>不知道怎麼除錯</div><div>其他：我有不同觀察</div></div><p class="caption">接下來的設計，帶著這個問題一起看。</p><span class="page"></span></section>
+
+    <section class="slide"><p class="eyebrow">設計初心</p><h2>我們想創造的改變</h2><div class="comparison"><div class="left"><b>每一位學生</b><p>不論起點快慢，都能看見目前位置、選擇下一步，並在需要時取得支持。</p></div><div class="right"><b>課程設計</b><p>提供基本路徑、可回看的鷹架與延伸挑戰，讓學生不必用同一種速度學習。</p></div></div><p class="caption">自主，不是放著自己學；而是在適合的速度中持續前進</p><span class="page">07 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">資料與靈感</p><h2>課程不是無中生有，<br>而是把多種資料重新轉譯。</h2><div class="grid two equal-cards"><div class="card"><h3>課本與課綱</h3><p>以資訊科技教材、課程綱要與既有單元目標，確認學生應建立的核心概念。</p></div><div class="card"><h3>官方與網路資料</h3><p>查閱 ESP32、motoBlockly、感測器與接線相關的官方文件、教學資源與範例。</p></div><div class="card"><h3>社群高手分享</h3><p>參考創客社群、教師社群與實作者的作品、解題經驗與常見錯誤提醒。</p></div><div class="card"><h3>研習講義與教師共備</h3><p>吸收研習資料、同儕做法與共備討論，再依自己的學生特性重新調整。</p></div></div><p class="caption">教師的工作，是查核、取捨並轉譯成適合學生起點的學習路徑</p><span class="page">08 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">關鍵問題</p><h2>如果學生能清楚知道：</h2><div class="big">「我現在在哪裡？」<br>「下一步該做什麼？」<br>「我可以用自己的速度，怎麼繼續前進？」</div><p class="lead" style="margin-top:27px">那麼，學習差異是否能被轉化為不同的前進路徑？</p><p class="caption">從假設開始，做成可以測試的設計</p><span class="page">09 / 30</span></section>
+
+    <section class="slide section"><p class="eyebrow">Part 2 · Learning design</p><h1>先設計<span class="hand">學習路徑</span>，<br>再設計網站。</h1><span class="page">10 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">課程藍圖 · ESP32 × motoBlockly</p><h2>把三天的硬體整合課，<br>拆成可前進的學習路徑。</h2><div class="path"><div><b>課前／Day 1</b><span>ESP32、motoBlockly、G／V／S 與用電安全。</span></div><div><b>Day 1</b><span>有聲紅綠燈：輸出、按鈕與控制邏輯。</span></div><div><b>Day 2</b><span>光影與閘門：類比輸入、伺服馬達與條件控制。</span></div><div><b>Day 3</b><span>感測器整合、專題設計、實作與發表。</span></div></div><p class="caption">課程架構就是網站架構的起點</p><span class="page">11 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">設計原則</p><h2>學生需要的不是更多頁面，<br>而是能依自己速度前進的路徑。</h2><div class="grid three"><div class="card"><h3>先站穩基礎</h3><p>Day 1～3 設定每日最低完成線，讓學生先完成可驗證的核心功能。</p></div><div class="card"><h3>需要時回看</h3><p>用除錯闖關護照與每日回饋，讓學生能回到卡關處重新理解。</p></div><div class="card"><h3>準備不同路徑</h3><p>從安全闖關、上電前檢核到分層任務卡，讓需要支持或挑戰的學生都有下一步。</p></div></div><p class="caption">以學生的起點、速度與理解需求作為設計判準</p><span class="page">12 / 30</span></section>
+
+    <section class="slide activity"><p class="eyebrow">活動 02 · 為自己的單元選一項</p><h2>若只能先做一個調整，<br>你想加入哪種學習鷹架？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項最願意先嘗試的做法</p><div class="activity-options"><div>清楚的目標與任務說明</div><div>每節課的最低完成線</div><div>分階段任務卡</div><div>作品範例或示範</div><div>操作前的檢核卡</div><div>除錯步驟與提示</div><div>學習進度紀錄</div><div>課後三分鐘反思</div><div>其他：我有自己的做法</div></div><p class="caption">不需作答或發言，只要先為自己選一個可開始的小改變。</p><span class="page"></span></section>
+
+    <section class="slide section"><p class="eyebrow">Part 3 · Development journey</p><h1>從構想，<br>到可以操作的<span class="hand">第一個原型。</span></h1><span class="page">13 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">第一階段 · Gemini</p><h2>從 Gemini 開始：<br>快速做出 ESP32 × motoBlockly 的單頁原型</h2><div class="grid two"><div class="card"><h3>當時的目的</h3><p>讓資訊科技課程的教學構想，快速成為看得見、能討論的學習介面與流程。</p></div><div class="card"><h3>最重要的收穫</h3><p>不必等到完整系統，先用原型確認學生可能的使用經驗。</p></div></div><p class="lead" style="margin-top:27px">原型的價值：<span class="hand">把「想像」變成可以對話的東西。</span></p><p class="caption">Gemini 協助初期快速建構</p><span class="page">14 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">專案例頁 01 · ESP32 × motoBlockly 學習入口</p><h2>學生不知道從哪裡開始，<br>就先改變「進入單元」的方式。</h2><div class="case"><div><b>原本設計</b><p>在單一頁面提供完整的 ESP32 與 motoBlockly 教材、任務，讓學生自行選擇。</p></div><div><b>使用後發現</b><p>學生看見很多內容，卻難以判斷先後順序，也不容易開始。</p></div><div><b>調整與影響</b><p>改為單元任務、階段提示與清楚下一步，降低一開始的迷路感。</p></div></div><p class="caption">建議搭配：調整前後的首頁或單元入口畫面</p><span class="page">15 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">專案例頁 02 · ESP32 × motoBlockly 開發轉折</p><h2>單頁原型能快速開始，<br>但不一定能長期修改。</h2><div class="case"><div><b>原本設計</b><p>以 Gemini 建立單一網頁應用，快速驗證課程流程與介面想法。</p></div><div><b>遇到問題</b><p>教材、功能與資料增加後，牽一髮動全身，修改與維護都變得困難。</p></div><div><b>調整與影響</b><p>改用 Claude／Codex 協助閱讀、重整、除錯與小步修改，讓回饋能持續被實作。</p></div></div><p class="caption">建議搭配：原型畫面、程式版本或一次具體修改紀錄</p><span class="page">16 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">專案例頁 03 · ESP32 × motoBlockly 分層學習</p><h2>把同一個單元，<br>設計成不同學生都能前進的路徑。</h2><div class="case"><div><b>共同基礎</b><p>每位學生先完成安全檢核與每日最低完成線，建立必要的操作與概念基礎。</p></div><div><b>遇到卡關</b><p>可回看教材、使用接線練習與除錯護照，依自己的理解速度重新嘗試。</p></div><div><b>準備延伸</b><p>完成基礎後，再進入挑戰關、創意關與專題整合，不讓較快的學生停在原地。</p></div></div><p class="caption">同一個單元，不必要求所有學生以相同速度完成</p><span class="page">17 / 30</span></section>
+
+    <section class="slide section"><p class="eyebrow">Part 4 · Try it · ESP32 × motoBlockly</p><h1>現在，<br>換我們用<span class="hand">學生視角</span>體驗。</h1><div class="source-links" aria-label="專案體驗連結"><a href="https://suyungsheng-kh.github.io/esp32-2026/" target="_blank" rel="noopener noreferrer">開啟成果網站</a><a href="https://github.com/suyungsheng-kh/esp32-2026" target="_blank" rel="noopener noreferrer">查看 GitHub 專案內容</a></div><p class="caption">可直接開啟網站體驗，或查閱公開專案內容</p><span class="page">18 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">體驗前的提示</p><h2>今天不教操作，<br>而是觀察設計。</h2><div class="grid three"><div class="card"><h3>先做安全判斷</h3><p>從 G／V／S 接線與找錯接線題，感受前導鷹架的安排。</p></div><div class="card"><h3>再走一次除錯</h3><p>透過「描述現象到反思」的除錯護照，體會卡關時的支持。</p></div><div class="card"><h3>最後看學習證據</h3><p>從每日回饋、專題設計單與 XML 自評，回看學生的進展。</p></div></div><p class="caption">先以學生視角體驗，再回看設計的用意</p><span class="page">19 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">學生學習流程</p><h2>在三天課程裡，<br>讓學生經歷四個時刻。</h2><div class="path"><div><b>安全開始</b><span>認識 G／V／S，完成接線與上電前檢核。</span></div><div><b>小步完成</b><span>從紅綠燈到光影閘門，先完成每日最低完成線。</span></div><div><b>整合專題</b><span>用專題設計單規劃輸入、輸出、邏輯與成功條件。</span></div><div><b>反思與發表</b><span>每日回饋，並用「問題、規則、解法」完成成果發表。</span></div></div><p class="caption">體驗網站時，對照每個環節的教學目的</p><span class="page">20 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">體驗後交流</p><h2>一起討論三件事</h2><ul class="list"><li>哪個設計最能降低學生的學習不安？</li><li>哪些地方仍需要教師親自介入？</li><li>這套方式能如何轉化到自己的單元？</li></ul><p class="caption">讓體驗回到自己的教學現場</p><span class="page">21 / 30</span></section>
+
+    <section class="slide activity"><p class="eyebrow">活動 03 · 帶著問題體驗</p><h2>剛才的網站體驗中，<br>哪一種支持最值得帶回單元？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項最有感的設計</p><div class="activity-options"><div>安全與操作前檢核</div><div>每日最低完成線</div><div>分層任務與挑戰關</div><div>接線練習與即時檢查</div><div>除錯闖關護照</div><div>專題設計單</div><div>三分鐘回饋單</div><div>AI 初步自評</div><div>其他：我想重新設計</div></div><p class="caption">先選一項，再想想它可以放進自己的哪個單元。</p><span class="page"></span></section>
+
+    <section class="slide section"><p class="eyebrow">Part 5 · Tools &amp; data</p><h1>工具存在的目的，<br>是讓不同速度的學生，<br><span class="hand">都能繼續前進。</span></h1><span class="page">22 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">ESP32 × motoBlockly 專案的教學支持</p><h2>先串起既有工具，<br>提供可自行回看的學習支持。</h2><div class="toolgrid"><div class="tool"><b>Google Drive</b><span>集中教材與參考資料，讓學生可依需要回看。</span></div><div class="tool"><b>Google Classroom</b><span>發布任務與作品繳交，讓每個人掌握目前進度。</span></div><div class="tool"><b>Google Apps Script</b><span>串接表單與試算表，整理學生卡關與回饋的線索。</span></div><div class="tool"><b>Google Colab</b><span>提供 XML 作業的初步檢核與個別回饋。</span></div></div><p class="caption">工具的價值，是讓學生在需要時找到合適支持</p><span class="page">23 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">網站與資料支持</p><h2>大多數課程頁是靜態網站；<br>只有作業回饋需要 AI 助教。</h2><div class="comparison"><div class="left"><b>課程與互動鷹架</b><p>前導、Day 1～3、接線練習、除錯護照與專題設計單，皆可由靜態 HTML 網站直接提供。</p></div><div class="right"><b>AI 作業回饋助教</b><p>學生上傳 motoBlockly 的 XML；Colab Flask 後端先解析內容，再由 Gemini 依教師規準提供初步檢核與回饋，並可選擇以 Firestore 保存紀錄。</p></div></div><p class="caption">AI 先協助處理可重複檢核的作業回饋；教師仍負責教學判斷</p><span class="page">24 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">工具地圖</p><h2>每個工具，服務不同的工作</h2><div class="path"><div><b>課程素材</b><span>Drive／Classroom：教材、任務、作品與班級溝通。</span></div><div><b>網站開發</b><span>Gemini／Claude／Codex／GitHub：從原型到版本維護。</span></div><div><b>AI 作業助教</b><span>ESP32 XML 與 ScratchGrader：依教師規準初步檢核作品、提出回饋。</span></div><div><b>保存與回看</b><span>Colab／Firebase／Firestore／Apps Script：設定、紀錄、整理與教學反思。</span></div></div><p class="caption">工具串接的是工作流程，不是炫技</p><span class="page">25 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">AI 協作 · 作業回饋</p><h2>把 AI 當成助教，<br>不是取代教師。</h2><div class="role"><div class="system"><b>AI 助教先做什麼？</b><p>依教師規準初步檢核作品、指出可能缺漏、提供可再嘗試的回饋，協助學生先自我修正。</p></div><div class="teacher"><b>教師更能做什麼？</b><p>根據作品與回饋線索，關注更需要協助的學生，理解卡關原因，給予個別引導與真正的對話。</p></div></div><p class="caption">AI 協助第一輪作業回饋；教師把時間留給最需要支持的學生</p><span class="page">26 / 30</span></section>
+
+    <section class="slide section"><p class="eyebrow">Part 6 · Test &amp; reflect</p><h1>做完不是終點，<br><span class="hand">聽見回饋</span>才是。</h1><span class="page">27 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">如何測試？</p><h2>開課前，先走一遍<br>學生真正會走的路。</h2><div class="path"><div><b>安全鷹架</b><span>測試 G／V／S、找錯接線與上電前檢核。</span></div><div><b>學習工具</b><span>測試接線練習、除錯護照、每日回饋與專題設計單。</span></div><div><b>AI 自評連線</b><span>啟動 Colab，確認健康檢查與學生頁可正常連線。</span></div><div><b>真實作品試評</b><span>以 motoBlockly XML 範例完成一次上傳與自評。</span></div></div><p class="caption">測試不是考學生，而是檢驗我們的設計假設</p><span class="page">28 / 30</span></section>
+
+    <section class="slide"><p class="eyebrow">具體案例 · AI 作業助教</p><h2>把 AI 自評放進學習流程，<br>讓學生能依自己的速度修正。</h2><div class="case"><div><b>ESP32 × motoBlockly</b><p>學生上傳 XML；系統解析積木與腳位，再依教師規準回傳初步評語與分數。</p></div><div><b>ScratchGrader</b><p>學生上傳 .sb3；系統解析角色、背景、音效、變數與積木流程，再依教師規則提出建議。</p></div><div><b>教師聚焦需要支持的人</b><p>學生可先依回饋自己修正；教師則更能辨識需要協助的學生，聚焦邏輯差異、卡關原因與下一步策略。</p></div></div><div class="source-links"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noopener noreferrer">查看 ScratchGrader 公開專案</a></div><p class="caption">AI 是作業回饋助教；教師保有最終判斷與個別引導</p><span class="page">29 / 30</span></section>
+
+    <section class="slide activity"><p class="eyebrow">活動 04 · 留給自己的行動選擇</p><h2>下一次教這個單元時，<br>你最願意先試哪一件事？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項要帶走的小改變</p><div class="activity-options"><div>重新寫出學生看得懂的任務</div><div>設定最低完成線</div><div>加入一張操作檢核卡</div><div>把作業拆成階段任務</div><div>設計除錯或反思紀錄</div><div>準備基礎與延伸挑戰</div><div>讓學生自行回看學習紀錄</div><div>讓 AI 協助初步檢核</div><div>其他：用一句話寫下想法</div></div><p class="caption">選不出來也沒關係；那可能正是你自己的新做法開始成形。</p><span class="page"></span></section>
+
+    <section class="slide final"><p class="eyebrow">Takeaway</p><h1>不同的起點，<br>都能找到<span class="hand">下一步。</span></h1><p class="lead">從一個真實單元開始：先看見差異，再設計讓學生能以適合自己速度前進的路徑。</p><p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p><p class="caption">謝謝聆聽 · 討論與提問</p><span class="page">30 / 30</span></section>
+  </main>
+
+  <nav class="controls" aria-label="投影片控制"><button id="prev" type="button" aria-label="上一頁">↑</button><button id="next" type="button" aria-label="下一頁">↓</button></nav>
+  <span class="hint">方向鍵／空白鍵切換</span><div class="progress" aria-hidden="true"></div>
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const progress = document.querySelector('.progress');
+      let current = 0, startY = null;
+      slides.forEach((slide, index) => {
+        const page = slide.querySelector('.page');
+        if (page) page.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+      });
+      function getRevealCards(slide) {
+        const cards = Array.from(slide.querySelectorAll(
+          '.agenda > div, .card, .tool, .path > div, .case > div, .comparison > .left, .comparison > .right, .role > div'
+        ));
+        cards.forEach(card => card.classList.add('reveal-card'));
+        return cards;
+      }
+      function prepareReveal(slide) {
+        const cards = getRevealCards(slide);
+        if (!cards.length) return;
+        cards.forEach(card => card.classList.remove('is-highlighted'));
+        cards[0].classList.add('is-highlighted');
+        slide.dataset.revealed = '1';
+      }
+      function revealNext() {
+        const slide = slides[current];
+        const cards = getRevealCards(slide);
+        if (!cards.length) return false;
+        const revealed = Number(slide.dataset.revealed || 0);
+        if (revealed >= cards.length) return false;
+        cards[revealed].classList.add('is-highlighted');
+        slide.dataset.revealed = String(revealed + 1);
+        return true;
+      }
+      function show(index) {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => { slide.classList.toggle('active', i === current); slide.setAttribute('aria-hidden', i === current ? 'false' : 'true'); });
+        prepareReveal(slides[current]);
+        progress.style.width = ((current + 1) / slides.length * 100) + '%';
+      }
+      function nextSlide() { if (!revealNext()) show(current + 1); }
+      document.querySelector('#prev').addEventListener('click', () => show(current - 1));
+      document.querySelector('#next').addEventListener('click', nextSlide);
+      document.addEventListener('keydown', event => {
+        if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); nextSlide(); }
+        if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+        if (event.key === 'Home') show(0);
+        if (event.key === 'End') show(slides.length - 1);
+      });
+      document.addEventListener('touchstart', event => { startY = event.changedTouches[0].screenY; }, { passive: true });
+      document.addEventListener('touchend', event => { if (startY === null) return; const distance = event.changedTouches[0].screenY - startY; if (Math.abs(distance) > 50) distance < 0 ? nextSlide() : show(current - 1); startY = null; }, { passive: true });
+      show(0);
+    }());
+  </script>
+</body>
+</html>

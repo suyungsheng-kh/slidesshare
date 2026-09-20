@@ -94,6 +94,8 @@
     .footer { position:absolute; left:clamp(54px,7vw,112px); right:clamp(54px,7vw,112px); bottom:24px; display:flex; justify-content:space-between; align-items:center; gap:20px; color:#718089; font-size:14px; }
     .dark .footer,.section .footer { color:#9db5bf; }
     .footer a { text-decoration:none; border-bottom:1px solid currentColor; }
+    .framework-tag { flex:0 0 auto; margin-left:auto; padding:3px 9px; border:1px solid currentColor; border-radius:999px; color:var(--accent,var(--cyan)); background:rgba(255,253,247,.58); font-size:12px; font-weight:800; letter-spacing:.03em; white-space:nowrap; }
+    .dark .framework-tag,.section .framework-tag { background:rgba(8,24,40,.48); }
     .controls { position:fixed; right:22px; top:16px; z-index:20; display:flex; gap:8px; }
     .controls button { width:42px; height:42px; border:0; border-radius:50%; background:rgba(8,24,40,.84); color:white; font-size:21px; cursor:pointer; box-shadow:0 5px 16px rgba(0,0,0,.22); }
     .controls button:hover { background:#173f58; }
@@ -208,7 +210,7 @@
     <div class="footer"><span>第一部分</span><span>07</span></div>
   </section>
 
-  <section class="slide" data-title="三種復刻層級" style="--accent:var(--green)">
+  <section class="slide" data-title="三種復刻層級" data-framework="以人為本" style="--accent:var(--green)">
     <p class="kicker">先選擇需要的複雜度</p>
     <h2>三種可用版本</h2>
     <div class="grid3">
@@ -220,7 +222,7 @@
     <div class="footer"><span>複雜度由教學需求決定</span><span>08</span></div>
   </section>
 
-  <section class="slide" data-title="授權與憑證界線" style="--accent:var(--coral)">
+  <section class="slide" data-title="授權與憑證界線" data-framework="倫理與專業" style="--accent:var(--coral)">
     <p class="kicker">開始前的兩個界線</p>
     <h2>內容可以改作，憑證仍要自行建立</h2>
     <div class="grid2">
@@ -262,6 +264,60 @@
     <div class="footer"><span>總長 120 分鐘</span><span>11</span></div>
   </section>
 
+  <section class="slide section" data-title="教師 AI 素養四大面向" style="--accent:var(--gold)">
+    <span class="section-no big-no">AI 人才方舟計畫</span>
+    <h2>用四個面向閱讀這套教學系統</h2>
+    <div class="section-line"></div>
+    <p class="lead">頁尾的小字標籤指出該頁主要對應的教師 AI 素養。相同設計可能同時支援兩個面向。</p>
+    <div class="footer"><a href="https://pads.moe.edu.tw/pads/eng_ver/">AI 人才方舟計畫</a><span>12</span></div>
+  </section>
+
+  <section class="slide" data-title="以人為本的思維" style="--accent:var(--cyan)">
+    <p class="kicker">教師 AI 素養 · 面向 1</p>
+    <h2>學生保持主體，教師保留決策</h2>
+    <p class="quote">AI 提供提示與回饋，不代替學生思考，也不代替教師判斷。</p>
+    <div class="grid2" style="margin-top:34px">
+      <div class="line-card"><h3>系統中的證據</h3><p>先完成學生可走完的學習流程，AI 與 OCR 可以停用。</p></div>
+      <div class="line-card"><h3>教師的判斷</h3><p>依學生卡點調整活動，決定何時使用 AI、何時回到人工引導。</p></div>
+    </div>
+    <div class="footer"><span>Human-centric mindset</span><span>13</span></div>
+  </section>
+
+  <section class="slide" data-title="倫理與專業操守" style="--accent:var(--coral)">
+    <p class="kicker">教師 AI 素養 · 面向 2</p>
+    <h2>授權、個資與評量都要可說明</h2>
+    <div class="grid2">
+      <div class="line-card"><h3>安全使用</h3><p>分清公開設定與秘密憑證，保護學生作品、個資與帳號權限。</p></div>
+      <div class="line-card"><h3>負責任評量</h3><p>校正 AI 評分、檢查偏誤並保留教師覆核，不把模型結果當成唯一答案。</p></div>
+    </div>
+    <p class="note warning" style="margin-top:30px">使用第三方教材或 AI 生成內容時，仍要確認授權、標示來源並說明 AI 參與方式。</p>
+    <div class="footer"><span>Ethics and professional practice</span><span>14</span></div>
+  </section>
+
+  <section class="slide" data-title="AI 賦能教學應用" style="--accent:var(--green)">
+    <p class="kicker">教師 AI 素養 · 面向 3</p>
+    <h2>AI 的價值來自教學設計</h2>
+    <p class="quote">同一項 AI 功能，只有連結學習目標、學生差異與教師回饋，才會成為教學支持。</p>
+    <div class="grid2" style="margin-top:34px">
+      <div class="line-card"><h3>學生端</h3><p>用分層提示、學習引導與即時回饋，協助學生找到下一步。</p></div>
+      <div class="line-card"><h3>教師端</h3><p>用進度、錯誤與作品資料調整備課、教學節奏及個別指導。</p></div>
+    </div>
+    <div class="footer"><span>AI-enabled pedagogy</span><span>15</span></div>
+  </section>
+
+  <section class="slide" data-title="專業發展與引領" style="--accent:var(--gold)">
+    <p class="kicker">教師 AI 素養 · 面向 4</p>
+    <h2>把試教資料變成下一輪改進</h2>
+    <div class="flow">
+      <div class="step"><b>觀察</b><span>記錄學生卡點、等待時間與錯誤類型。</span></div>
+      <div class="step"><b>修正</b><span>調整內容、流程或評分規則，再次試教。</span></div>
+      <div class="step"><b>驗證</b><span>用測試與作品確認問題是否改善。</span></div>
+      <div class="step"><b>分享</b><span>整理成共備教材，帶入校內或教師社群。</span></div>
+    </div>
+    <p class="note" style="margin-top:28px">系統開發紀錄同時也是教師專業成長的證據。</p>
+    <div class="footer"><span>Professional development and leadership</span><span>16</span></div>
+  </section>
+
   <section class="slide" data-title="本機啟動" style="--accent:var(--cyan)">
     <p class="kicker">復刻步驟 1</p>
     <h2>先在本機確認靜態網站能開</h2>
@@ -297,7 +353,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/11501/config.js">config.js 範例</a><span>11</span></div>
   </section>
 
-  <section class="slide" data-title="替換課程內容" style="--accent:var(--green)">
+  <section class="slide" data-title="替換課程內容" data-framework="AI 賦能教學" style="--accent:var(--green)">
     <p class="kicker">復刻步驟 3</p>
     <h2>用資料檔換教材，不重寫整個頁面</h2>
     <div class="grid2">
@@ -361,7 +417,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/shared/docs/03_%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F%E8%A6%8F%E6%A0%BC.md">03 資料格式規格</a><span>13</span></div>
   </section>
 
-  <section class="slide" data-title="安全規則" style="--accent:var(--coral)">
+  <section class="slide" data-title="安全規則" data-framework="倫理與專業" style="--accent:var(--coral)">
     <p class="kicker">復刻步驟 5 · 班級版</p>
     <h2>畫面限制不等於資料庫權限</h2>
     <div class="grid2">
@@ -392,7 +448,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/shared/docs/06_%E4%B8%8A%E7%B7%9A%E6%AA%A2%E6%9F%A5%E8%A1%A8.md">06 上線檢查表</a><span>15</span></div>
   </section>
 
-  <section class="slide" data-title="Apps Script 服務" style="--accent:var(--gold)">
+  <section class="slide" data-title="Apps Script 服務" data-framework="AI 賦能教學" style="--accent:var(--gold)">
     <p class="kicker">復刻步驟 7 · 完整版</p>
     <h2>Apps Script 補上瀏覽器做不到的事</h2>
     <div class="grid3">
@@ -404,7 +460,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/shared/docs/04_%E5%BE%8C%E7%AB%AF%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB.md">04 後端與資料庫</a><span>16</span></div>
   </section>
 
-  <section class="slide" data-title="Colab 與 AI/OCR" style="--accent:var(--coral)">
+  <section class="slide" data-title="Colab 與 AI/OCR" data-framework="倫理＋AI 賦能" style="--accent:var(--coral)">
     <p class="kicker">復刻步驟 8 · 完整版</p>
     <h2>Colab 後端先單機，再視需要拆成兩台</h2>
     <div class="grid2">
@@ -433,7 +489,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://su-yung-sheng.github.io/course_115/shared/status.html?term=11501">公開狀態頁</a><span>18</span></div>
   </section>
 
-  <section class="slide" data-title="復刻驗收清單" style="--accent:var(--green)">
+  <section class="slide" data-title="復刻驗收清單" data-framework="以人為本" style="--accent:var(--green)">
     <p class="kicker">第一部分收束</p>
     <h2>新手版驗收順序</h2>
     <div class="checklist">
@@ -524,7 +580,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/commit/c41282bdda99714eb984dcd028a2c5d6cacef297">commit c41282b</a><span>24</span></div>
   </section>
 
-  <section class="slide" data-title="推測階段四：AI 引導" style="--accent:var(--gold)">
+  <section class="slide" data-title="推測階段四：AI 引導" data-framework="倫理＋AI 賦能" style="--accent:var(--gold)">
     <p class="kicker">推測階段 4 · 08/07–08/10</p>
     <h2>AI 先被當成需要被測試的外部服務</h2>
     <div class="flow">
@@ -566,7 +622,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/commit/c61f2e7def5487eda00d8aa09e2452627aab4386">commit c61f2e7</a><span>27</span></div>
   </section>
 
-  <section class="slide" data-title="推測階段七：評分校正" style="--accent:var(--green)">
+  <section class="slide" data-title="推測階段七：評分校正" data-framework="倫理與專業" style="--accent:var(--green)">
     <p class="kicker">推測階段 7 · 09/14–09/19</p>
     <h2>最後一週的提交幾乎都在修評分標準</h2>
     <div class="grid2">
@@ -583,7 +639,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/commit/02670898ec254c9c9bfe53673f747f26196f6a7a">最後盤點提交 0267089</a><span>28</span></div>
   </section>
 
-  <section class="slide" data-title="推測出的開發循環" style="--accent:var(--gold)">
+  <section class="slide" data-title="推測出的開發循環" data-framework="專業發展" style="--accent:var(--gold)">
     <p class="kicker">從提交訊息抽出的共同模式</p>
     <h2>每一輪都從真實症狀開始</h2>
     <div class="flow">
@@ -596,7 +652,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><span>推測結論</span><span>29</span></div>
   </section>
 
-  <section class="slide" data-title="自己的教學系統藍圖" style="--accent:var(--cyan)">
+  <section class="slide" data-title="自己的教學系統藍圖" data-framework="以人為本" style="--accent:var(--cyan)">
     <p class="kicker">給新手的架構縮小版</p>
     <h2>第一版只保留四層</h2>
     <div class="architecture">
@@ -622,7 +678,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><span>90–92 分鐘 · 四週計畫總覽</span><span>31</span></div>
   </section>
 
-  <section class="slide" data-title="第 1 週：最小教學流程" style="--accent:var(--gold)">
+  <section class="slide" data-title="第 1 週：最小教學流程" data-framework="以人為本" style="--accent:var(--gold)">
     <p class="kicker">第 1 週 · 範圍與畫面</p>
     <h2>一門課、一種學生、一條活動</h2>
     <div class="grid2">
@@ -699,7 +755,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><span>110–113 分鐘 · 第 3 週任務</span><span>36</span></div>
   </section>
 
-  <section class="slide" data-title="第 4 週：小班試教與修正" style="--accent:var(--green)">
+  <section class="slide" data-title="第 4 週：小班試教與修正" data-framework="專業發展" style="--accent:var(--green)">
     <p class="kicker">第 4 週 · 真實使用</p>
     <h2>用五到十位學生找出第一個瓶頸</h2>
     <div class="grid2">
@@ -718,7 +774,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><span>113–116 分鐘 · 第 4 週任務</span><span>37</span></div>
   </section>
 
-  <section class="slide" data-title="個人四週行動表" style="--accent:var(--gold)">
+  <section class="slide" data-title="個人四週行動表" data-framework="專業發展" style="--accent:var(--gold)">
     <p class="kicker">工作坊產出</p>
     <h2>離場前寫下四週的完成條件</h2>
     <div class="grid2">
@@ -737,7 +793,7 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><span>116–118 分鐘 · 個人行動表</span><span>38</span></div>
   </section>
 
-  <section class="slide" data-title="最值得複製的決策" style="--accent:var(--gold)">
+  <section class="slide" data-title="最值得複製的決策" data-framework="倫理＋專業發展" style="--accent:var(--gold)">
     <p class="kicker">開發原則</p>
     <h2>值得帶走的六個決策</h2>
     <div class="grid2">
@@ -793,6 +849,12 @@ OPEN_ALL_UNITS: false</div>
     slides.forEach((slide, index) => {
       const footerPage = slide.querySelector('.footer span:last-child');
       if (footerPage) footerPage.textContent = String(index + 1).padStart(2,'0');
+      if (slide.dataset.framework && footerPage) {
+        const tag = document.createElement('span');
+        tag.className = 'framework-tag';
+        tag.textContent = `AI 素養｜${slide.dataset.framework}`;
+        footerPage.parentElement.insertBefore(tag, footerPage);
+      }
       const button = document.createElement('button');
       button.innerHTML = `<b>${String(index + 1).padStart(2,'0')}</b>${slide.dataset.title || '未命名投影片'}`;
       button.addEventListener('click', () => { closeOverview(); show(index, true); });

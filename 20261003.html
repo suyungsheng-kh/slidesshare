@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="course_115 教學系統的復刻指南與開發歷程推測">
-  <title>course_115 教學系統：復刻指南與開發歷程</title>
+  <meta name="description" content="course_115 教學系統 120 分鐘工作坊：復刻指南、開發歷程與四週實作計畫">
+  <title>course_115 教學系統：120 分鐘工作坊</title>
   <style>
     :root {
       --navy:#0c2137; --navy-2:#163a53; --paper:#f7f2e8; --paper-2:#efe6d5;
@@ -128,13 +128,13 @@
 <main class="deck" aria-label="course_115 網頁簡報">
 
   <section class="slide dark active" data-title="封面" style="--accent:var(--gold)">
-    <p class="kicker">course_115 · 專案考古與新手實作</p>
+    <p class="kicker">course_115 · 120 分鐘工作坊</p>
     <h1>教學系統的<br><span class="accent">復刻指南</span>與開發歷程</h1>
-    <p class="lead">第一部分把現有說明整理成可操作步驟。第二部分根據程式架構與 518 次提交，推測系統如何一步步長成。</p>
+    <p class="lead">先把現有系統改成自己的展示版，再從 518 次提交推測開發歷程，最後完成一份可執行的四週計畫。</p>
     <div class="metric-row">
-      <div class="metric"><strong>2</strong><span>條新手路線</span></div>
-      <div class="metric"><strong>53</strong><span>天的版本歷史</span></div>
-      <div class="metric"><strong>1</strong><span>個可自行改造的骨架</span></div>
+      <div class="metric"><strong>120</strong><span>分鐘</span></div>
+      <div class="metric"><strong>2</strong><span>段現場實作</span></div>
+      <div class="metric"><strong>4</strong><span>週開發藍圖</span></div>
     </div>
     <div class="footer"><span>資料基準：GitHub main，2026-09-19</span><span>01</span></div>
   </section>
@@ -191,13 +191,13 @@
   </section>
 
   <section class="slide" data-title="簡報路線" style="--accent:var(--coral)">
-    <p class="kicker">兩個問題，兩條路線</p>
-    <h2>先復刻，再理解怎麼從零開發</h2>
+    <p class="kicker">工作坊路線</p>
+    <h2>復刻、理解、規畫與實作</h2>
     <div class="grid2">
-      <div class="line-card"><span class="big-no">01</span><h3>依文件復刻</h3><p>從靜態展示版開始，逐步加入 Firebase、Apps Script、Colab 與 AI。每一步都有可驗證的完成標準。</p></div>
-      <div class="line-card"><span class="big-no">02</span><h3>推測開發歷程</h3><p>用提交紀錄重建七個階段，再轉成新手可套用的四週開發計畫。</p></div>
+      <div class="line-card"><span class="big-no">01</span><h3>依文件復刻</h3><p>從靜態展示版開始，完成本機啟動與個人化。進階服務保留為示範與課後延伸。</p></div>
+      <div class="line-card"><span class="big-no">02</span><h3>建立自己的版本</h3><p>用提交紀錄理解決策順序，現場新增一個課程單元，再寫出個人的四週開發計畫。</p></div>
     </div>
-    <div class="footer"><span>建議：第一次閱讀先看 01，第二次再看 02</span><span>06</span></div>
+    <div class="footer"><span>形式：講解 60 分鐘＋實作 40 分鐘＋休息與整理 20 分鐘</span><span>06</span></div>
   </section>
 
   <section class="slide section" data-title="第一部分：依文件復刻" style="--accent:var(--gold)">
@@ -229,6 +229,37 @@
     </div>
     <p class="note warning" style="margin-top:30px">Firebase、Apps Script、ngrok 與 AI 服務仍須建立自己的帳號與憑證；服務帳戶 JSON、API 金鑰、學生作品與個資不得提交到公開儲存庫。</p>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/LICENSE">專案 LICENSE</a><span>09</span></div>
+  </section>
+
+  <section class="slide" data-title="工作坊成果" style="--accent:var(--green)">
+    <p class="kicker">完成後帶走什麼</p>
+    <h2>兩個可操作成果</h2>
+    <div class="grid2">
+      <div class="line-card"><span class="big-no">A</span><h3>自己的展示版</h3><p>在 localhost 開啟專案，修改網站名稱、學期設定與一個課程單元。完成後能說明哪些檔案屬於內容，哪些屬於共用機制。</p></div>
+      <div class="line-card"><span class="big-no">B</span><h3>四週行動表</h3><p>為每週寫下任務、可展示成果與驗收方式，清楚決定 Firebase、AI 與 OCR 是否真的需要加入。</p></div>
+    </div>
+    <p class="note warning" style="margin-top:28px">現場不要求從零部署全部雲端服務。Firebase、Apps Script、Colab 與 AI 以架構示範為主，避免帳號申請與權限設定吃掉實作時間。</p>
+    <div class="footer"><span>0–5 分鐘 · 成果與範圍</span><span>10</span></div>
+  </section>
+
+  <section class="slide" data-title="120 分鐘流程" style="--accent:var(--cyan)">
+    <p class="kicker">工作坊時間表</p>
+    <h2>每一段都有明確產出</h2>
+    <div class="grid2">
+      <div class="stack">
+        <div class="line-card"><h3>0–15 分鐘</h3><p>目標、授權、系統展示與架構。</p></div>
+        <div class="line-card"><h3>15–45 分鐘</h3><p>復刻流程、設定檔、內容資料與安全界線。</p></div>
+        <div class="line-card"><h3>45–60 分鐘</h3><p>實作一：本機啟動與個人化。</p></div>
+        <div class="line-card"><h3>60–70 分鐘</h3><p>休息，未完成者補上基本驗收。</p></div>
+      </div>
+      <div class="stack">
+        <div class="line-card"><h3>70–90 分鐘</h3><p>推測開發歷程與可複製的決策。</p></div>
+        <div class="line-card"><h3>90–110 分鐘</h3><p>四週計畫與實作二：新增課程單元。</p></div>
+        <div class="line-card"><h3>110–118 分鐘</h3><p>完成個人四週行動表與驗收條件。</p></div>
+        <div class="line-card"><h3>118–120 分鐘</h3><p>收束、課後路線與提問出口。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>總長 120 分鐘</span><span>11</span></div>
   </section>
 
   <section class="slide" data-title="本機啟動" style="--accent:var(--cyan)">
@@ -291,6 +322,30 @@ OPEN_ALL_UNITS: false</div>
 };</div>
     </div>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/shared/docs/08_%E9%97%9C%E5%8D%A1%E8%A3%BD%E4%BD%9C%E7%AF%84%E6%9C%AC.md">08 關卡製作範本</a><span>12</span></div>
+  </section>
+
+  <section class="slide section" data-title="實作一：本機啟動與個人化" style="--accent:var(--gold)">
+    <span class="section-no big-no">15 分鐘</span>
+    <h2>把範例網站改成自己的展示版</h2>
+    <div class="section-line"></div>
+    <p class="lead">兩人一組也可以。先確定 localhost 能開，再修改公開文字與學期設定。這一段不建立帳號，也不填任何秘密資料。</p>
+    <div class="footer"><span>45–60 分鐘 · 現場實作一</span><span>13</span></div>
+  </section>
+
+  <section class="slide" data-title="實作一操作步驟" style="--accent:var(--cyan)">
+    <p class="kicker">現場操作</p>
+    <h2>完成四個可檢查步驟</h2>
+    <div class="flow">
+      <div class="step"><b>0–3 分鐘</b><span>下載或開啟專案，執行「本機預覽.bat」。</span></div>
+      <div class="step"><b>3–6 分鐘</b><span>用 localhost 開啟總入口與 11501。</span></div>
+      <div class="step"><b>6–11 分鐘</b><span>修改網站名稱、TERM、TERM_START 與 OPEN_ALL_UNITS。</span></div>
+      <div class="step"><b>11–15 分鐘</b><span>重新整理，確認文字與學期設定已改變。</span></div>
+    </div>
+    <div class="grid2" style="margin-top:28px">
+      <div class="line-card"><h3>完成證據</h3><p>保留入口與課程頁的畫面，能指出自己修改的檔案。</p></div>
+      <div class="line-card"><h3>卡住時</h3><p>先檢查網址是否為 localhost、檔案是否儲存，再請同桌比對設定欄位。</p></div>
+    </div>
+    <div class="footer"><span>實作一 · 本機展示版</span><span>14</span></div>
   </section>
 
   <section class="slide" data-title="Firebase 建置" style="--accent:var(--cyan)">
@@ -391,6 +446,14 @@ OPEN_ALL_UNITS: false</div>
     </div>
     <p class="note" style="margin-top:24px">「能開啟」只是第一關。完成標準是學生能走完一條流程，老師能看見結果，故障時仍知道下一步。</p>
     <div class="footer"><a href="https://github.com/su-yung-sheng/course_115/blob/main/shared/docs/07_%E6%89%8B%E5%8B%95%E8%A8%AD%E5%AE%9A%E6%B8%85%E5%96%AE.md">07 手動設定清單</a><span>19</span></div>
+  </section>
+
+  <section class="slide section" data-title="休息" style="--accent:var(--cyan)">
+    <span class="section-no big-no">10 分鐘</span>
+    <h2>休息與實作補完</h2>
+    <div class="section-line"></div>
+    <p class="lead">已完成者可用總覽回看 P.09 的授權界線。尚未完成者先達成兩項最低標準：localhost 能開，以及網站名稱已改成自己的版本。</p>
+    <div class="footer"><span>60–70 分鐘</span><span>20</span></div>
   </section>
 
   <section class="slide section" data-title="第二部分：推測開發歷程" style="--accent:var(--gold)">
@@ -546,17 +609,132 @@ OPEN_ALL_UNITS: false</div>
     <div class="footer"><span>最小可用架構</span><span>30</span></div>
   </section>
 
-  <section class="slide" data-title="四週開發計畫" style="--accent:var(--green)">
+  <section class="slide" data-title="四週開發總覽" style="--accent:var(--green)">
     <p class="kicker">從零開發的建議節奏</p>
-    <h2>四週做出可試教版本</h2>
+    <h2>每週交付一個可展示版本</h2>
     <div class="route">
-      <div><b>第 1 週</b><p>定義一門課、一種學生、一條完整活動。做出靜態頁與完成畫面。</p></div>
-      <div><b>第 2 週</b><p>抽出 content 與共用引擎。加入本機預覽、死連結檢查與基本測試。</p></div>
-      <div><b>第 3 週</b><p>加入登入、進度與安全規則。用學生、教師兩種角色實測。</p></div>
-      <div><b>第 4 週</b><p>小班試教，記錄卡點。只對最痛的問題加入排隊、AI 或 OCR。</p></div>
+      <div><b>第 1 週</b><p>完成一條靜態教學流程，先讓學生從開始走到完成。</p></div>
+      <div><b>第 2 週</b><p>把教材抽成內容資料，建立本機檢查與基本測試。</p></div>
+      <div><b>第 3 週</b><p>加入登入、進度和資料庫規則，完成角色驗證。</p></div>
+      <div><b>第 4 週</b><p>小班試教，依真實卡點修正並決定下一項服務。</p></div>
     </div>
-    <p class="note" style="margin-top:26px">每週都要留下可展示的版本。若第 2 週還沒有一條能走完的流程，不要先做 AI。</p>
-    <div class="footer"><span>新手實作路線</span><span>31</span></div>
+    <p class="note" style="margin-top:26px">四週的目標是可試教版本，不是複製 course_115 的全部功能。每週結束時都要能開給別人看。</p>
+    <div class="footer"><span>90–92 分鐘 · 四週計畫總覽</span><span>31</span></div>
+  </section>
+
+  <section class="slide" data-title="第 1 週：最小教學流程" style="--accent:var(--gold)">
+    <p class="kicker">第 1 週 · 範圍與畫面</p>
+    <h2>一門課、一種學生、一條活動</h2>
+    <div class="grid2">
+      <div>
+        <ul class="list">
+          <li>選一個 20 分鐘內能完成的教學活動。</li>
+          <li>畫出入口、活動、提交與完成四個畫面。</li>
+          <li>先使用假資料，不處理登入與雲端儲存。</li>
+          <li>安排一位同事完整走過，記錄第一個卡點。</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="line-card"><h3>本週交付</h3><p>可在 localhost 開啟的靜態網站，以及一條能走到完成頁的學習流程。</p></div>
+        <div class="line-card"><h3>範圍限制</h3><p>不做 AI、不做 OCR、不串 Classroom。學生能完成活動比功能數量重要。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>92–94 分鐘 · 第 1 週任務</span><span>32</span></div>
+  </section>
+
+  <section class="slide" data-title="第 1 週：驗收標準" style="--accent:var(--coral)">
+    <p class="kicker">第 1 週 · 驗收</p>
+    <h2>別人能走完，才算完成</h2>
+    <div class="checklist">
+      <b>01</b><span>新使用者不看口頭提示，也能找到活動入口。</span>
+      <b>02</b><span>重新整理後頁面仍能正常載入，沒有遺失的檔案。</span>
+      <b>03</b><span>活動有開始狀態、進行狀態和清楚的完成訊息。</span>
+      <b>04</b><span>手機或學生常用電腦能閱讀主要內容。</span>
+      <b>05</b><span>README 寫出啟動方式，以及目前尚未支援的功能。</span>
+    </div>
+    <p class="note warning" style="margin-top:24px">若使用者需要你站在旁邊逐步指揮，代表流程仍缺少畫面提示，不能用新增後端功能掩蓋這個問題。</p>
+    <div class="footer"><span>94–96 分鐘 · 第 1 週驗收</span><span>33</span></div>
+  </section>
+
+  <section class="slide" data-title="第 2 週：內容與共用機制" style="--accent:var(--cyan)">
+    <p class="kicker">第 2 週 · 降低重複工作</p>
+    <h2>讓第二個單元只需要換資料</h2>
+    <div class="grid2">
+      <div class="stack">
+        <div class="line-card"><h3>內容資料</h3><p>把標題、說明、題目、提示與完成條件集中在 content 檔案。</p></div>
+        <div class="line-card"><h3>共用機制</h3><p>頁面切換、答題判斷、進度顯示與錯誤訊息保留一份。</p></div>
+      </div>
+      <div class="stack">
+        <div class="line-card"><h3>基本檢查</h3><p>加入死連結檢查、必要欄位檢查，以及一條完整流程測試。</p></div>
+        <div class="line-card"><h3>本週交付</h3><p>用同一套頁面載入兩個不同單元，修改內容時不需要複製整頁 HTML。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>96–100 分鐘 · 第 2 週任務</span><span>34</span></div>
+  </section>
+
+  <section class="slide section" data-title="實作二：新增課程單元" style="--accent:var(--green)">
+    <span class="section-no big-no">10 分鐘</span>
+    <h2>用內容資料建立一個新單元</h2>
+    <div class="section-line"></div>
+    <div class="flow">
+      <div class="step"><b>1. 複製</b><span>複製一個最小章節或活動物件。</span></div>
+      <div class="step"><b>2. 改識別碼</b><span>修改 id，避免和原單元重複。</span></div>
+      <div class="step"><b>3. 改內容</b><span>換成自己的標題、說明與一題問題。</span></div>
+      <div class="step"><b>4. 驗收</b><span>重新整理，確認入口出現且能走到完成。</span></div>
+    </div>
+    <p class="lead" style="margin-top:26px">最低成果：一個新單元能從入口開啟，畫面沒有 undefined、空白標題或重複 id。</p>
+    <div class="footer"><span>100–110 分鐘 · 現場實作二</span><span>35</span></div>
+  </section>
+
+  <section class="slide" data-title="第 3 週：登入、進度與權限" style="--accent:var(--coral)">
+    <p class="kicker">第 3 週 · 資料可信度</p>
+    <h2>每筆進度都要知道誰能讀寫</h2>
+    <div class="flow">
+      <div class="step"><b>建立測試專案</b><span>使用自己的 Firebase，先準備學生與教師測試帳號。</span></div>
+      <div class="step"><b>儲存進度</b><span>定義最小欄位：使用者、單元、狀態與更新時間。</span></div>
+      <div class="step"><b>發布規則</b><span>學生只能寫本人資料，教師才能讀取班級進度。</span></div>
+      <div class="step"><b>反向測試</b><span>刻意嘗試讀寫他人資料，確認規則真的拒絕。</span></div>
+    </div>
+    <p class="note" style="margin-top:26px">本週交付：學生重新登入後看得到自己的進度，卻無法修改別人的資料。教師能查看班級結果。</p>
+    <div class="footer"><span>110–113 分鐘 · 第 3 週任務</span><span>36</span></div>
+  </section>
+
+  <section class="slide" data-title="第 4 週：小班試教與修正" style="--accent:var(--green)">
+    <p class="kicker">第 4 週 · 真實使用</p>
+    <h2>用五到十位學生找出第一個瓶頸</h2>
+    <div class="grid2">
+      <div>
+        <ul class="list">
+          <li>記錄學生在哪一頁停下、停多久，以及看到什麼訊息。</li>
+          <li>比對教師端結果與學生實際完成狀態。</li>
+          <li>修正最高頻或最影響上課的問題，再做一次短測。</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="line-card"><h3>AI 或 OCR 的判斷</h3><p>只有人工處理已成為明確瓶頸，而且基本流程穩定，才安排自動化。</p></div>
+        <div class="line-card"><h3>本週交付</h3><p>試教紀錄、已修正問題、仍待處理風險，以及下一個版本的單一優先事項。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>113–116 分鐘 · 第 4 週任務</span><span>37</span></div>
+  </section>
+
+  <section class="slide" data-title="個人四週行動表" style="--accent:var(--gold)">
+    <p class="kicker">工作坊產出</p>
+    <h2>離場前寫下四週的完成條件</h2>
+    <div class="grid2">
+      <div class="checklist">
+        <b>W1</b><span>我要完成的最小教學流程：＿＿＿＿＿＿</span>
+        <b>W2</b><span>我要抽出的內容資料與共用機制：＿＿＿＿＿＿</span>
+        <b>W3</b><span>我要驗證的學生與教師權限：＿＿＿＿＿＿</span>
+        <b>W4</b><span>我要邀請的試教人數與觀察項目：＿＿＿＿＿＿</span>
+      </div>
+      <div class="stack">
+        <div class="line-card"><h3>四週後的展示</h3><p>我會用哪一條完整流程證明系統可用：＿＿＿＿＿＿</p></div>
+        <div class="line-card"><h3>暫時不做</h3><p>為了守住範圍，我先不加入：＿＿＿＿＿＿</p></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:24px">驗收句要能由別人判斷通過或不通過。避免只寫「完成登入」、「改善介面」或「加入 AI」。</p>
+    <div class="footer"><span>116–118 分鐘 · 個人行動表</span><span>38</span></div>
   </section>
 
   <section class="slide" data-title="最值得複製的決策" style="--accent:var(--gold)">
@@ -587,10 +765,10 @@ OPEN_ALL_UNITS: false</div>
       <a href="https://github.com/su-yung-sheng/course_115/tree/main/shared/docs">shared/docs 文件</a>
       <a href="https://github.com/su-yung-sheng/course_115/commits/main/">提交紀錄</a>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 授權摘要</a>
-      <a href="https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software">CC 對軟體授權的說明</a>
+      <a href="https://github.com/su-yung-sheng/course_115/blob/main/LICENSE">專案 LICENSE 與排除項目</a>
     </div>
     <p class="small" style="color:#a9bec7;margin-top:22px">資料與推測以 2026-09-19 的 main 分支為基準。外部服務、模型名稱、額度與價格可能變動，實作時應重新查證。</p>
-    <div class="footer"><span>course_115 · 復刻指南與開發歷程</span><span>33</span></div>
+    <div class="footer"><span>course_115 · 120 分鐘工作坊</span><span>45</span></div>
   </section>
 </main>
 
@@ -613,6 +791,8 @@ OPEN_ALL_UNITS: false</div>
     let startX = null;
 
     slides.forEach((slide, index) => {
+      const footerPage = slide.querySelector('.footer span:last-child');
+      if (footerPage) footerPage.textContent = String(index + 1).padStart(2,'0');
       const button = document.createElement('button');
       button.innerHTML = `<b>${String(index + 1).padStart(2,'0')}</b>${slide.dataset.title || '未命名投影片'}`;
       button.addEventListener('click', () => { closeOverview(); show(index, true); });

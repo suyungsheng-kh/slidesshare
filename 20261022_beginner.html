@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026.10.22 國中社會科 AI 研習｜初階操作教材</title>
+  <style>
+    :root { --ink:#33433d; --muted:#6f7c76; --paper:#fbf8f2; --white:#fffdf9; --teal:#5b9c93; --aqua:#c5e7e2; --coral:#d58a78; --line:#d7d0c5; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:#eee9e1; font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    .toolbar { position:sticky; top:0; z-index:5; display:flex; justify-content:center; gap:10px; padding:10px; background:rgba(69,111,102,.97); }
+    .toolbar a, .toolbar button { border:1px solid rgba(255,255,255,.3); background:transparent; color:white; padding:9px 14px; text-decoration:none; cursor:pointer; font-weight:800; }
+    .sheet { width:210mm; min-height:297mm; margin:12px auto; padding:17mm 16mm 15mm; background:var(--paper); box-shadow:0 10px 30px rgba(0,0,0,.12); page-break-after:always; position:relative; }
+    .sheet:last-of-type { page-break-after:auto; }
+    .label { margin:0 0 8px; color:var(--teal); font-size:11pt; font-weight:900; letter-spacing:.12em; }
+    h1 { margin:0 0 8px; font-size:28pt; letter-spacing:-.05em; line-height:1.1; }
+    h2 { margin:0 0 12px; font-size:20pt; letter-spacing:-.035em; }
+    h3 { margin:0 0 8px; font-size:14pt; }
+    p { margin:0 0 10px; font-size:10.5pt; line-height:1.55; }
+    .lead { color:var(--muted); font-size:12pt; }
+    .meta { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0; }
+    .blank { border-bottom:1px solid var(--ink); min-height:24px; }
+    .route { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 22px; }
+    .route div { border-top:5px solid var(--teal); padding-top:10px; }
+    .route b { display:block; color:var(--teal); margin-bottom:6px; }
+    .route span { font-size:9.5pt; line-height:1.4; }
+    .material-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:14px 0; }
+    .material-source { border-top:4px solid var(--coral); padding-top:9px; }
+    .material-source b { display:block; margin-bottom:5px; color:var(--ink); font-size:11pt; }
+    .material-source p { margin:0; font-size:9.4pt; line-height:1.5; }
+    .beginner-start h1 { font-size:25pt; }
+    .beginner-start h2 { margin-bottom:8px; font-size:18pt; }
+    .beginner-start .lead { font-size:11pt; }
+    .beginner-start .meta { margin:10px 0; }
+    .beginner-start .route { margin:10px 0 12px; }
+    .beginner-start .route div { padding-top:7px; }
+    .beginner-start .route b { margin-bottom:3px; }
+    .beginner-start .success { padding:8px 12px; }
+    .beginner-start .task { margin:10px 0 12px; padding-top:8px; }
+    .beginner-start .material-grid { margin:8px 0; }
+    .beginner-start .notice { margin:8px 0; padding:8px 12px; }
+    .beginner-start .checks { margin:6px 0; }
+    .beginner-start .checks li { padding-top:5px; padding-bottom:5px; }
+    .beginner-start table { margin:8px 0; }
+    .beginner-start th, .beginner-start td { padding:6px 8px; }
+    .activation-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; margin:18px 0; }
+    .activation-step { border-top:3px solid var(--teal); padding-top:9px; }
+    .activation-step b { display:block; margin-bottom:4px; color:var(--teal); font-size:11pt; }
+    .activation-step p { margin:0; font-size:9.5pt; line-height:1.45; }
+    .notice { margin:14px 0; padding:10px 13px; border-left:5px solid var(--coral); background:rgba(223,109,82,.1); font-size:9.7pt; line-height:1.5; }
+    .task { margin:18px 0 22px; padding-top:12px; border-top:3px solid var(--teal); }
+    .task-head { display:flex; justify-content:space-between; gap:16px; align-items:baseline; }
+    .time { color:var(--coral); font-weight:900; }
+    .checks { list-style:none; padding:0; margin:10px 0; }
+    .checks li { position:relative; padding:7px 0 7px 28px; border-top:1px solid var(--line); font-size:10.5pt; line-height:1.45; }
+    .checks li::before { content:""; position:absolute; left:0; top:8px; width:16px; height:16px; border:1.6px solid var(--teal); }
+    .success { padding:11px 14px; background:rgba(117,214,202,.18); border-left:5px solid var(--teal); font-size:10pt; line-height:1.5; }
+    .prompt { position:relative; margin:12px 0; padding:14px; background:var(--white); border:1px solid var(--ink); }
+    .prompt pre { margin:0; white-space:pre-wrap; font:700 9.4pt/1.5 "Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    .copy { position:absolute; right:8px; top:8px; border:0; background:var(--ink); color:white; padding:6px 9px; cursor:pointer; font-size:9pt; }
+    table { width:100%; border-collapse:collapse; margin:12px 0; }
+    th, td { border:1px solid var(--line); padding:8px 9px; text-align:left; vertical-align:top; font-size:9.5pt; line-height:1.4; }
+    th { width:24%; background:rgba(22,127,116,.1); }
+    .write { height:42px; }
+    .write.tall { height:72px; }
+    .footer { position:absolute; left:16mm; right:16mm; bottom:8mm; display:flex; justify-content:space-between; color:var(--muted); font-size:8.5pt; }
+    @media (max-width:850px) { .sheet { width:100%; min-height:0; margin:0; padding:34px 24px 60px; box-shadow:none; } .route, .material-grid { grid-template-columns:1fr 1fr; } .meta { grid-template-columns:1fr; } }
+    @media print { body { background:white; } .toolbar { display:none; } .sheet { margin:0; box-shadow:none; } .copy { display:none; } }
+  </style>
+</head>
+<body>
+  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="20261022_question.html">開啟出題網站</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">開啟授權網</a><button onclick="window.print()">列印／存成 PDF</button></nav>
+
+  <section class="sheet">
+    <p class="label">共同準備 · 高雄市教師 Edcafe 授權升級</p>
+    <h1>一開場先升級為 Pro</h1>
+    <p class="lead">高雄市政府教育局自民國 115 年 1 月 1 日起，提供全市國小、國中、高中職專任教師免費使用 Edcafe AI 教育專用授權。授權會綁定既有 Edcafe 帳號的 Email。</p>
+    <div class="activation-grid">
+      <div class="activation-step"><b>01 建立官方帳號</b><p>到 <a href="https://www.edcafetw.com/" target="_blank" rel="noreferrer">Edcafe 台灣官方網站</a>，點「立即使用」及「立即前往」。</p></div>
+      <div class="activation-step"><b>02 選擇登入方式</b><p>使用 Google、Microsoft 或帳號密碼登入，記下該帳號的 Email。</p></div>
+      <div class="activation-step"><b>03 開啟高雄市入口</b><p>前往 <a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">edcafe.kh.edu.tw</a>，點「單一簽入」。</p></div>
+      <div class="activation-step"><b>04 登入 OpenID</b><p>輸入高雄市 OpenID 帳號及密碼。OpenID 不是身分證字號。</p></div>
+      <div class="activation-step"><b>05 申請授權</b><p>填入步驟二確認的 Edcafe Email，點選「授權申請」。</p></div>
+      <div class="activation-step"><b>06 等待確認信</b><p>確認信通常很快送達。完成申請後先回到簡報，收到時再處理。</p></div>
+      <div class="activation-step"><b>07 點選信內連結</b><p>檢查收件匣與垃圾郵件，開啟確認信並點選「連結」。</p></div>
+      <div class="activation-step"><b>08 確認 Pro</b><p>回到 Edcafe，以原方式登入；右上角顯示「Pro」即完成。</p></div>
+    </div>
+    <div class="notice"><b>開場立即完成授權申請</b><br>送出申請後不必停在信箱等待。先聽共同說明，收到確認信時再點連結；尚未收到者先和同桌共作，請勿重複申請。</div>
+    <table><tr><th>Edcafe Email</th><td class="write"></td></tr><tr><th>完成檢查</th><td>□ 能登入　□ 右上角顯示 Pro　□ 已開啟初階教材</td></tr><tr><th>需要協助</th><td class="write"></td></tr></table>
+    <p><a href="https://ftp.kh.edu.tw/public/Edcafe/%E9%AB%98%E9%9B%84%E5%B8%82Edcafe%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6-115.01.01.pdf" target="_blank" rel="noreferrer">查看高雄市官方圖解操作文件</a></p>
+    <div class="footer"><span>請勿在本教材填寫密碼</span><span>共同準備</span></div>
+  </section>
+
+  <section class="sheet beginner-start">
+    <p class="label">A · 初階操作教材</p>
+    <h1>第一次完整走完 AI 備課流程</h1>
+    <p class="lead">先從出版社取得學校選用版本的課程 PDF，再完成一份小測、一題經過審查的素養題，以及一頁可操作的互動網頁。</p>
+    <div class="meta"><div>姓名／組別<div class="blank"></div></div><div>今天使用的單元<div class="blank"></div></div></div>
+    <div class="route">
+      <div><b>01 教材＋Edcafe</b><span>OpenID 取 PDF，再做成小測</span></div>
+      <div><b>02 Gemini</b><span>用固定提示審查題目</span></div>
+      <div><b>03 試題生成</b><span>完成一題基礎應用題</span></div>
+      <div><b>04 Canvas</b><span>做成單題互動網頁</span></div>
+    </div>
+    <div class="success"><b>全程共同定位</b><br>AI 只提供候選草稿。教師必須查核事實、答案唯一性、材料必要性與學生適切性，才能決定是否使用。</div>
+
+    <div class="task">
+      <div class="task-head"><h2>材料準備：出版社課程 PDF</h2><span class="time">3 分鐘</span></div>
+      <div class="material-grid">
+        <div class="material-source"><b>翰林 · 行動大師</b><p>開啟 <a href="https://edisc.hle.com.tw/" target="_blank" rel="noreferrer">翰林行動大師</a>，選擇「教育雲端帳號／OPEN ID」登入。進入國中社會與學校選用冊次，在我的教材、備課資料或官網檔案中下載可用的課程 PDF。</p></div>
+        <div class="material-source"><b>康軒 · 數位高手</b><p>開啟 <a href="https://digitalmaster.knsh.com.tw/v3/pages/e/index.html" target="_blank" rel="noreferrer">康軒數位高手</a>，使用「教育體系單一簽入」登入。依序選擇國中、社會、年級與冊次，在教學資源或教材 PDF 中下載檔案。</p></div>
+      </div>
+      <div class="notice"><b>下載完成後先縮小使用範圍</b><br>本次只取與任務相關的 1 至 2 頁或 300 至 600 字。出版社 PDF 限教師授權與教學合理範圍使用；不要把整冊、帳號畫面或含個資內容上傳至公開 AI。</div>
+    </div>
+
+    <div class="task" style="margin-top:14px">
+      <div class="task-head"><h2>任務一：Edcafe 可派送小測</h2><span class="time">7 分鐘</span></div>
+      <ul class="checks">
+        <li>開啟 Quiz，貼入剛整理的 300 至 600 字，或上傳只含必要頁面的 PDF。</li>
+        <li>指定「國中九年級、社會科、四選一、3 題」。</li>
+        <li>逐題核對答案，挑一個最弱的錯誤選項改寫。</li>
+        <li>開啟學生預覽，完成一次作答並查看回饋。</li>
+      </ul>
+      <table><tr><th>我修改的題號</th><td></td></tr><tr><th>修改原因</th><td class="write"></td></tr><tr><th>學生最可能誤選</th><td></td></tr></table>
+    </div>
+    <div class="footer"><span>2026.10.22 國中社會科 AI 研習</span><span>初階 1 / 3</span></div>
+  </section>
+
+  <section class="sheet">
+    <p class="label">A · 初階操作教材</p>
+    <h2>任務二：Gemini 固定提示審題</h2>
+    <p>把 Edcafe 產出的一題貼入 Gemini，再貼上以下提示。先讀完檢查結果，只採用你認同的一項修改。</p>
+    <div class="notice"><b>模型選擇</b><br>Flash-Lite 用於連線測試或快速草稿；一般出題建議使用 3.5 Flash。3.8 Flash 可處理較複雜的推理，但遇到壅塞時不要把 Flash-Lite 草稿視為同等品質的定稿。<a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">查看模型說明</a></div>
+    <div class="prompt"><button class="copy" data-copy="critic">複製</button><pre id="critic">你是國中社會科評量審題委員。請檢查我貼上的四選一題目：
+1. 指出本題評量的核心概念與學生需要完成的推理步驟。
+2. 判斷學生是否能只靠關鍵字或常識猜中。
+3. 檢查四個選項是否同類、長度接近，而且只有一個最佳答案。
+4. 說明每個錯誤選項對應的迷思或錯誤推理。
+5. 只提出必要修改，不要直接重寫整題。
+最後整理成「可保留、要修改、需查證」三欄。請明確標示：這是候選草稿，是否符合會考素養層次仍由教師判定。</pre></div>
+    <table><tr><th>Gemini 建議修改</th><td class="write tall"></td></tr><tr><th>我決定採用</th><td class="write"></td></tr><tr><th>仍需教師判斷</th><td class="write"></td></tr></table>
+
+    <div class="task">
+      <div class="task-head"><h2>任務三：一題基礎應用題</h2><span class="time">7 分鐘</span></div>
+      <table>
+        <tr><th>核心內容</th><td>學生要使用哪一個社會科概念？</td><td class="write"></td></tr>
+        <tr><th>必要刺激</th><td>學生必須閱讀哪一份文字、圖或表？</td><td class="write"></td></tr>
+        <tr><th>推理鏈</th><td>學生先找什麼，再連結什麼？</td><td class="write"></td></tr>
+        <tr><th>選項</th><td>三個錯誤選項各代表哪一種迷思？</td><td class="write"></td></tr>
+      </table>
+      <div class="prompt"><button class="copy" data-copy="item">複製</button><pre id="item">請根據以下規格產出 1 題國中九年級社會科四選一題目。
+內容節點：＿＿。學習表現：＿＿。難度：基礎應用。
+刺激材料：＿＿。學生必須先＿＿，再＿＿，才能選出答案。
+四個選項要同類、長度接近。三個錯誤選項分別對應不同迷思，只有一個最佳答案。
+請輸出題幹、四個選項、答案、逐項解析、難度理由與仍需查證之處。輸出開頭標示「AI 候選草稿」，不可自行宣稱已達會考同等級。</pre></div>
+    </div>
+    <div class="footer"><span>完成後保留生成前後版本</span><span>初階 2 / 3</span></div>
+  </section>
+
+  <section class="sheet">
+    <p class="label">A · 初階操作教材</p>
+    <div class="task" style="margin-top:0">
+      <div class="task-head"><h2>任務四：Canvas 單題互動頁</h2><span class="time">6 分鐘</span></div>
+      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">請建立單一 HTML 檔的繁體中文互動網頁，對象是國中九年級社會科學生。
+學習目標：學生能＿＿。內容：使用我提供的題目與資料。
+互動流程：學生先閱讀材料，選一個答案，提交後才顯示逐項解析。答錯時提供提示，允許再試一次。
+版面要求：手機與投影都清楚，按鈕可用鍵盤操作，顏色對比足夠，不用外部套件與登入。
+加入「重新作答」按鈕，不蒐集姓名、學號或作答紀錄。
+完成後自行測試四個選項、回饋、重新作答與窄螢幕。</pre></div>
+      <ul class="checks">
+        <li>把「學習目標」與題目內容換成自己的版本。</li>
+        <li>正確答案會顯示原因，錯誤答案會給提示。</li>
+        <li>「再試一次」及「重新作答」可以正常使用。</li>
+        <li>縮窄視窗後仍能閱讀，不會出現左右捲動。</li>
+      </ul>
+    </div>
+    <h2>卡住時的處理順序</h2>
+    <table>
+      <tr><th>不知道怎麼開始</th><td>直接使用本教材的完整提示，只替換底線。</td></tr>
+      <tr><th>AI 一次改太多</th><td>指定「只修改一個問題，保留其餘內容」。</td></tr>
+      <tr><th>答案看起來有兩個</th><td>請 AI 分別替兩個答案辯護，再由教師查證資料。</td></tr>
+      <tr><th>網頁無法執行</th><td>要求輸出完整單一 HTML，或改用 Edcafe 內建活動。</td></tr>
+    </table>
+    <h2>離場前記錄</h2>
+    <table><tr><th>我完成的作品</th><td class="write"></td></tr><tr><th>下一次會先做</th><td class="write"></td></tr><tr><th>發布前要查核</th><td class="write"></td></tr></table>
+    <div class="success"><b>初階完成標準</b><br>你能說明必用材料、答案證據與一個干擾項，並親自判定這題是否可用；模型的自我評分不能代替教師定稿。</div>
+    <div class="footer"><span>請保存題目、提示與 HTML 檔</span><span>初階 3 / 3</span></div>
+  </section>
+
+  <script>
+    async function copyText(text) {
+      if (navigator.clipboard?.writeText) { try { await navigator.clipboard.writeText(text); return; } catch {} }
+      const area=document.createElement('textarea'); area.value=text; document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove();
+    }
+    document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+      await copyText(document.getElementById(button.dataset.copy).innerText); const old=button.textContent; button.textContent='已複製'; setTimeout(()=>button.textContent=old,1200);
+    }));
+  </script>
+</body>
+</html>

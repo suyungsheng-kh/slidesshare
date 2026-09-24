@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="國中社會科素養導向試題生成示範網站，內建地理、歷史、公民命題規則與 Gemini API 測試。">
+  <title>社會科素養題實驗室｜2026.10.22</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper:#f3efe6;
+      --paper-deep:#e6dece;
+      --white:#fffdf8;
+      --ink:#17231f;
+      --muted:#5f6f68;
+      --forest:#153f35;
+      --teal:#167f74;
+      --aqua:#75d6ca;
+      --amber:#e8a83d;
+      --coral:#d96d54;
+      --violet:#6b63a6;
+      --line:rgba(23,35,31,.18);
+      --shadow:0 20px 52px rgba(19,49,41,.13);
+      --radius:22px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 92% 5%, rgba(117,214,202,.2), transparent 28rem),
+        var(--paper);
+      font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+      line-height:1.6;
+    }
+    button, input, select, textarea { font:inherit; }
+    button, a { -webkit-tap-highlight-color:transparent; }
+    a { color:inherit; text-underline-offset:4px; }
+    :focus-visible { outline:4px solid var(--amber); outline-offset:3px; }
+    .skip-link { position:fixed; left:12px; top:12px; z-index:100; transform:translateY(-150%); padding:10px 14px; color:white; background:var(--forest); }
+    .skip-link:focus { transform:none; }
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:30;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      padding:13px clamp(20px,5vw,72px);
+      color:#f8f4eb;
+      background:rgba(13,30,25,.95);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:900; letter-spacing:.02em; }
+    .brand-mark { width:13px; height:34px; background:var(--aqua); }
+    .topbar nav { display:flex; align-items:center; gap:19px; font-size:14px; font-weight:800; }
+    .topbar nav a { text-decoration:none; color:#d9e4df; }
+    .topbar nav a:hover { color:white; }
+    .hero {
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
+      gap:7vw;
+      align-items:end;
+      padding:clamp(60px,8vw,118px) clamp(24px,7.5vw,120px) clamp(48px,6vw,86px);
+      border-bottom:1px solid var(--line);
+    }
+    .eyebrow { margin:0 0 13px; color:var(--teal); font-size:14px; font-weight:950; letter-spacing:.14em; }
+    h1, h2, h3, p { margin-top:0; }
+    h1 { max-width:920px; margin-bottom:23px; font-size:clamp(48px,7vw,102px); line-height:1.02; letter-spacing:-.065em; }
+    h2 { margin-bottom:17px; font-size:clamp(32px,4vw,56px); line-height:1.12; letter-spacing:-.045em; }
+    h3 { margin-bottom:9px; font-size:clamp(21px,2vw,28px); line-height:1.28; }
+    .hero-lead { max-width:850px; margin-bottom:0; color:var(--muted); font-size:clamp(20px,2vw,30px); line-height:1.55; }
+    .hero-aside { padding-top:22px; border-top:7px solid var(--coral); }
+    .hero-aside strong { display:block; margin-bottom:10px; color:var(--coral); font-size:20px; }
+    .hero-aside p { margin:0; color:var(--muted); }
+    .hero-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+    .link-btn, .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:10px 17px;
+      border:1px solid var(--ink);
+      color:var(--ink);
+      background:transparent;
+      text-decoration:none;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .link-btn.primary, .btn.primary { color:white; background:var(--forest); border-color:var(--forest); }
+    .link-btn:hover, .btn:hover { color:white; background:var(--teal); border-color:var(--teal); }
+    main { padding:0 clamp(20px,5vw,76px) 100px; }
+    .workspace { display:grid; grid-template-columns:minmax(330px,.76fr) minmax(0,1.24fr); gap:32px; max-width:1500px; margin:54px auto 0; align-items:start; }
+    .panel { background:rgba(255,253,248,.72); border:1px solid var(--line); box-shadow:var(--shadow); }
+    .panel-head { padding:25px 28px 18px; border-bottom:1px solid var(--line); }
+    .panel-head p { margin:6px 0 0; color:var(--muted); }
+    .panel-body { padding:26px 28px 30px; }
+    .section-label { display:block; margin-bottom:9px; color:var(--teal); font-size:13px; font-weight:950; letter-spacing:.13em; }
+    .subject-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:26px; }
+    .subject-tab { min-height:52px; padding:10px; border:1px solid var(--line); color:var(--muted); background:transparent; font-weight:900; cursor:pointer; }
+    .subject-tab[aria-selected="true"] { color:white; background:var(--forest); border-color:var(--forest); }
+    .subject-tab[data-subject="history"][aria-selected="true"] { background:#775137; border-color:#775137; }
+    .subject-tab[data-subject="civics"][aria-selected="true"] { background:var(--violet); border-color:var(--violet); }
+    .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:17px; }
+    .field { margin-bottom:17px; }
+    .field.full { grid-column:1 / -1; }
+    label, .field-label { display:block; margin-bottom:7px; font-weight:900; }
+    .hint { display:block; margin-top:5px; color:var(--muted); font-size:13px; }
+    input, select, textarea {
+      width:100%;
+      border:1px solid rgba(23,35,31,.35);
+      border-radius:0;
+      color:var(--ink);
+      background:rgba(255,255,255,.82);
+    }
+    input, select { min-height:48px; padding:10px 12px; }
+    textarea { min-height:150px; padding:12px 14px; resize:vertical; }
+    .rule-summary { margin:8px 0 22px; padding:17px 18px; border-left:6px solid var(--teal); background:rgba(117,214,202,.13); }
+    .rule-summary.history { border-color:#a06c46; background:rgba(160,108,70,.09); }
+    .rule-summary.civics { border-color:var(--violet); background:rgba(107,99,166,.09); }
+    .rule-summary b { display:block; margin-bottom:5px; }
+    .rule-summary p { margin:0; color:var(--muted); font-size:14px; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    .btn { min-height:50px; }
+    .btn[disabled] { cursor:wait; opacity:.58; }
+    .btn.subtle { border-color:var(--line); background:var(--white); }
+    .result-panel { min-height:650px; }
+    .result-toolbar { display:flex; justify-content:space-between; gap:20px; align-items:center; flex-wrap:wrap; padding:20px 26px; border-bottom:1px solid var(--line); }
+    .status { display:flex; align-items:center; gap:10px; color:var(--muted); font-weight:850; }
+    .status-dot { width:11px; height:11px; border-radius:50%; background:#9aa59f; box-shadow:0 0 0 5px rgba(154,165,159,.13); }
+    .status.ready .status-dot { background:var(--teal); box-shadow:0 0 0 5px rgba(22,127,116,.13); }
+    .status.error .status-dot { background:var(--coral); box-shadow:0 0 0 5px rgba(217,109,84,.13); }
+    .status.loading .status-dot { background:var(--amber); box-shadow:0 0 0 5px rgba(232,168,61,.15); animation:pulse 1s infinite alternate; }
+    @keyframes pulse { to { transform:scale(1.35); } }
+    .result-actions { display:flex; gap:8px; }
+    .icon-btn { min-height:40px; padding:7px 12px; border:1px solid var(--line); background:transparent; cursor:pointer; font-weight:850; }
+    .result-body { padding:28px; }
+    .empty-state { display:grid; place-items:center; min-height:480px; text-align:center; color:var(--muted); }
+    .empty-state div { max-width:520px; }
+    .empty-number { margin-bottom:14px; color:rgba(22,127,116,.28); font-size:120px; line-height:.8; font-weight:950; letter-spacing:-.08em; }
+    .question-set-header { display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start; padding-bottom:24px; border-bottom:4px solid var(--teal); }
+    .question-set-header p { margin:6px 0 0; color:var(--muted); }
+    .level-tag { padding:7px 11px; color:white; background:var(--teal); font-size:13px; font-weight:900; }
+    .stimulus { margin:25px 0; padding:20px 22px; background:var(--paper); border-left:7px solid var(--amber); }
+    .stimulus h3 { margin-bottom:9px; }
+    .stimulus p { margin-bottom:8px; white-space:pre-wrap; }
+    .source-note { color:var(--muted); font-size:13px; }
+    .question-card { padding:24px 0; border-top:1px solid var(--line); }
+    .question-card:first-of-type { border-top:0; }
+    .question-title { display:grid; grid-template-columns:45px 1fr; gap:13px; align-items:start; }
+    .q-no { display:grid; place-items:center; width:39px; height:39px; color:white; background:var(--forest); font-weight:950; }
+    .stem { margin:3px 0 15px; font-size:18px; font-weight:800; }
+    .option-list { display:grid; gap:8px; margin-left:58px; }
+    .option-row { display:grid; grid-template-columns:34px 1fr; gap:9px; padding:9px 11px; border:1px solid var(--line); background:rgba(255,255,255,.55); }
+    .option-row.correct { border-color:var(--teal); background:rgba(117,214,202,.15); }
+    .option-label { color:var(--teal); font-weight:950; }
+    details { margin-top:14px; border-top:1px solid var(--line); }
+    summary { padding:12px 0 5px; cursor:pointer; font-weight:900; }
+    .analysis-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px; }
+    .analysis-block { padding:14px; background:rgba(243,239,230,.68); }
+    .analysis-block b { display:block; margin-bottom:6px; color:var(--teal); }
+    .analysis-block p, .analysis-block ul { margin:0; font-size:14px; }
+    .analysis-block ul { padding-left:1.2em; }
+    .error-box { padding:18px 20px; border-left:6px solid var(--coral); background:rgba(217,109,84,.09); }
+    .error-box h3 { color:var(--coral); }
+    .error-box p { margin-bottom:8px; }
+    .error-box a { font-weight:900; }
+    .api-box { max-width:1500px; margin:32px auto 0; border-top:8px solid var(--violet); }
+    .api-layout { display:grid; grid-template-columns:minmax(280px,.7fr) minmax(0,1.3fr); gap:36px; }
+    .key-row { display:grid; grid-template-columns:1fr auto; gap:8px; }
+    .key-row button { min-width:76px; border:1px solid var(--line); background:var(--white); cursor:pointer; font-weight:850; }
+    .privacy-note { margin-top:12px; padding:12px 14px; border-left:5px solid var(--amber); background:rgba(232,168,61,.1); color:var(--muted); font-size:13px; }
+    .connection-line { display:flex; align-items:center; gap:9px; min-height:28px; margin-top:12px; color:var(--muted); font-size:14px; }
+    .connection-line strong { color:var(--ink); }
+    .setup-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .setup-step { padding-top:12px; border-top:4px solid var(--violet); }
+    .setup-step b { display:block; margin-bottom:6px; color:var(--violet); font-size:18px; }
+    .setup-step p { margin:0; color:var(--muted); font-size:14px; }
+    .setup-links { display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+    .section-wrap { max-width:1500px; margin:80px auto 0; }
+    .section-intro { display:grid; grid-template-columns:.68fr 1.32fr; gap:7vw; align-items:end; margin-bottom:34px; }
+    .section-intro p { margin:0; color:var(--muted); font-size:18px; }
+    .rule-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:25px; }
+    .rule-column { padding-top:20px; border-top:8px solid var(--teal); }
+    .rule-column.history { border-color:#9b6944; }
+    .rule-column.civics { border-color:var(--violet); }
+    .rule-column ul { margin:12px 0 0; padding-left:1.2em; }
+    .rule-column li { margin-bottom:10px; }
+    .quality-table { width:100%; border-collapse:collapse; margin-top:25px; background:rgba(255,253,248,.65); }
+    .quality-table th, .quality-table td { padding:14px 16px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+    .quality-table th { width:21%; color:var(--teal); }
+    .prompt-preview { margin-top:22px; }
+    .prompt-preview summary { padding:14px 0; border-top:2px solid var(--ink); }
+    .prompt-preview pre { max-height:420px; overflow:auto; margin:0; padding:18px; white-space:pre-wrap; color:#eef7f3; background:#102a23; font:600 13px/1.6 "Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    .site-footer { margin-top:90px; padding:34px clamp(24px,6vw,90px); color:#d7e3de; background:#102a23; }
+    .footer-inner { display:flex; justify-content:space-between; gap:32px; max-width:1500px; margin:auto; }
+    .site-footer a { color:white; }
+    .toast { position:fixed; z-index:90; left:50%; bottom:28px; transform:translate(-50%,90px); padding:11px 17px; color:white; background:var(--ink); opacity:0; transition:.22s ease; }
+    .toast.show { transform:translate(-50%,0); opacity:1; }
+    @media (max-width:1080px) {
+      .hero, .workspace, .api-layout, .section-intro { grid-template-columns:1fr; }
+      .hero { align-items:start; }
+      .workspace { gap:24px; }
+      .setup-steps { grid-template-columns:1fr 1fr; }
+      .rule-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:700px) {
+      .topbar { align-items:flex-start; }
+      .topbar nav { display:none; }
+      .hero { padding-top:54px; }
+      main { padding-inline:14px; }
+      .panel-head, .panel-body, .result-body { padding-left:18px; padding-right:18px; }
+      .field-grid, .analysis-grid, .setup-steps { grid-template-columns:1fr; }
+      .subject-tabs { gap:5px; }
+      .subject-tab { min-height:48px; }
+      .option-list { margin-left:0; }
+      .footer-inner { flex-direction:column; }
+    }
+    @media print {
+      .topbar, .hero-links, .actions, .api-box, .result-toolbar, .toast { display:none !important; }
+      body { background:white; }
+      main { padding:0; }
+      .hero { padding:20mm 16mm 12mm; }
+      .workspace { display:block; margin:0; }
+      .control-panel, .empty-state { display:none; }
+      .result-panel { border:0; box-shadow:none; }
+      .result-body { padding:12mm 16mm; }
+      .question-card { break-inside:avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#generator">跳到出題表單</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>社會科素養題實驗室</span></div>
+    <nav aria-label="頁面導覽">
+      <a href="#generator">出題測試</a>
+      <a href="#api-setup">API 設定</a>
+      <a href="#rules">命題規則</a>
+      <a href="20261022.html">回研習簡報</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">2026.10.22 · 國中社會科教師研習</p>
+      <h1>把「像會考」<br>寫成可檢查的<br>命題規則</h1>
+      <p class="hero-lead">選擇地理、歷史或公民，輸入教學主題與材料，網站會把內建命題規格交給 Gemini，生成可供教師審查的素養題。</p>
+    </div>
+    <aside class="hero-aside">
+      <strong>核心定位：AI 草擬，教師定稿</strong>
+      <p>沒有 API Key 時可載入內建示範題；有 Key 時生成候選草稿。模型不能保證會考同等級，教師必須查核材料、推理、答案與干擾項後才能使用。</p>
+      <div class="hero-links">
+        <a class="link-btn primary" href="#generator">開始出題</a>
+        <a class="link-btn" href="#api-setup">取得 API Key</a>
+      </div>
+    </aside>
+  </section>
+
+  <main>
+    <section class="workspace" id="generator" aria-labelledby="generator-title">
+      <form class="panel control-panel" id="questionForm">
+        <div class="panel-head">
+          <span class="section-label">QUESTION BUILDER</span>
+          <h2 id="generator-title">出題條件</h2>
+          <p>規則已內建。教師只要指定內容、難度與刺激材料。</p>
+        </div>
+        <div class="panel-body">
+          <span class="field-label" id="subjectLabel">選擇科目</span>
+          <div class="subject-tabs" role="tablist" aria-labelledby="subjectLabel">
+            <button type="button" class="subject-tab" role="tab" aria-selected="true" data-subject="geography">地理</button>
+            <button type="button" class="subject-tab" role="tab" aria-selected="false" data-subject="history">歷史</button>
+            <button type="button" class="subject-tab" role="tab" aria-selected="false" data-subject="civics">公民</button>
+          </div>
+
+          <div class="rule-summary" id="ruleSummary" aria-live="polite"></div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="grade">年級</label>
+              <select id="grade">
+                <option value="七年級">七年級</option>
+                <option value="八年級">八年級</option>
+                <option value="九年級" selected>九年級</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="difficulty">認知難度</label>
+              <select id="difficulty">
+                <option value="待加強辨識">待加強辨識</option>
+                <option value="基礎應用" selected>基礎應用</option>
+                <option value="精熟探究">精熟探究</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="topic">單元或核心概念</label>
+              <input id="topic" required maxlength="120" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="stimulusType">刺激材料形式</label>
+              <select id="stimulusType">
+                <option value="短文與資料表">短文與資料表</option>
+                <option value="地圖或示意圖的文字描述">地圖或示意圖描述</option>
+                <option value="史料節錄與背景說明">史料節錄</option>
+                <option value="生活案例或制度情境">生活案例</option>
+                <option value="由模型選擇最適形式">由模型選擇</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="questionCount">題數</label>
+              <select id="questionCount">
+                <option value="1" selected>1 題</option>
+                <option value="2">2 題</option>
+                <option value="3">3 題</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="material">參考材料</label>
+              <textarea id="material" required></textarea>
+              <span class="hint">請貼入可查證的教材摘要、統計資料或史料。不要輸入學生個資或未公開成績。</span>
+            </div>
+            <div class="field full">
+              <label for="extra">額外限制（選填）</label>
+              <input id="extra" maxlength="180" placeholder="例如：避免否定句；選項不超過 24 字">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="generateBtn" type="submit">使用 Gemini 生成</button>
+            <button class="btn subtle" id="demoBtn" type="button">載入內建示範題</button>
+            <button class="btn subtle" id="resetBtn" type="button">重設本表單</button>
+          </div>
+
+          <details class="prompt-preview">
+            <summary>查看送給 Gemini 的完整提示</summary>
+            <pre id="promptText"></pre>
+            <div class="actions"><button type="button" class="btn subtle" id="copyPromptBtn">複製提示</button></div>
+          </details>
+        </div>
+      </form>
+
+      <section class="panel result-panel" aria-labelledby="result-title">
+        <div class="result-toolbar">
+          <div class="status" id="resultStatus"><span class="status-dot" aria-hidden="true"></span><span id="statusText">尚未產生題目</span></div>
+          <div class="result-actions">
+            <button type="button" class="icon-btn" id="copyResultBtn" disabled>複製題目</button>
+            <button type="button" class="icon-btn" id="downloadBtn" disabled>下載 JSON</button>
+            <button type="button" class="icon-btn" onclick="window.print()">列印</button>
+          </div>
+        </div>
+        <div class="result-body" id="resultBody">
+          <div class="empty-state">
+            <div>
+              <div class="empty-number">01</div>
+              <h2 id="result-title">等待第一題</h2>
+              <p>先選科目與出題條件。沒有 API Key 也能按「載入內建示範題」查看完整輸出格式。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel api-box" id="api-setup" aria-labelledby="api-title">
+      <div class="panel-head">
+        <span class="section-label">GEMINI API</span>
+        <h2 id="api-title">登入與 API Key</h2>
+        <p>先用教育部帳號登入 Gmail，再開啟 Google AI Studio。若學校網域停用 AI Studio，需由 Workspace 管理員開放。</p>
+      </div>
+      <div class="panel-body api-layout">
+        <div>
+          <div class="field">
+            <label for="apiKey">Gemini API Key</label>
+            <div class="key-row">
+              <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="貼上 AI Studio 建立的 Key">
+              <button type="button" id="toggleKeyBtn" aria-pressed="false">顯示</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="model">模型</label>
+            <select id="model">
+              <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite（快速草稿／連線測試）</option>
+              <option value="gemini-3.5-flash" selected>Gemini 3.5 Flash（一般出題建議）</option>
+              <option value="gemini-3.8-flash">Gemini 3.8 Flash（複雜推理／可能壅塞）</option>
+            </select>
+            <span class="hint">網站不會自動降級模型。若改用 Flash-Lite，請把結果視為快速草稿並重新做完整品質審查。</span>
+          </div>
+          <button type="button" class="btn primary" id="testKeyBtn">測試 API 連線</button>
+          <div class="connection-line" id="connectionLine" aria-live="polite"><span class="status-dot" aria-hidden="true"></span><span>尚未測試</span></div>
+          <div class="privacy-note"><b>研習示範限定</b><br>Key 只保留在此頁的記憶體中，重新整理即清除。本頁會把 Key 傳送到 Google Gemini API。公開部署時應改用後端代理與秘密管理，不應讓使用者在前端共用同一把 Key。</div>
+        </div>
+        <div>
+          <div class="setup-steps">
+            <div class="setup-step"><b>01 教育部 Gmail</b><p>登入 <code>@go.edu.tw</code> 帳號，確認目前使用的 Google 身分。</p></div>
+            <div class="setup-step"><b>02 開啟 AI Studio</b><p>若顯示無權存取，代表網域或組織單位可能停用服務。</p></div>
+            <div class="setup-step"><b>03 建立新 Key</b><p>進入 API Keys，按「Create API key」。新帳號可能已自動建立預設專案與 Key。</p></div>
+            <div class="setup-step"><b>04 貼上測試</b><p>複製新建立的 auth key，貼到左側欄位並測試連線。</p></div>
+          </div>
+          <div class="setup-links">
+            <a class="link-btn primary" href="https://mail.google.com/a/go.edu.tw" target="_blank" rel="noreferrer">登入教育部 Gmail</a>
+            <a class="link-btn" href="https://aistudio.google.com/api-keys" target="_blank" rel="noreferrer">開啟 AI Studio API Keys</a>
+            <a class="link-btn" href="https://ai.google.dev/gemini-api/docs/workspace" target="_blank" rel="noreferrer">學校網域存取說明</a>
+          </div>
+          <p class="hint" style="margin-top:18px"><b>2026 年 9 月提醒：</b>Gemini API 已停止接受舊式 standard key。即使這把 Key 過去可用，現在也可能被拒絕；請到 AI Studio 查看「Key Type」，若顯示 Standard，重新建立一把 Auth key。不要把 Key 傳給他人。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap" id="rules" aria-labelledby="rules-title">
+      <div class="section-intro">
+        <div><span class="section-label">BUILT-IN RULES</span><h2 id="rules-title">三科命題規則</h2></div>
+        <p>三科共用「核心內容、必要刺激、推理鏈、選項迷思」四欄規格，但證據類型與常見失誤不同。網站會依科目自動組合規則。</p>
+      </div>
+      <div class="rule-grid">
+        <article class="rule-column">
+          <h3>地理</h3>
+          <ul>
+            <li>以空間分布、區域差異、人地互動或尺度轉換為核心。</li>
+            <li>刺激材料優先使用地圖、統計表、照片描述或兩地比較。</li>
+            <li>學生必須從材料辨識位置、趨勢或關聯，再套用概念。</li>
+            <li>避免只問地名、物產或名詞記憶；圖表不能只是裝飾。</li>
+          </ul>
+        </article>
+        <article class="rule-column history">
+          <h3>歷史</h3>
+          <ul>
+            <li>以時間脈絡、因果關係、變遷與延續或史料觀點為核心。</li>
+            <li>清楚交代史料作者、年代、對象與必要背景。</li>
+            <li>要求學生比對證據與背景，避免只靠年代或人物記憶。</li>
+            <li>避免時代錯置、單一原因解釋與把史料觀點當成客觀事實。</li>
+          </ul>
+        </article>
+        <article class="rule-column civics">
+          <h3>公民</h3>
+          <ul>
+            <li>以制度運作、權利義務、公共參與或經濟選擇為核心。</li>
+            <li>使用生活案例、規則摘要、流程或簡化數據形成情境。</li>
+            <li>要求學生辨識適用規則、利害關係或制度效果。</li>
+            <li>避免政黨立場暗示、法律條文背誦與價值判斷冒充事實。</li>
+          </ul>
+        </article>
+      </div>
+
+      <table class="quality-table">
+        <tbody>
+          <tr><th>必要刺激</th><td>刪除材料後，題目應無法只靠常識或關鍵字作答。</td></tr>
+          <tr><th>推理負荷</th><td>待加強以直接線索辨識為主；基礎完成轉譯與概念應用；精熟整合兩項以上證據。</td></tr>
+          <tr><th>選項品質</th><td>四個選項同類、長度相近，只有一個最佳答案；三個干擾項分別對應可說明的迷思。</td></tr>
+          <tr><th>版本中立</th><td>不依賴單一出版社的冷僻敘述，內容符合第四學習階段可合理接觸的知識。</td></tr>
+          <tr><th>教師查核</th><td>AI 必須列出仍需查證之處。教師核對材料來源、答案唯一性與對學生的適切性後才能使用。</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div><b>社會科素養題實驗室</b><br><span>研習示範工具，內容查核日期：2026.09.25</span></div>
+      <div>
+        <a href="https://ai.google.dev/gemini-api/docs/get-started" target="_blank" rel="noreferrer">Gemini API 入門</a> ·
+        <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">模型說明</a> ·
+        <a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" rel="noreferrer">API Key 安全說明</a> ·
+        <a href="20261022.html">研習簡報</a>
+      </div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    (() => {
+      const SUBJECTS = {
+        geography: {
+          name: '地理',
+          className: '',
+          topic: '都市化與人口移動',
+          material: '甲、乙兩區原本人口相近。十年後，甲區的工作機會增加，15 至 39 歲人口占比上升；乙區的高齡人口占比提高，公車班次減少。兩區之間每天有大量通勤人口。',
+          summary: '從位置、分布、尺度與人地互動讀取證據。圖表或地圖必須成為作答必要條件。',
+          rules: [
+            '核心可放在空間分布、區域差異、人地互動、環境變遷或尺度轉換。',
+            '刺激材料優先採地圖、統計、照片描述或兩地比較，且數據單位完整。',
+            '學生須先找出位置、趨勢或關聯，再用地理概念解釋。',
+            '不得只考地名、物產或名詞記憶；刪除材料後題目應無法成立。'
+          ]
+        },
+        history: {
+          name: '歷史',
+          className: 'history',
+          topic: '清末臺灣茶葉出口與社會變遷',
+          material: '某商人在 1880 年代的書信中提到：北部港口附近新設多間茶行，山區農民改種茶樹，搬運工與包裝工的需求也增加。另一方面，茶價受海外市場影響，收入並不穩定。',
+          summary: '把史料放回年代與背景，比對證據後判斷因果、變遷、延續或觀點。',
+          rules: [
+            '核心可放在時間脈絡、因果關係、變遷與延續、比較或史料觀點。',
+            '史料須交代作者身分、年代、對象與必要背景，不把單一觀點當客觀事實。',
+            '學生須從史料找證據，再與時代背景連結，不得只靠人名年代作答。',
+            '避免時代錯置、單一原因解釋，以及把後世概念直接套回當時。'
+          ]
+        },
+        civics: {
+          name: '公民',
+          className: 'civics',
+          topic: '校園公共議題與程序參與',
+          material: '學校準備調整手機使用規範。學生會先蒐集各班意見，再邀請教師、家長與行政代表公開討論。會議紀錄與修正理由將公告，試行一個月後再檢討。',
+          summary: '從生活案例辨識制度、程序、權利義務與利害關係，區分事實判斷與價值選擇。',
+          rules: [
+            '核心可放在制度運作、權利義務、公共參與、法律原則或經濟選擇。',
+            '情境使用生活案例、規則摘要、程序或簡化數據，資訊足以判斷。',
+            '學生須辨識適用規則、利害關係、程序正當性或制度效果。',
+            '避免政黨立場暗示、條文背誦，以及把價值偏好寫成唯一事實。'
+          ]
+        }
+      };
+
+      const DEMOS = {
+        geography: {
+          metadata:{subject:'地理',grade:'九年級',topic:'都市化與人口移動',difficulty:'基礎應用',learningGoal:'依人口結構與交通資訊判斷區域變遷',reasoningChain:'讀取兩區差異，再以人口移動概念解釋',sourceUse:'短文中的年齡結構、就業與通勤資訊',estimatedMinutes:'2 分鐘'},
+          stimulus:{title:'兩區的人口與交通變化',type:'短文資料',content:'甲、乙兩區原本人口相近。十年後，甲區工作機會增加，15 至 39 歲人口占比上升；乙區高齡人口占比提高，公車班次減少。兩區之間每天有大量通勤人口。',source_note:'研習模擬資料，正式使用前請替換為可查證資料。'},
+          questions:[{stem:'根據材料，哪一項推論最能同時解釋甲、乙兩區的變化？',options:[{label:'A',text:'甲區出生率提高，使所有年齡人口同步增加'},{label:'B',text:'就業機會吸引青壯人口往甲區移動，並形成跨區通勤'},{label:'C',text:'乙區氣候轉冷，使居民減少搭乘大眾運輸'},{label:'D',text:'兩區產業完全相同，因此人口結構逐漸一致'}],answer:'B',explanation:'甲區工作機會與青壯人口占比同時上升，加上大量跨區通勤，符合就業吸引人口移動的解釋。',distractorAnalysis:{A:'把年齡结构變化誤解為自然增加，材料沒有出生率資訊。',C:'以材料未提供的氣候因素解釋公車變化。',D:'忽略兩區呈現的產業與人口差異。'},qualityChecks:{materialNecessary:true,singleBestAnswer:true,versionNeutral:true,factCheckNote:'正式使用時需提供資料年份、範圍與來源。'}}],
+          teacherNotes:{howToUse:'先請學生圈出工作、年齡與通勤三項證據，再作答。',followUp:'比較「人口移動」與「自然增加」如何在資料中留下不同線索。',factsToVerify:['資料年份與行政區範圍','人口占比的統計口徑']}
+        },
+        history: {
+          metadata:{subject:'歷史',grade:'九年級',topic:'清末臺灣茶葉出口與社會變遷',difficulty:'基礎應用',learningGoal:'從史料推論出口貿易對地方社會的影響',reasoningChain:'辨識史料年代與產業變化，再判斷社會影響',sourceUse:'商人書信中的茶行、作物與勞動需求',estimatedMinutes:'2 分鐘'},
+          stimulus:{title:'1880 年代商人書信節錄',type:'史料改寫',content:'北部港口附近新設多間茶行，山區農民改種茶樹，搬運工與包裝工的需求增加；茶價則受海外市場影響，收入並不穩定。',source_note:'研習示例為改寫史料，正式命題須標示原始來源。'},
+          questions:[{stem:'這段材料最適合用來說明當時臺灣社會的哪一項變化？',options:[{label:'A',text:'出口貿易帶動產業與工作分工，也增加市場風險'},{label:'B',text:'農民全面停止生產商品作物，轉回自給農業'},{label:'C',text:'海外市場已不再影響臺灣商品的價格'},{label:'D',text:'港口關閉使山區與城市之間的聯繫減少'}],answer:'A',explanation:'茶行、改種茶樹及新增工作反映出口產業與分工擴張；價格受海外市場影響則呈現風險。',distractorAnalysis:{B:'與農民改種茶樹的商品化方向相反。',C:'直接違反材料所述海外市場影響。',D:'新增茶行與運輸工作反而顯示聯繫增加。'},qualityChecks:{materialNecessary:true,singleBestAnswer:true,versionNeutral:true,factCheckNote:'需查核書信年代、作者與茶葉出口背景。'}}],
+          teacherNotes:{howToUse:'請學生分別標出經濟機會與市場風險的證據。',followUp:'討論一份商人書信能說明什麼，又不能代表哪些群體。',factsToVerify:['史料作者與年份','茶葉出口港口及貿易背景']}
+        },
+        civics: {
+          metadata:{subject:'公民',grade:'九年級',topic:'校園公共議題與程序參與',difficulty:'基礎應用',learningGoal:'判斷公共決策程序是否納入意見與檢討機制',reasoningChain:'辨識程序步驟，再連結民主參與與課責',sourceUse:'校規修訂流程中的參與、公開與檢討資訊',estimatedMinutes:'2 分鐘'},
+          stimulus:{title:'手機規範修訂流程',type:'生活案例',content:'學生會蒐集各班意見，邀請教師、家長與行政代表公開討論；會議紀錄與修正理由將公告，試行一個月後再檢討。',source_note:'研習模擬情境，不代表特定學校規定。'},
+          questions:[{stem:'此流程最能體現公共決策的哪一項原則？',options:[{label:'A',text:'只由單一主管決定，以縮短所有討論時間'},{label:'B',text:'納入不同利害關係人的意見，並公開理由與檢討結果'},{label:'C',text:'任何規範都必須獲得每一個人的完全同意'},{label:'D',text:'參與討論的人可以不受最後規範約束'}],answer:'B',explanation:'流程包含意見蒐集、多方參與、理由公開及試行檢討，符合參與和課責的程序。',distractorAnalysis:{A:'忽略案例中的多方參與。',C:'把參與誤解成全體一致同意。',D:'參與程序不代表可以免除共同規範。'},qualityChecks:{materialNecessary:true,singleBestAnswer:true,versionNeutral:true,factCheckNote:'正式使用時需確認學校規範制定權責。'}}],
+          teacherNotes:{howToUse:'先區分「結果是否喜歡」與「程序是否合理」。',followUp:'請學生補充還可以加入哪些意見蒐集方式。',factsToVerify:['校規制定與修訂權責','學生參與機制']}
+        }
+      };
+
+      const form = document.getElementById('questionForm');
+      const tabs = [...document.querySelectorAll('.subject-tab')];
+      const grade = document.getElementById('grade');
+      const difficulty = document.getElementById('difficulty');
+      const topic = document.getElementById('topic');
+      const stimulusType = document.getElementById('stimulusType');
+      const questionCount = document.getElementById('questionCount');
+      const material = document.getElementById('material');
+      const extra = document.getElementById('extra');
+      const ruleSummary = document.getElementById('ruleSummary');
+      const promptText = document.getElementById('promptText');
+      const apiKey = document.getElementById('apiKey');
+      const model = document.getElementById('model');
+      const resultBody = document.getElementById('resultBody');
+      const resultStatus = document.getElementById('resultStatus');
+      const statusText = document.getElementById('statusText');
+      const generateBtn = document.getElementById('generateBtn');
+      const copyResultBtn = document.getElementById('copyResultBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const connectionLine = document.getElementById('connectionLine');
+      const toast = document.getElementById('toast');
+      let subject = 'geography';
+      let currentResult = null;
+
+      function escapeHtml(value='') {
+        return String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove('show'), 1500);
+      }
+
+      function setSubject(next, replaceInputs=true) {
+        subject = next;
+        const data = SUBJECTS[subject];
+        tabs.forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.subject === subject)));
+        ruleSummary.className = `rule-summary ${data.className}`;
+        ruleSummary.innerHTML = `<b>${data.name}命題焦點</b><p>${escapeHtml(data.summary)}</p>`;
+        if (replaceInputs) {
+          topic.value = data.topic;
+          material.value = data.material;
+          stimulusType.value = subject === 'history' ? '史料節錄與背景說明' : subject === 'civics' ? '生活案例或制度情境' : '短文與資料表';
+        }
+        updatePrompt();
+      }
+
+      function difficultyRule(level) {
+        if (level === '待加強辨識') return '使用一個直接線索與單一概念，完成辨識或簡單說明。';
+        if (level === '精熟探究') return '整合兩項以上證據，完成兩至三步推理；可加入跨時空、跨區域或跨概念連結。';
+        return '使用一份必要刺激，完成資料轉譯，再套用一個核心概念，約一至兩步推理。';
+      }
+
+      function buildPrompt() {
+        const data = SUBJECTS[subject];
+        return `你是臺灣國中社會科評量設計協作者。請依下列規格設計素養導向四選一單選題。
+
+【任務設定】
+科目：${data.name}
+年級：${grade.value}
+單元或核心概念：${topic.value.trim() || '未填'}
+難度：${difficulty.value}
+難度操作：${difficultyRule(difficulty.value)}
+刺激材料形式：${stimulusType.value}
+題數：${questionCount.value}
+額外限制：${extra.value.trim() || '無'}
+
+【教師提供材料】
+${material.value.trim() || '未提供'}
+
+【全科共同規則】
+1. 對應第四學習階段，版本中立，不使用單一出版社才有的冷僻敘述。
+2. 刺激材料必須是作答必要條件；刪除材料後，學生不應只靠常識或關鍵字猜中。
+3. 清楚寫出學生推理鏈。難度來自證據與概念操作，不靠冗長文字、生僻知識或否定句。
+4. 四個選項同類、長度相近且只有一個最佳答案。三個干擾項分別對應不同迷思或錯誤推理。
+5. 不虛構具體史實、統計或法規。若材料不足，保留教師提供內容並在 factsToVerify 指出需查證處。
+6. 避免刻板印象、政黨立場暗示、歧視性描述與學生個資。
+7. 本次輸出是 AI 候選草稿，不得自行宣稱已達會考同等級；必須列出仍需教師判定的品質風險。
+
+【${data.name}專屬規則】
+${data.rules.map((rule,index)=>`${index+1}. ${rule}`).join('\n')}
+
+【輸出要求】
+只輸出符合指定結構的 JSON，不要 Markdown、不要程式碼圍欄。
+metadata 包含 subject、grade、topic、difficulty、learningGoal、reasoningChain、sourceUse、estimatedMinutes。
+stimulus 包含 title、type、content、source_note。
+questions 陣列須有 ${questionCount.value} 題。每題包含 stem、四個 options（label 與 text）、answer、explanation、distractorAnalysis，以及 qualityChecks（materialNecessary、singleBestAnswer、versionNeutral、factCheckNote）。
+teacherNotes 包含 howToUse、followUp、factsToVerify。`;
+      }
+
+      function updatePrompt() { promptText.textContent = buildPrompt(); }
+
+      function setStatus(type, text) {
+        resultStatus.className = `status ${type || ''}`;
+        statusText.textContent = text;
+      }
+
+      function renderError(title, message, showAdminLink=false) {
+        const safeMessage = escapeHtml(message).replace(/\n/g,'<br>');
+        resultBody.innerHTML = `<div class="error-box"><h3>${escapeHtml(title)}</h3><p>${safeMessage}</p>${showAdminLink ? '<p><a href="https://ai.google.dev/gemini-api/docs/workspace" target="_blank" rel="noreferrer">查看 Google Workspace 官方存取說明</a></p>' : ''}<p>仍可按左側「載入內建示範題」繼續研習。</p></div>`;
+        setStatus('error', title);
+      }
+
+      function normalizeResult(data) {
+        if (!data || typeof data !== 'object') throw new Error('回應不是有效物件');
+        if (!Array.isArray(data.questions)) data.questions = [];
+        return data;
+      }
+
+      function renderResult(data, sourceLabel) {
+        currentResult = normalizeResult(data);
+        const meta = currentResult.metadata || {};
+        const stimulus = currentResult.stimulus || {};
+        const notes = currentResult.teacherNotes || {};
+        const questions = currentResult.questions || [];
+        const questionHtml = questions.map((q,index) => {
+          const options = Array.isArray(q.options) ? q.options : [];
+          const optionHtml = options.map((opt,optIndex) => {
+            const label = opt.label || String.fromCharCode(65 + optIndex);
+            const correct = label === q.answer;
+            return `<div class="option-row ${correct ? 'correct' : ''}"><span class="option-label">${escapeHtml(label)}</span><span>${escapeHtml(opt.text)}</span></div>`;
+          }).join('');
+          const distractors = q.distractorAnalysis || {};
+          const distractorHtml = Object.entries(distractors).map(([key,value])=>`<li><b>${escapeHtml(key)}</b> ${escapeHtml(value)}</li>`).join('');
+          const checks = q.qualityChecks || {};
+          return `<article class="question-card">
+            <div class="question-title"><span class="q-no">${String(index+1).padStart(2,'0')}</span><div><p class="stem">${escapeHtml(q.stem)}</p></div></div>
+            <div class="option-list">${optionHtml}</div>
+            <details><summary>教師解析與品質檢查</summary>
+              <div class="analysis-grid">
+                <div class="analysis-block"><b>答案與解析</b><p><strong>${escapeHtml(q.answer)}</strong>　${escapeHtml(q.explanation)}</p></div>
+                <div class="analysis-block"><b>干擾項設計</b><ul>${distractorHtml || '<li>模型未提供</li>'}</ul></div>
+                <div class="analysis-block"><b>推理鏈</b><p>${escapeHtml(meta.reasoningChain || '未提供')}</p></div>
+                <div class="analysis-block"><b>仍需查證</b><p>${escapeHtml(checks.factCheckNote || '請教師核對材料來源與答案唯一性。')}</p></div>
+              </div>
+            </details>
+          </article>`;
+        }).join('');
+        const verify = Array.isArray(notes.factsToVerify) ? notes.factsToVerify.map(item=>`<li>${escapeHtml(item)}</li>`).join('') : '';
+        resultBody.innerHTML = `
+          <div class="question-set-header"><div><span class="section-label">${escapeHtml(sourceLabel)}</span><h2>${escapeHtml(meta.topic || topic.value)}</h2><p>${escapeHtml(meta.learningGoal || '')}</p></div><span class="level-tag">${escapeHtml(meta.subject || SUBJECTS[subject].name)} · ${escapeHtml(meta.difficulty || difficulty.value)}</span></div>
+          <div class="stimulus"><h3>${escapeHtml(stimulus.title || '刺激材料')}</h3><p>${escapeHtml(stimulus.content || material.value)}</p><div class="source-note">${escapeHtml(stimulus.source_note || '請教師補充來源。')}</div></div>
+          ${questionHtml || '<div class="error-box"><h3>未產生題目</h3><p>模型回傳的 questions 為空，請再試一次。</p></div>'}
+          <div class="analysis-grid" style="margin-top:20px">
+            <div class="analysis-block"><b>課堂使用</b><p>${escapeHtml(notes.howToUse || '請教師依班級狀況調整。')}</p></div>
+            <div class="analysis-block"><b>延伸追問</b><p>${escapeHtml(notes.followUp || '請學生說明使用了哪些證據。')}</p></div>
+            <div class="analysis-block" style="grid-column:1/-1"><b>查證清單</b><ul>${verify || '<li>材料來源、數據與答案唯一性</li>'}</ul></div>
+          </div>`;
+        setStatus('ready', `${sourceLabel} · ${questions.length} 題`);
+        copyResultBtn.disabled = false;
+        downloadBtn.disabled = false;
+      }
+
+      function responseSchema() {
+        const string = {type:'STRING'};
+        return {
+          type:'OBJECT',
+          required:['metadata','stimulus','questions','teacherNotes'],
+          properties:{
+            metadata:{type:'OBJECT',required:['subject','grade','topic','difficulty','learningGoal','reasoningChain','sourceUse','estimatedMinutes'],properties:{subject:string,grade:string,topic:string,difficulty:string,learningGoal:string,reasoningChain:string,sourceUse:string,estimatedMinutes:string}},
+            stimulus:{type:'OBJECT',required:['title','type','content','source_note'],properties:{title:string,type:string,content:string,source_note:string}},
+            questions:{type:'ARRAY',items:{type:'OBJECT',required:['stem','options','answer','explanation','distractorAnalysis','qualityChecks'],properties:{stem:string,options:{type:'ARRAY',items:{type:'OBJECT',required:['label','text'],properties:{label:string,text:string}}},answer:string,explanation:string,distractorAnalysis:{type:'OBJECT',properties:{A:string,B:string,C:string,D:string}},qualityChecks:{type:'OBJECT',required:['materialNecessary','singleBestAnswer','versionNeutral','factCheckNote'],properties:{materialNecessary:{type:'BOOLEAN'},singleBestAnswer:{type:'BOOLEAN'},versionNeutral:{type:'BOOLEAN'},factCheckNote:string}}}}},
+            teacherNotes:{type:'OBJECT',required:['howToUse','followUp','factsToVerify'],properties:{howToUse:string,followUp:string,factsToVerify:{type:'ARRAY',items:string}}}
+          }
+        };
+      }
+
+      function parseModelText(text) {
+        const cleaned = String(text || '').trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'');
+        return JSON.parse(cleaned);
+      }
+
+      function modelLabel(modelName) {
+        return Array.from(model.options).find(option=>option.value === modelName)?.text || modelName;
+      }
+
+      async function requestGemini(modelName, body, key) {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelName)}:generateContent`;
+        const response = await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});
+        const payload = await response.json().catch(()=>({}));
+        if (!response.ok) {
+          const message = payload?.error?.message || `HTTP ${response.status}`;
+          const error = new Error(message);
+          error.status = response.status;
+          error.code = payload?.error?.code || '';
+          error.apiStatus = payload?.error?.status || '';
+          error.modelName = modelName;
+          throw error;
+        }
+        return payload;
+      }
+
+      async function callGemini(testOnly=false) {
+        const key = apiKey.value.trim();
+        if (!key) throw new Error('請先輸入 Gemini API Key');
+        const body = testOnly ? {
+          contents:[{parts:[{text:'只回覆「連線成功」四個繁體中文字，不要補充說明。'}]}],
+          generationConfig:{temperature:0,maxOutputTokens:256,thinkingConfig:{thinkingLevel:'LOW'}}
+        } : {
+          contents:[{parts:[{text:buildPrompt()}]}],
+          generationConfig:{temperature:.3,maxOutputTokens:16384,thinkingConfig:{thinkingLevel:'LOW'},responseMimeType:'application/json',responseSchema:responseSchema()}
+        };
+        const selectedModel = model.value;
+        const modelsToTry = [selectedModel];
+        let payload;
+        let usedModel = selectedModel;
+        for (let index=0; index<modelsToTry.length; index+=1) {
+          usedModel = modelsToTry[index];
+          try {
+            payload = await requestGemini(usedModel,body,key);
+            break;
+          } catch (error) {
+            throw error;
+          }
+        }
+        const candidate = payload?.candidates?.[0];
+        const text = candidate?.content?.parts?.filter(part=>!part.thought).map(part=>part.text || '').join('') || '';
+        if (!text) {
+          const finishReason = candidate?.finishReason || payload?.promptFeedback?.blockReason || 'UNKNOWN';
+          const thoughtTokens = payload?.usageMetadata?.thoughtsTokenCount;
+          const detail = thoughtTokens ? `，思考已使用 ${thoughtTokens} tokens` : '';
+          const error = new Error(`Gemini 沒有回傳可顯示文字；停止原因：${finishReason}${detail}`);
+          error.finishReason = finishReason;
+          throw error;
+        }
+        return {value:testOnly ? text.trim() : parseModelText(text),usedModel,fallback:usedModel !== selectedModel};
+      }
+
+      function diagnoseGeminiError(error) {
+        const message = String(error?.message || '未知錯誤');
+        const status = Number(error?.status || 0);
+        const apiStatus = String(error?.apiStatus || '');
+        const normalized = `${message} ${apiStatus}`.toLowerCase();
+        let title = 'Gemini API 連線失敗';
+        let action = '請確認網路連線，或改用其他瀏覽器再試一次。';
+
+        if (/max_tokens|沒有回傳可顯示文字/.test(normalized)) {
+          title = 'Key 已通過，但模型輸出被截斷';
+          action = '網站已改用較低思考量並提高輸出上限；請重新整理頁面後再測試。';
+        } else if (/safety|block_reason|prohibited_content/.test(normalized)) {
+          title = 'Key 已通過，但內容被安全設定阻擋';
+          action = '請改用中性、教學用途的文字再試，並避免貼入個資或敏感內容。';
+        } else if (/standard key|legacy key|migrate|auth key|unrestricted/.test(normalized)) {
+          title = '這把 Key 的類型已不再支援';
+          action = '請到 AI Studio 的 API Keys 頁查看 Key Type；若是 Standard，請重新建立 Auth key。';
+        } else if (status === 401 || /api key not valid|invalid api key|invalid_argument/.test(normalized)) {
+          title = 'API Key 無效或貼上不完整';
+          action = '請重新從 AI Studio 複製完整 Key；不要包含前後空白，也不要使用已刪除或已封鎖的 Key。';
+        } else if (status === 403 || /permission_denied|permission denied|forbidden/.test(normalized)) {
+          title = 'Key 可辨識，但權限被拒絕';
+          action = '可能是 @go.edu.tw 管理員停用 AI Studio、專案 IAM 權限不足，或 Key 未限制為 Gemini API。';
+        } else if (status === 404 || /not found|model.*does not exist/.test(normalized)) {
+          title = '目前專案無法使用所選模型';
+          action = '請改選 Gemini 3.5 Flash-Lite 後再測試。';
+        } else if (status === 429 || /resource_exhausted|quota|rate limit/.test(normalized)) {
+          title = '已達用量或速率限制';
+          action = '請稍後再試，並到 AI Studio 查看該專案的用量與計費狀態。';
+        } else if (status === 503 || /unavailable|high demand/.test(normalized)) {
+          title = 'Key 正常，但模型目前壅塞';
+          action = '這是 Google 端的暫時性高需求。需要正式候選題時請稍後重試或改用 3.5 Flash；Flash-Lite 僅適合快速草稿。';
+        } else if (/failed to fetch|networkerror|load failed/.test(normalized)) {
+          title = '瀏覽器或校園網路擋住 API 請求';
+          action = '這通常不是 Key 錯誤。請用 Chrome／Edge 開啟、暫停攔截外部請求的擴充功能，或改用其他網路測試。';
+        }
+
+        const code = status ? `HTTP ${status}${apiStatus ? ` · ${apiStatus}` : ''}` : '瀏覽器未取得 HTTP 回應';
+        return {title, action, detail:`${code}｜${message}`};
+      }
+
+      tabs.forEach(tab => tab.addEventListener('click', () => setSubject(tab.dataset.subject)));
+      [grade,difficulty,topic,stimulusType,questionCount,material,extra].forEach(element => element.addEventListener('input', updatePrompt));
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        if (!apiKey.value.trim()) {
+          renderError('尚未輸入 API Key','請先到下方 API 設定貼上 Key，或使用內建示範題。');
+          document.getElementById('api-setup').scrollIntoView({behavior:'smooth'});
+          return;
+        }
+        generateBtn.disabled = true;
+        generateBtn.textContent = '生成中…';
+        setStatus('loading','Gemini 正在依規格出題');
+        try {
+          const response = await callGemini(false);
+          renderResult(response.value,`AI 候選草稿 · ${modelLabel(response.usedModel)}`);
+        } catch (error) {
+          const diagnosis = diagnoseGeminiError(error);
+          renderError(diagnosis.title,`${diagnosis.action}\n\nGoogle 回傳：${diagnosis.detail}`,true);
+        } finally {
+          generateBtn.disabled = false;
+          generateBtn.textContent = '使用 Gemini 生成';
+        }
+      });
+
+      document.getElementById('demoBtn').addEventListener('click', () => renderResult(structuredClone(DEMOS[subject]), '內建示範'));
+
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        grade.value='九年級'; difficulty.value='基礎應用'; questionCount.value='1'; extra.value=''; setSubject(subject,true); setStatus('','尚未產生題目'); currentResult=null; copyResultBtn.disabled=true; downloadBtn.disabled=true;
+        resultBody.innerHTML='<div class="empty-state"><div><div class="empty-number">01</div><h2>等待第一題</h2><p>先選科目與出題條件。沒有 API Key 也能按「載入內建示範題」查看完整輸出格式。</p></div></div>';
+      });
+
+      document.getElementById('toggleKeyBtn').addEventListener('click', event => {
+        const show = apiKey.type === 'password';
+        apiKey.type = show ? 'text' : 'password';
+        event.currentTarget.textContent = show ? '隱藏' : '顯示';
+        event.currentTarget.setAttribute('aria-pressed',String(show));
+      });
+
+      document.getElementById('testKeyBtn').addEventListener('click', async event => {
+        const button = event.currentTarget;
+        button.disabled=true; button.textContent='測試中…';
+        connectionLine.innerHTML='<span class="status-dot" style="background:var(--amber)"></span><span>正在連接 Google Gemini API</span>';
+        try {
+          const response = await callGemini(true);
+          connectionLine.innerHTML=`<span class="status-dot" style="background:var(--teal)"></span><span><strong>連線成功</strong>（${escapeHtml(modelLabel(response.usedModel))}）　${escapeHtml(response.value)}<br><small>連線成功只代表 API 可用，不代表模型產出的題目已通過品質審查。</small></span>`;
+        } catch (error) {
+          const diagnosis = diagnoseGeminiError(error);
+          connectionLine.innerHTML=`<span class="status-dot" style="background:var(--coral)"></span><span><strong>${escapeHtml(diagnosis.title)}</strong><br>${escapeHtml(diagnosis.action)}<br><small>${escapeHtml(diagnosis.detail)}</small></span>`;
+        } finally { button.disabled=false; button.textContent='測試 API 連線'; }
+      });
+
+      async function copyText(value) {
+        if (navigator.clipboard?.writeText) { try { await navigator.clipboard.writeText(value); return; } catch {} }
+        const area=document.createElement('textarea'); area.value=value; document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove();
+      }
+
+      document.getElementById('copyPromptBtn').addEventListener('click', async () => { await copyText(buildPrompt()); showToast('已複製完整提示'); });
+      copyResultBtn.addEventListener('click', async () => { if (!currentResult) return; await copyText(JSON.stringify(currentResult,null,2)); showToast('已複製題目 JSON'); });
+      downloadBtn.addEventListener('click', () => {
+        if (!currentResult) return;
+        const blob = new Blob([JSON.stringify(currentResult,null,2)],{type:'application/json'});
+        const url = URL.createObjectURL(blob); const link=document.createElement('a'); link.href=url; link.download=`${subject}-question-${new Date().toISOString().slice(0,10)}.json`; link.click(); URL.revokeObjectURL(url);
+      });
+      window.addEventListener('pagehide', () => { apiKey.value=''; });
+
+      setSubject('geography',true);
+    })();
+  </script>
+</body>
+</html>

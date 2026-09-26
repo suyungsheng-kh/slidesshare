@@ -154,6 +154,18 @@
 
     .keep { white-space: nowrap; }
 
+    .bio-line {
+      display: block;
+      text-align: justify;
+      text-align-last: justify;
+      text-justify: inter-character;
+    }
+
+    .bio-line:last-child {
+      text-align: left;
+      text-align-last: left;
+    }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
@@ -228,7 +240,11 @@
 
       .identity .divider { display: none; }
       .bio { margin-top: 22px; }
-      .desktop-break { display: none; }
+      .bio-line {
+        display: inline;
+        text-align: left;
+        text-align-last: auto;
+      }
       .tags { margin-top: 22px; }
       blockquote { margin-top: 30px; }
     }
@@ -271,7 +287,7 @@
           <span class="school">高雄市立前峰國中</span>
         </p>
 
-        <p class="bio"><span class="keep">深耕資訊科技教育二十餘年</span>，專注於<span class="keep">課程設計</span>、<span class="keep">課程統整</span>與<br class="desktop-break"><span class="keep">跨域共備</span>，致力於把<span class="keep">教學想法</span>轉化為<span class="keep">學生能參與</span>、<span class="keep">教師能共創</span><br class="desktop-break">的<span class="keep">學習經驗</span>。</p>
+        <p class="bio"><span class="bio-line"><span class="keep">深耕資訊科技教育二十餘年</span>，專注於<span class="keep">課程設計</span>、<span class="keep">課程統整</span>與</span><span class="bio-line"><span class="keep">跨域共備</span>，致力於把<span class="keep">教學想法</span>轉化為<span class="keep">學生能參與</span>、<span class="keep">教師能共創</span></span><span class="bio-line">的<span class="keep">學習經驗</span>。</span></p>
 
         <ul class="tags" aria-label="講師專長">
           <li>課程設計</li>

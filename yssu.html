@@ -216,12 +216,22 @@
 
     .quote-lead,
     .quote-follow {
-      display: block;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(28px, 3vw, 38px) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(10px, 1.2vw, 16px);
       width: 100%;
-      text-align: justify;
-      text-align-last: justify;
-      text-justify: inter-character;
       white-space: nowrap;
+    }
+
+    .quote-part:first-child { text-align: right; }
+    .quote-part:last-child { text-align: left; }
+
+    .quote-divider {
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      opacity: .72;
     }
 
     .quote-lead {
@@ -323,8 +333,16 @@
 
         <blockquote>
           <span class="quote-copy">
-            <span class="quote-lead">先敢想，再動手；</span>
-            <span class="quote-follow">只要想得到，就能做得到。</span>
+            <span class="quote-lead" aria-label="先敢想，再動手">
+              <span class="quote-part">先敢想</span>
+              <span class="quote-divider" aria-hidden="true"></span>
+              <span class="quote-part">再動手</span>
+            </span>
+            <span class="quote-follow" aria-label="只要想得到，就能做得到">
+              <span class="quote-part">只要想得到</span>
+              <span class="quote-divider" aria-hidden="true"></span>
+              <span class="quote-part">就能做得到</span>
+            </span>
           </span>
         </blockquote>
       </section>

@@ -235,10 +235,10 @@
 <body>
   <a class="skip-link" href="#generator">跳到出題表單</a>
   <header class="topbar">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>社會科素養題實驗室</span></div>
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>社會科素養題實驗室 · 參考版</span></div>
     <nav aria-label="頁面導覽">
       <a href="#generator">出題測試</a>
-      <a href="#api-setup">API 設定</a>
+      <a href="#api-setup">進階選用 API</a>
       <a href="#rules">命題規則</a>
       <a href="20261022_canvas.html">互動示範</a>
       <a href="20261022.html">回研習簡報</a>
@@ -247,17 +247,17 @@
 
   <section class="hero">
     <div>
-      <p class="eyebrow">2026.10.22 · 國中社會科教師研習</p>
-      <h1>把「像會考」<br>寫成可檢查的<br>命題規則</h1>
-      <p class="hero-lead">選擇地理、歷史或公民，輸入教學主題與材料，網站會把內建命題規格交給 Gemini，生成可供教師審查的素養題。</p>
+      <p class="eyebrow">研習最終作品參考版</p>
+      <h1>把命題規則<br>做成自己的<br>出題介面</h1>
+      <p class="hero-lead">選擇地理、歷史或公民，輸入教學主題、材料與來源。無 API Key 時，介面會組合可貼入新 Gemini 對話的完整提示；有 Key 時才選擇直接生成。</p>
     </div>
     <aside class="hero-aside">
       <strong>核心定位：AI 草擬，教師定稿</strong>
-      <p>沒有 API Key 時可載入內建示範題；有 Key 時生成候選草稿。模型不能保證會考同等級，教師必須查核材料、推理、答案與干擾項後才能使用。</p>
+      <p>沒有 API Key 也能完成出題流程：產生並複製完整提示，再貼入新的 Gemini 對話。API 只負責縮短操作，不會提高題目可信度。</p>
       <div class="hero-links">
-        <a class="link-btn primary" href="#generator">開始出題</a>
-        <a class="link-btn" href="#api-setup">取得 API Key</a>
-        <a class="link-btn" href="20261022_canvas.html">把題目改成互動活動</a>
+        <a class="link-btn primary" href="#generator">開始設計介面流程</a>
+        <a class="link-btn" href="#api-setup">進階：API 設定</a>
+        <a class="link-btn" href="20261022_canvas.html">課後：互動活動延伸</a>
       </div>
     </aside>
   </section>
@@ -268,7 +268,7 @@
         <div class="panel-head">
           <span class="section-label">QUESTION BUILDER</span>
           <h2 id="generator-title">出題條件</h2>
-          <p>規則已內建。教師只要指定內容、難度與刺激材料。</p>
+          <p>規則已內建。先完成無 Key 的提示產生流程，再決定是否使用 API。</p>
         </div>
         <div class="panel-body">
           <span class="field-label" id="subjectLabel">選擇科目</span>
@@ -331,7 +331,8 @@
           </div>
 
           <div class="actions">
-            <button class="btn primary" id="generateBtn" type="submit">使用 Gemini 生成</button>
+            <button type="button" class="btn primary" id="copyPromptBtn">產生並複製完整提示</button>
+            <button class="btn subtle" id="generateBtn" type="submit">使用 API 直接生成</button>
             <button class="btn subtle" id="demoBtn" type="button">載入內建示範題</button>
             <button class="btn subtle" id="resetBtn" type="button">重設本表單</button>
           </div>
@@ -339,7 +340,6 @@
           <details class="prompt-preview">
             <summary>查看送給 Gemini 的完整提示</summary>
             <pre id="promptText"></pre>
-            <div class="actions"><button type="button" class="btn subtle" id="copyPromptBtn">複製提示</button></div>
           </details>
         </div>
       </form>
@@ -358,7 +358,7 @@
             <div>
               <div class="empty-number">01</div>
               <h2 id="result-title">等待第一題</h2>
-              <p>先選科目與出題條件。沒有 API Key 也能按「載入內建示範題」查看完整輸出格式。</p>
+              <p>先選科目並貼入材料。沒有 API Key 時按「產生並複製完整提示」，再貼入新的 Gemini 對話。</p>
             </div>
           </div>
         </div>
@@ -367,9 +367,9 @@
 
     <section class="panel api-box" id="api-setup" aria-labelledby="api-title">
       <div class="panel-head">
-        <span class="section-label">GEMINI API</span>
-        <h2 id="api-title">登入與 API Key</h2>
-        <p>先用教育部帳號登入 Gmail，再開啟 Google AI Studio。若學校網域停用 AI Studio，需由 Workspace 管理員開放。</p>
+        <span class="section-label">OPTIONAL GEMINI API</span>
+        <h2 id="api-title">進階選用：API Key</h2>
+        <p>Gemini 教育版登入與 API Key 是兩條路。教育版在 gemini.google.com 使用學校帳號，不需要 Key；只有本網站要直接呼叫模型時才需要下列設定。</p>
       </div>
       <div class="panel-body api-layout">
         <div>
@@ -395,13 +395,14 @@
         </div>
         <div>
           <div class="setup-steps">
-            <div class="setup-step"><b>01 教育部 Gmail</b><p>登入 <code>@go.edu.tw</code> 帳號，確認目前使用的 Google 身分。</p></div>
+            <div class="setup-step"><b>01 確認開發帳號</b><p>先登入 <code>@go.edu.tw</code> 帳號並確認目前的 Google 身分。</p></div>
             <div class="setup-step"><b>02 開啟 AI Studio</b><p>若顯示無權存取，代表網域或組織單位可能停用服務。</p></div>
             <div class="setup-step"><b>03 建立新 Key</b><p>進入 API Keys，按「Create API key」。新帳號可能已自動建立預設專案與 Key。</p></div>
             <div class="setup-step"><b>04 貼上測試</b><p>複製新建立的 auth key，貼到左側欄位並測試連線。</p></div>
           </div>
           <div class="setup-links">
             <a class="link-btn primary" href="https://mail.google.com/a/go.edu.tw" target="_blank" rel="noreferrer">登入教育部 Gmail</a>
+            <a class="link-btn" href="https://gemini.google.com/" target="_blank" rel="noreferrer">開啟 Gemini 教育版</a>
             <a class="link-btn" href="https://aistudio.google.com/api-keys" target="_blank" rel="noreferrer">開啟 AI Studio API Keys</a>
             <a class="link-btn" href="https://ai.google.dev/gemini-api/docs/workspace" target="_blank" rel="noreferrer">學校網域存取說明</a>
           </div>
@@ -459,7 +460,7 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div><b>社會科素養題實驗室</b><br><span>研習示範工具，內容查核日期：2026.09.25</span></div>
+      <div><b>社會科素養題實驗室</b><br><span>研習示範工具，內容查核日期：2026.09.26</span></div>
       <div>
         <a href="https://ai.google.dev/gemini-api/docs/get-started" target="_blank" rel="noreferrer">Gemini API 入門</a> ·
         <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">模型說明</a> ·
@@ -592,7 +593,7 @@
 
       function buildPrompt() {
         const data = SUBJECTS[subject];
-        return `你是臺灣國中社會科評量設計協作者。請依下列規格設計素養導向四選一單選題。
+        return `這是新對話的第一則訊息，以下已包含本次任務所需的資料。你是臺灣國中社會科評量設計協作者，請依下列規格設計素養導向四選一單選題；資料不足時先指出缺漏，不要自行補寫事實。
 
 【任務設定】
 科目：${data.name}
@@ -813,7 +814,7 @@ teacherNotes 包含 howToUse、followUp、factsToVerify。`;
         event.preventDefault();
         if (!form.reportValidity()) return;
         if (!apiKey.value.trim()) {
-          renderError('尚未輸入 API Key','請先到下方 API 設定貼上 Key，或使用內建示範題。');
+          renderError('尚未輸入 API Key','若要直接生成，請到下方 API 設定貼上 Key；也可以改按「產生並複製完整提示」，到新的 Gemini 對話使用。');
           document.getElementById('api-setup').scrollIntoView({behavior:'smooth'});
           return;
         }
@@ -828,7 +829,7 @@ teacherNotes 包含 howToUse、followUp、factsToVerify。`;
           renderError(diagnosis.title,`${diagnosis.action}\n\nGoogle 回傳：${diagnosis.detail}`,true);
         } finally {
           generateBtn.disabled = false;
-          generateBtn.textContent = '使用 Gemini 生成';
+          generateBtn.textContent = '使用 API 直接生成';
         }
       });
 
@@ -864,7 +865,11 @@ teacherNotes 包含 howToUse、followUp、factsToVerify。`;
         const area=document.createElement('textarea'); area.value=value; document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove();
       }
 
-      document.getElementById('copyPromptBtn').addEventListener('click', async () => { await copyText(buildPrompt()); showToast('已複製完整提示'); });
+      document.getElementById('copyPromptBtn').addEventListener('click', async () => {
+        if (!form.reportValidity()) return;
+        await copyText(buildPrompt());
+        showToast('已複製，請貼入新的 Gemini 對話');
+      });
       copyResultBtn.addEventListener('click', async () => { if (!currentResult) return; await copyText(JSON.stringify(currentResult,null,2)); showToast('已複製題目 JSON'); });
       downloadBtn.addEventListener('click', () => {
         if (!currentResult) return;

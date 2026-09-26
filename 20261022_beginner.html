@@ -8,7 +8,7 @@
     :root { --ink:#33433d; --muted:#6f7c76; --paper:#fbf8f2; --white:#fffdf9; --teal:#5b9c93; --aqua:#c5e7e2; --coral:#d58a78; --line:#d7d0c5; }
     * { box-sizing:border-box; }
     body { margin:0; color:var(--ink); background:#eee9e1; font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
-    .toolbar { position:sticky; top:0; z-index:5; display:flex; justify-content:center; gap:10px; padding:10px; background:rgba(69,111,102,.97); }
+    .toolbar { position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; padding:10px; background:rgba(69,111,102,.97); }
     .toolbar a, .toolbar button { border:1px solid rgba(255,255,255,.3); background:transparent; color:white; padding:9px 14px; text-decoration:none; cursor:pointer; font-weight:800; }
     .sheet { width:210mm; min-height:297mm; margin:12px auto; padding:17mm 16mm 15mm; background:var(--paper); box-shadow:0 10px 30px rgba(0,0,0,.12); page-break-after:always; position:relative; }
     .sheet:last-of-type { page-break-after:auto; }
@@ -65,6 +65,14 @@
     .success { padding:11px 14px; background:rgba(117,214,202,.18); border-left:5px solid var(--teal); font-size:10pt; line-height:1.5; }
     .prompt { position:relative; margin:12px 0; padding:14px; background:var(--white); border:1px solid var(--ink); }
     .prompt pre { margin:0; white-space:pre-wrap; font:700 9.4pt/1.5 "Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    .prompt-sheet { padding-top:14mm; padding-bottom:12mm; }
+    .prompt-sheet h2 { margin-bottom:8px; }
+    .prompt-sheet .notice { margin:9px 0; padding:8px 11px; }
+    .prompt-sheet .task { margin:12px 0 14px; padding-top:8px; }
+    .prompt-sheet .prompt { margin:8px 0; padding:11px; }
+    .prompt-sheet .prompt pre { padding-right:54px; font-size:9pt; line-height:1.42; }
+    .prompt-sheet table { margin:8px 0; }
+    .prompt-sheet th, .prompt-sheet td { padding:6px 8px; }
     .copy { position:absolute; right:8px; top:8px; border:0; background:var(--ink); color:white; padding:6px 9px; cursor:pointer; font-size:9pt; }
     table { width:100%; border-collapse:collapse; margin:12px 0; }
     th, td { border:1px solid var(--line); padding:8px 9px; text-align:left; vertical-align:top; font-size:9.5pt; line-height:1.4; }
@@ -72,12 +80,12 @@
     .write { height:42px; }
     .write.tall { height:72px; }
     .footer { position:absolute; left:16mm; right:16mm; bottom:8mm; display:flex; justify-content:space-between; color:var(--muted); font-size:8.5pt; }
-    @media (max-width:850px) { .sheet { width:100%; min-height:0; margin:0; padding:34px 24px 60px; box-shadow:none; } .route, .material-grid { grid-template-columns:1fr 1fr; } .meta { grid-template-columns:1fr; } }
+    @media (max-width:850px) { .toolbar { position:static; } .sheet { width:100%; min-height:0; margin:0; padding:34px 24px 60px; box-shadow:none; } .route, .material-grid { grid-template-columns:1fr 1fr; } .meta { grid-template-columns:1fr; } }
     @media print { body { background:white; } .toolbar { display:none; } .sheet { margin:0; box-shadow:none; } .copy { display:none; } }
   </style>
 </head>
 <body>
-  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="20261022_question.html">開啟出題網站</a><a href="20261022_canvas.html">互動示範</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
+  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="20261022_question.html">出題介面參考版</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="20261022_canvas.html">互動延伸</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
 
   <section class="sheet">
     <p class="label">共同準備 · 高雄市教師 Edcafe 授權升級</p>
@@ -129,13 +137,13 @@
   <section class="sheet beginner-start">
     <p class="label">A · 初階操作教材</p>
     <h1>第一次完整走完 AI 備課流程</h1>
-    <p class="lead">先從出版社取得學校選用版本的課程 PDF，再完成一份小測、一題經過審查的素養題，以及一頁可操作的互動網頁。</p>
+    <p class="lead">先從出版社取得學校選用版本的課程 PDF，再完成一份小測、一題經過審查的素養題，以及一個可重複使用的教師出題介面。</p>
     <div class="meta"><div>姓名／組別<div class="blank"></div></div><div>今天使用的單元<div class="blank"></div></div></div>
     <div class="route">
       <div><b>01 教材＋Edcafe</b><span>OpenID 取 PDF，再做成小測</span></div>
       <div><b>02 Gemini</b><span>用固定提示審查題目</span></div>
       <div><b>03 試題生成</b><span>完成一題基礎應用題</span></div>
-      <div><b>04 Canvas</b><span>把一個抽象概念做成互動活動</span></div>
+      <div><b>04 Canvas</b><span>把命題規則做成教師出題介面</span></div>
     </div>
     <div class="success"><b>全程共同定位</b><br>AI 只提供候選草稿。教師必須查核事實、答案唯一性、材料必要性與學生適切性，才能決定是否使用。</div>
 
@@ -151,7 +159,8 @@
     <div class="task" style="margin-top:14px">
       <div class="task-head"><h2>任務一：Edcafe 可派送小測</h2><span class="time">7 分鐘</span></div>
       <ul class="checks">
-        <li>開啟 Quiz，貼入剛整理的 300 至 600 字，或上傳只含必要頁面的 PDF。</li>
+        <li>從高雄市入口確認授權後，開啟 Edcafe、登入原帳號並選擇 Quiz。</li>
+        <li>貼入剛整理的 300 至 600 字，或上傳只含必要頁面的 PDF。</li>
         <li>指定「國中九年級、社會科、四選一、3 題」。</li>
         <li>逐題核對答案，挑一個最弱的錯誤選項改寫。</li>
         <li>開啟學生預覽，完成一次作答並查看回饋。</li>
@@ -161,18 +170,19 @@
     <div class="footer"><span>2026.10.22 國中社會科 AI 研習</span><span>初階 1 / 3</span></div>
   </section>
 
-  <section class="sheet">
+  <section class="sheet prompt-sheet">
     <p class="label">A · 初階操作教材</p>
     <h2>任務二：Gemini 固定提示審題</h2>
-    <p>把 Edcafe 產出的一題貼入 Gemini，再貼上以下提示。先讀完檢查結果，只採用你認同的一項修改。</p>
-    <div class="notice"><b>模型選擇</b><br>Flash-Lite 用於連線測試或快速草稿；一般出題建議使用 3.5 Flash。3.8 Flash 可處理較複雜的推理，但遇到壅塞時不要把 Flash-Lite 草稿視為同等品質的定稿。<a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">查看模型說明</a></div>
-    <div class="prompt"><button class="copy" data-copy="critic">複製</button><pre id="critic">你是國中社會科評量審題委員。請檢查我貼上的四選一題目：
+    <p>開啟新的 Gemini 對話，複製以下提示，再把 Edcafe 題目貼到提示最下方。整段一次送出，只採用你認同的修改。</p>
+    <div class="notice"><b>Gemini 教育帳號起點</b><br>先登入 <a href="https://mail.google.com/a/go.edu.tw" target="_blank" rel="noreferrer">@go.edu.tw Gmail</a>並確認右上角帳號，再用同一瀏覽器開啟 <a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini</a>，選擇同一帳號並點「新對話」。若顯示無法存取，代表管理員可能尚未啟用服務；API Key 不能代替教育版登入。</div>
+    <div class="prompt"><button class="copy" data-copy="critic">複製</button><pre id="critic">你是國中社會科評量審題委員。這是新對話的第一則訊息，待審題目已附在最下方。請完成以下檢查：
 1. 指出本題評量的核心概念與學生需要完成的推理步驟。
 2. 判斷學生是否能只靠關鍵字或常識猜中。
 3. 檢查四個選項是否同類、長度接近，而且只有一個最佳答案。
 4. 說明每個錯誤選項對應的迷思或錯誤推理。
 5. 只提出必要修改，不要直接重寫整題。
-最後整理成「可保留、要修改、需查證」三欄。請明確標示：這是候選草稿，是否符合會考素養層次仍由教師判定。</pre></div>
+最後整理成「可保留、要修改、需查證」三欄。請明確標示：這是候選草稿，是否符合會考素養層次仍由教師判定。
+【待審題目】請在這裡貼上材料、題幹、四個選項、暫定答案與來源：＿＿</pre></div>
     <table><tr><th>Gemini 建議修改</th><td class="write tall"></td></tr><tr><th>我決定採用</th><td class="write"></td></tr><tr><th>仍需教師判斷</th><td class="write"></td></tr></table>
 
     <div class="task">
@@ -183,11 +193,12 @@
         <tr><th>推理鏈</th><td>學生先找什麼，再連結什麼？</td><td class="write"></td></tr>
         <tr><th>選項</th><td>三個錯誤選項各代表哪一種迷思？</td><td class="write"></td></tr>
       </table>
-      <div class="prompt"><button class="copy" data-copy="item">複製</button><pre id="item">請根據以下規格產出 1 題國中九年級社會科四選一題目。
+      <div class="prompt"><button class="copy" data-copy="item">複製</button><pre id="item">你是國中社會科評量設計助理。這是新對話的第一則訊息，請只依最下方貼上的資料產出 1 題國中九年級社會科四選一題目；資料不足時先指出缺漏，不要自行補寫事實。
 內容節點：＿＿。學習表現：＿＿。難度：基礎應用。
 刺激材料：＿＿。學生必須先＿＿，再＿＿，才能選出答案。
 四個選項要同類、長度接近。三個錯誤選項分別對應不同迷思，只有一個最佳答案。
-請輸出題幹、四個選項、答案、逐項解析、難度理由與仍需查證之處。輸出開頭標示「AI 候選草稿」，不可自行宣稱已達會考同等級。</pre></div>
+請輸出題幹、四個選項、答案、逐項解析、難度理由與仍需查證之處。輸出開頭標示「AI 候選草稿」，不可自行宣稱已達會考同等級。
+【現在貼上】學習內容：＿＿　作答材料：＿＿　材料來源：＿＿</pre></div>
     </div>
     <div class="footer"><span>完成後保留生成前後版本</span><span>初階 2 / 3</span></div>
   </section>
@@ -195,33 +206,31 @@
   <section class="sheet">
     <p class="label">A · 初階操作教材</p>
     <div class="task" style="margin-top:0">
-      <div class="task-head"><h2>任務四：Canvas 概念互動活動</h2><span class="time">6 分鐘</span></div>
-      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">請使用 Gemini Canvas 建立一個 5 至 8 分鐘的國中社會科互動活動。
-科目與單元：＿＿。學生要理解的抽象概念：＿＿。常見迷思：＿＿。
-先列出概念中的關係、學生要操作的條件、畫面如何回應，以及操作後的解釋問題，再建立可預覽的單頁活動。
-互動形式選一種：地理位置拖曳或圖層切換、歷史事件排序、公民預算調整或角色選擇。也可提出更適合本概念的操作。
-學生操作 2 至 3 次後，必須比較結果並引用畫面證據說明原因。
-初版只做一個核心概念。加入清楚操作說明與「重新開始」，支援手機與鍵盤。
-成品不要求學生登入，也不蒐集姓名或作答紀錄。模擬資料要標示，真實資料要列來源。
-完成後說明已測試的操作狀態，以及可能誤導學生之處。</pre></div>
+      <div class="task-head"><h2>任務四：Canvas 教師出題介面</h2><span class="time">6 分鐘</span></div>
+      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">這是新對話的第一則訊息。請使用 Gemini Canvas 建立教師用的國中社會科出題介面，先完成不需要 API Key 的版本。
+欄位包含：科目、年級、單元或核心概念、難度、題數、學習內容、作答材料、材料來源與額外限制。
+介面內建規則：材料必須參與解題；列出推理鏈；四個選項同類且只有一個最佳答案；錯誤選項對應不同迷思；不可照抄既有考題。
+按下「產生完整提示」後，組合成可直接貼入新 Gemini 對話的第一則訊息。加入「複製提示」「載入示範」「重設」。
+提示要求輸出 AI 候選草稿、題目、答案、逐項解析、來源與仍需教師查核之處。
+頁面不蒐集個資或儲存教材全文，並支援手機與鍵盤。完成後測試三科、空白欄位、複製與重設。</pre></div>
       <ul class="checks">
-        <li>地理可做位置或圖層，歷史可做編年排序，公民可做制度選擇與取捨。</li>
-        <li>操作後的畫面變化，確實代表本單元的概念關係。</li>
-        <li>完成兩次不同操作，並確認「重新開始」可以使用。</li>
-        <li>縮窄視窗後仍能閱讀，鍵盤也能完成主要操作。</li>
+        <li>從 Gemini 首頁點「新對話」，開啟 Canvas，再貼入上方完整提示。</li>
+        <li>地理、歷史、公民都能切換，必要欄位沒有填寫時會提醒。</li>
+        <li>完整提示包含本次材料與來源，複製後可貼到另一個新對話。</li>
+        <li>重設可以清空內容；縮窄視窗後仍能閱讀，鍵盤可以操作。</li>
       </ul>
     </div>
     <h2>卡住時的處理順序</h2>
     <table>
-      <tr><th>不知道怎麼開始</th><td>直接使用本教材的完整提示，只替換底線。</td></tr>
+      <tr><th>不知道怎麼開始</th><td>開啟 Gemini → 新對話 → Canvas，再整段貼入本教材提示。</td></tr>
       <tr><th>AI 一次改太多</th><td>指定「只修改一個問題，保留其餘內容」。</td></tr>
-      <tr><th>操作後看不出差異</th><td>要求 Canvas 顯示變動數值、區域、時間或群體，並補上比較問題。</td></tr>
-      <tr><th>網頁無法執行</th><td>要求輸出完整單一 HTML，或改用 Edcafe 內建活動。</td></tr>
+      <tr><th>沒有 API Key</th><td>保留「產生完整提示」與「複製提示」，作品仍算完成。</td></tr>
+      <tr><th>網頁無法執行</th><td>要求 Gemini 修正錯誤，或輸出完整單一 HTML 檔。</td></tr>
     </table>
     <h2>離場前記錄</h2>
     <table><tr><th>我完成的作品</th><td class="write"></td></tr><tr><th>下一次會先做</th><td class="write"></td></tr><tr><th>發布前要查核</th><td class="write"></td></tr></table>
-    <div class="success"><b>初階完成標準</b><br>你能說明學生操作哪個條件、畫面為何改變，以及這個變化對應哪個社會科概念；模型的自我評分不能代替教師判斷。</div>
-    <div class="footer"><span>請保存題目、提示與 HTML 檔</span><span>初階 3 / 3</span></div>
+    <div class="success"><b>初階完成標準</b><br>介面能把教師填寫的條件、材料與來源組成完整提示；將提示貼入新的 Gemini 對話後可得到候選題目。教師仍須查證與定稿。</div>
+    <div class="footer"><span>請保存 Canvas 對話、介面連結或 HTML 檔</span><span>初階 3 / 3</span></div>
   </section>
 
   <script>

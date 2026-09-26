@@ -8,7 +8,7 @@
     :root { --ink:#33433d; --muted:#6f7c76; --paper:#faf7f2; --white:#fffdf9; --violet:#8f86b8; --aqua:#c5e7e2; --amber:#d4ac5a; --line:#d7d0c5; }
     * { box-sizing:border-box; }
     body { margin:0; color:var(--ink); background:#eee9e1; font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
-    .toolbar { position:sticky; top:0; z-index:5; display:flex; justify-content:center; gap:10px; padding:10px; background:rgba(105,97,145,.95); }
+    .toolbar { position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; padding:10px; background:rgba(105,97,145,.95); }
     .toolbar a, .toolbar button { border:1px solid rgba(255,255,255,.3); background:transparent; color:white; padding:9px 14px; text-decoration:none; cursor:pointer; font-weight:800; }
     .sheet { width:210mm; min-height:297mm; margin:12px auto; padding:17mm 16mm 15mm; background:var(--paper); box-shadow:0 10px 30px rgba(0,0,0,.12); page-break-after:always; position:relative; }
     .sheet:last-of-type { page-break-after:auto; }
@@ -46,6 +46,14 @@
     .challenge { padding:11px 14px; background:rgba(107,99,166,.11); border-left:5px solid var(--violet); font-size:10pt; line-height:1.5; }
     .prompt { position:relative; margin:12px 0; padding:14px; background:var(--white); border:1px solid var(--ink); }
     .prompt pre { margin:0; white-space:pre-wrap; font:700 9.2pt/1.48 "Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    .prompt-sheet { padding-top:14mm; padding-bottom:12mm; }
+    .prompt-sheet h2 { margin-bottom:8px; }
+    .prompt-sheet .notice { margin:9px 0; padding:8px 11px; }
+    .prompt-sheet .task { margin:12px 0 14px; padding-top:8px; }
+    .prompt-sheet .prompt { margin:8px 0; padding:11px; }
+    .prompt-sheet .prompt pre { padding-right:54px; font-size:8.9pt; line-height:1.4; }
+    .prompt-sheet table { margin:8px 0; }
+    .prompt-sheet th, .prompt-sheet td { padding:6px 8px; }
     .copy { position:absolute; right:8px; top:8px; border:0; background:var(--ink); color:white; padding:6px 9px; cursor:pointer; font-size:9pt; }
     table { width:100%; border-collapse:collapse; margin:12px 0; }
     th, td { border:1px solid var(--line); padding:8px 9px; text-align:left; vertical-align:top; font-size:9.2pt; line-height:1.4; }
@@ -54,12 +62,12 @@
     .write.tall { height:72px; }
     .matrix th:first-child { width:20%; }
     .footer { position:absolute; left:16mm; right:16mm; bottom:8mm; display:flex; justify-content:space-between; color:var(--muted); font-size:8.5pt; }
-    @media (max-width:850px) { .sheet { width:100%; min-height:0; margin:0; padding:34px 24px 60px; box-shadow:none; } .route { grid-template-columns:1fr 1fr; } .meta { grid-template-columns:1fr; } }
+    @media (max-width:850px) { .toolbar { position:static; } .sheet { width:100%; min-height:0; margin:0; padding:34px 24px 60px; box-shadow:none; } .route { grid-template-columns:1fr 1fr; } .meta { grid-template-columns:1fr; } }
     @media print { body { background:white; } .toolbar { display:none; } .sheet { margin:0; box-shadow:none; } .copy { display:none; } }
   </style>
 </head>
 <body>
-  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_beginner.html">改選初階教材</a><a href="20261022_question.html">開啟出題網站</a><a href="20261022_canvas.html">互動示範</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
+  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_beginner.html">改選初階教材</a><a href="20261022_question.html">出題介面參考版</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="20261022_canvas.html">互動延伸</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
 
   <section class="sheet">
     <p class="label">共同準備 · 高雄市教師 Edcafe 授權升級</p>
@@ -117,13 +125,14 @@
       <div><b>01 PDF＋Edcafe</b><span>同一上傳版生成基礎與精熟版</span></div>
       <div><b>02 Gemini</b><span>三輪審題與第二答案測試</span></div>
       <div><b>03 試題生成</b><span>控制推理負荷，完成題目對</span></div>
-      <div><b>04 Canvas</b><span>多變項體驗與測試矩陣</span></div>
+      <div><b>04 Canvas</b><span>無 Key 介面、API 選項與測試矩陣</span></div>
     </div>
     <div class="challenge"><b>全程共同定位</b><br>AI 產生候選題與比較版本，教師根據證據決定是否達到預定層次。模型更強不代表題目自動具有會考同等級品質。</div>
 
     <div class="task">
       <div class="task-head"><h2>任務一：Edcafe A／B 版小測</h2><span class="time">7 分鐘</span></div>
       <ul class="checks">
+        <li>從高雄市入口確認授權後，開啟 Edcafe、登入原帳號並選擇 Quiz。</li>
         <li>固定同一份擷取後的上傳版 PDF（1 至 2 頁或 300 至 600 字）與同一個核心概念。</li>
         <li>A 版指定「基礎：一份刺激加上一個概念，完成一至兩步推理」。</li>
         <li>B 版指定「精熟：加入間接線索或跨概念整合，完成兩至三步推理」。</li>
@@ -134,26 +143,28 @@
     <div class="footer"><span>固定內容，改變認知需求</span><span>進階 1 / 3</span></div>
   </section>
 
-  <section class="sheet">
+  <section class="sheet prompt-sheet">
     <p class="label">B · 進階挑戰教材</p>
-    <div class="notice"><b>模型分工</b><br>3.5 Flash 作為一般正式出題起點；3.8 Flash 用於複雜推理與對抗測試；Flash-Lite 只作快速草稿或連線備援。模型降級時必須重新做完整品質審查。<a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noreferrer">查看模型說明</a></div>
+    <div class="notice"><b>Gemini 教育帳號起點</b><br>先登入 <a href="https://mail.google.com/a/go.edu.tw" target="_blank" rel="noreferrer">@go.edu.tw Gmail</a>並確認右上角帳號，再用同一瀏覽器開啟 <a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini</a>並點「新對話」。教育版登入與 AI Studio API Key 是兩條路；API Key 不會補上管理員尚未開放的教育版權限。</div>
     <div class="task" style="margin-top:0">
       <div class="task-head"><h2>任務二：Gemini 三輪審題</h2><span class="time">6 分鐘</span></div>
-      <div class="prompt"><button class="copy" data-copy="chain">複製</button><pre id="chain">請依序完成三輪審題，每輪結束後等待我回覆：
+      <div class="prompt"><button class="copy" data-copy="chain">複製</button><pre id="chain">你是國中社會科評量審題委員。這是新對話的第一則訊息，待審題目已附在最下方。請依序完成三輪審題，每輪結束後等待我回覆：
 第一輪「規格還原」：列出核心內容、必要刺激、學生推理鏈、正確答案條件，以及三個干擾項對應的迷思。
 第二輪「對抗測試」：替每個選項提出最強辯護，找出可能的第二答案、關鍵字捷徑、常識捷徑與資料不足處。
-第三輪「最小修訂」：只修改造成歧義或捷徑的部分，保留原題教學意圖。列出修改前後差異與仍需查證的事實。</pre></div>
+第三輪「最小修訂」：只修改造成歧義或捷徑的部分，保留原題教學意圖。列出修改前後差異與仍需查證的事實。
+【待審題目】請貼上材料、題幹、四個選項、暫定答案與來源：＿＿</pre></div>
       <table><tr><th>第二答案或捷徑</th><td class="write tall"></td></tr><tr><th>最小修訂</th><td class="write"></td></tr><tr><th>AI 未處理的風險</th><td class="write"></td></tr></table>
     </div>
 
     <div class="task">
       <div class="task-head"><h2>任務三：同概念的難度題目對</h2><span class="time">7 分鐘</span></div>
-      <div class="prompt"><button class="copy" data-copy="pair">複製</button><pre id="pair">請以同一個社會科核心概念與相近材料主題，設計一題「基礎應用」與一題「精熟探究」。
+      <div class="prompt"><button class="copy" data-copy="pair">複製</button><pre id="pair">你是國中社會科評量設計助理。這是新對話的第一則訊息，請依最下方提供的完整資料，以同一個核心概念與相近材料主題設計一題「基礎應用」與一題「精熟探究」。資料不足時先指出缺漏，不要自行補寫事實。
 共同控制：教材版本中立、四選一、材料來源可查、選項同類且只有一個最佳答案。
 基礎題：一份必要刺激，完成一至兩步轉譯與概念應用。
 精熟題：加入間接線索、跨時空／區域／子科連結，完成兩至三步證據整合。
 禁止只靠增加字數、生僻知識或否定句提高難度。
-輸出兩題後，以表格比較刺激、推理鏈、干擾項來源與預期難點。兩題都標示為「AI 候選草稿」，不得自行宣稱已達會考同等級。</pre></div>
+輸出兩題後，以表格比較刺激、推理鏈、干擾項來源與預期難點。兩題都標示為「AI 候選草稿」，不得自行宣稱已達會考同等級。
+【本次資料】科目與單元：＿＿　核心概念：＿＿　學習內容：＿＿　作答材料：＿＿　來源：＿＿</pre></div>
       <table class="matrix"><tr><th>控制檢查</th><th>基礎題</th><th>精熟題</th></tr><tr><th>必用證據</th><td class="write"></td><td class="write"></td></tr><tr><th>推理鏈</th><td class="write"></td><td class="write"></td></tr><tr><th>可能捷徑</th><td class="write"></td><td class="write"></td></tr></table>
     </div>
     <div class="footer"><span>若精熟題只變長，重新設定推理操作</span><span>進階 2 / 3</span></div>
@@ -162,20 +173,20 @@
   <section class="sheet">
     <p class="label">B · 進階挑戰教材</p>
     <div class="task" style="margin-top:0">
-      <div class="task-head"><h2>任務四：Canvas 多變項概念體驗</h2><span class="time">6 分鐘</span></div>
-      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">請使用 Gemini Canvas 建立國中社會科概念互動活動，並將資料、狀態與畫面顯示分開，方便教師修改。
-核心概念：＿＿。學生要比較的兩個條件或角色：＿＿。可能被過度簡化之處：＿＿。
-學生至少能控制兩項條件，例如位置與交通圖層、事件順序與同時期背景、預算比例與利害關係人角色。
-每次操作後立即更新圖像或數值，並保留前一次結果供比較。學生須根據差異寫出解釋。
-加入教師模式，說明每個操作與概念的對應、資料來源或模擬假設，以及活動不能代表的情況。
-加入重新開始與狀態重設。成品不要求學生登入，也不蒐集個資；手機與投影清楚，支援鍵盤操作。
-完成後測試初始狀態、兩個單一變項、極端組合、重設、窄螢幕與鍵盤，逐項回報。</pre></div>
+      <div class="task-head"><h2>任務四：Canvas 出題介面與 API 選項</h2><span class="time">6 分鐘</span></div>
+      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">這是新對話的第一則訊息。請使用 Gemini Canvas 建立教師用的國中社會科出題介面，先保留完整可用的無 API 模式，再加入可關閉的 Gemini API 模式。
+欄位包含科目、年級、單元、難度、題數、學習內容、作答材料、來源與額外限制。內建三科命題規則、推理鏈、唯一最佳答案與干擾項迷思檢查。
+無 API 模式：產生並複製可貼入新 Gemini 對話的完整首輪提示，另有示範與重設。
+API 模式：Key 欄位預設遮蔽，只存在頁面記憶體，不寫入原始碼、網址或 localStorage。提供連線測試、生成按鈕與清楚錯誤訊息。
+遇到無權限、用量限制、503 或沒有文字回應時，不可假裝成功；保留完整提示供教師改用 Gemini 對話。
+輸出標示 AI 候選草稿，含題目、答案、逐項解析、來源與教師查核事項。支援手機、鍵盤與狀態重設。
+完成後測試無 Key、必填空白、三科切換、API 成功或模擬失敗、複製、重設與窄螢幕。</pre></div>
     </div>
     <h2>測試矩陣</h2>
-    <table class="matrix"><tr><th>狀態</th><th>預期結果</th><th>實際結果／待修正</th></tr><tr><th>初始狀態</th><td>說明清楚，不先暗示結論</td><td class="write"></td></tr><tr><th>改變條件一</th><td>畫面只呈現對應變化</td><td class="write"></td></tr><tr><th>改變條件二</th><td>可和前一結果比較</td><td class="write"></td></tr><tr><th>極端組合</th><td>結果合理，不會破版或失真</td><td class="write"></td></tr><tr><th>重新開始</th><td>所有條件與結果回到初始值</td><td class="write"></td></tr><tr><th>手機與鍵盤</th><td>無橫向捲動，焦點清楚</td><td class="write"></td></tr></table>
+    <table class="matrix"><tr><th>狀態</th><th>預期結果</th><th>實際結果／待修正</th></tr><tr><th>沒有 Key</th><td>仍可產生並複製完整提示</td><td class="write"></td></tr><tr><th>必填空白</th><td>指出缺少欄位，不送出任務</td><td class="write"></td></tr><tr><th>三科切換</th><td>規則與示例跟著科目改變</td><td class="write"></td></tr><tr><th>API 失敗</th><td>顯示原因並保留無 Key 備援</td><td class="write"></td></tr><tr><th>重新開始</th><td>清除材料、結果與記憶體中的 Key</td><td class="write"></td></tr><tr><th>手機與鍵盤</th><td>無橫向捲動，焦點清楚</td><td class="write"></td></tr></table>
     <h2>進階反思</h2>
-    <table><tr><th>學生控制哪些條件</th><td class="write"></td></tr><tr><th>畫面如何呈現概念關係</th><td class="write"></td></tr><tr><th>哪些情況可能被模型簡化</th><td class="write tall"></td></tr></table>
-    <div class="challenge"><b>進階完成標準</b><br>同伴能說明操作、畫面變化與社會科概念之間的對應；教師完成極端狀態測試，並指出活動的資料假設與適用範圍。</div>
+    <table><tr><th>介面收集哪些資料</th><td class="write"></td></tr><tr><th>哪些規則已經內建</th><td class="write"></td></tr><tr><th>API 失敗時如何繼續</th><td class="write tall"></td></tr></table>
+    <div class="challenge"><b>進階完成標準</b><br>無 Key 模式可以獨立完成出題流程；API 模式不會洩漏 Key，失敗時提供明確說明與可用備援。教師仍須查證每一題。</div>
     <div class="footer"><span>保留提示、版本差異與測試紀錄</span><span>進階 3 / 3</span></div>
   </section>
 

@@ -207,9 +207,35 @@
       line-height: 1;
     }
 
-    blockquote span {
+    .quote-copy {
       position: relative;
       z-index: 1;
+      display: block;
+      width: min(13em, 100%);
+    }
+
+    .quote-lead,
+    .quote-follow {
+      display: block;
+      width: 100%;
+      text-align: justify;
+      text-align-last: justify;
+      text-justify: inter-character;
+      white-space: nowrap;
+    }
+
+    .quote-lead {
+      color: var(--accent);
+      font-size: 1.45em;
+      line-height: 1.18;
+      letter-spacing: -.045em;
+    }
+
+    .quote-follow {
+      margin-top: 5px;
+      font-size: .96em;
+      line-height: 1.35;
+      letter-spacing: -.025em;
     }
 
     @media (max-width: 820px) {
@@ -296,7 +322,10 @@
         </ul>
 
         <blockquote>
-          <span>先敢想，再動手；<br>只要想得到，就能做得到。</span>
+          <span class="quote-copy">
+            <span class="quote-lead">先敢想，再動手；</span>
+            <span class="quote-follow">只要想得到，就能做得到。</span>
+          </span>
         </blockquote>
       </section>
     </article>

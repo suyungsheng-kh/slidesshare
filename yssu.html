@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="今日講師：高雄市立前峰國中資訊科技教師蘇永勝。">
+  <title>今日講師｜蘇永勝</title>
+  <style>
+    :root {
+      /* 套用到其他課程時，主要只需調整這組顏色。 */
+      --accent: #167f74;
+      --accent-rgb: 22, 127, 116;
+      --ink: #27332f;
+      --muted: #68736f;
+      --line: rgba(39, 51, 47, .18);
+      --page-gutter: clamp(24px, 5vw, 76px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: transparent;
+    }
+
+    body {
+      color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+
+    .instructor-page {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: clamp(38px, 6vh, 72px) var(--page-gutter);
+      background: transparent;
+    }
+
+    .instructor {
+      position: relative;
+      width: min(1180px, 100%);
+      display: grid;
+      grid-template-columns: minmax(300px, .82fr) minmax(430px, 1.18fr);
+      gap: clamp(42px, 6vw, 92px);
+      align-items: center;
+      padding: clamp(26px, 4vw, 52px) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .instructor::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: clamp(74px, 9vw, 120px);
+      height: 5px;
+      background: var(--accent);
+    }
+
+    .portrait {
+      position: relative;
+      margin: 0;
+      isolation: isolate;
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      z-index: -1;
+      border: 2px solid rgba(var(--accent-rgb), .5);
+    }
+
+    .portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center;
+      box-shadow: 0 18px 46px rgba(22, 44, 38, .15);
+    }
+
+    .portrait figcaption {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      padding: 8px 12px;
+      color: #fff;
+      background: rgba(24, 37, 33, .74);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      backdrop-filter: blur(6px);
+    }
+
+    .content { min-width: 0; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: clamp(13px, 1.1vw, 16px);
+      font-weight: 900;
+      letter-spacing: .18em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(58px, 7.3vw, 102px);
+      line-height: .98;
+      letter-spacing: -.075em;
+      font-weight: 900;
+    }
+
+    .identity {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      align-items: center;
+      margin: 24px 0 0;
+      font-size: clamp(18px, 1.7vw, 25px);
+      font-weight: 800;
+    }
+
+    .identity .divider {
+      width: 1px;
+      height: 1.1em;
+      background: var(--line);
+    }
+
+    .school { color: var(--muted); }
+
+    .bio {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.75;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      padding: 8px 14px;
+      border: 1px solid rgba(var(--accent-rgb), .45);
+      color: var(--accent);
+      font-size: clamp(14px, 1.1vw, 17px);
+      font-weight: 850;
+      letter-spacing: .035em;
+    }
+
+    blockquote {
+      position: relative;
+      margin: 36px 0 0;
+      padding: 19px 0 4px 28px;
+      border-left: 5px solid var(--accent);
+      font-size: clamp(23px, 2.4vw, 35px);
+      font-weight: 900;
+      line-height: 1.45;
+      letter-spacing: -.035em;
+    }
+
+    blockquote::before {
+      content: "“";
+      position: absolute;
+      left: 15px;
+      top: -29px;
+      color: rgba(var(--accent-rgb), .16);
+      font-family: Georgia, serif;
+      font-size: 90px;
+      line-height: 1;
+    }
+
+    blockquote span {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 820px) {
+      .instructor-page {
+        place-items: start center;
+        padding-block: 30px 48px;
+      }
+
+      .instructor {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        padding: 28px 0 38px;
+      }
+
+      .portrait {
+        width: min(460px, calc(100% - 16px));
+      }
+
+      .content { padding-top: 2px; }
+      h1 { font-size: clamp(58px, 18vw, 86px); }
+    }
+
+    @media (max-width: 480px) {
+      .identity {
+        display: grid;
+        gap: 5px;
+      }
+
+      .identity .divider { display: none; }
+      .bio { margin-top: 22px; }
+      .tags { margin-top: 22px; }
+      blockquote { margin-top: 30px; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .portrait,
+      .content {
+        animation: rise .65s ease-out both;
+      }
+
+      .content { animation-delay: .1s; }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    @media print {
+      .instructor-page { min-height: auto; padding: 28px; }
+      .instructor { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="instructor-page">
+    <article class="instructor" aria-labelledby="instructor-name">
+      <figure class="portrait">
+        <img src="yssu.png" alt="講師蘇永勝，背景為富士山與湖景" width="1254" height="1254">
+        <figcaption>今日講師</figcaption>
+      </figure>
+
+      <section class="content">
+        <p class="eyebrow">TODAY'S LECTURER · 今日講師</p>
+        <h1 id="instructor-name">蘇永勝</h1>
+
+        <p class="identity">
+          <span>資訊科技教師</span>
+          <span class="divider" aria-hidden="true"></span>
+          <span class="school">高雄市立前峰國中</span>
+        </p>
+
+        <p class="bio">深耕資訊科技教育二十餘年，專注於課程設計、課程統整與跨域共備，致力於把教學想法轉化為學生能參與、教師能共創的學習經驗。</p>
+
+        <ul class="tags" aria-label="講師專長">
+          <li>課程設計</li>
+          <li>課程統整</li>
+          <li>跨域共備</li>
+        </ul>
+
+        <blockquote>
+          <span>先敢想，再動手；<br>只要想得到，就能做得到。</span>
+        </blockquote>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="國中社會科 Gemini Canvas 互動活動示範：地理位置、歷史編排與公民公共參與。">
+  <title>社會科概念互動實驗室｜2026.10.22</title>
+  <style>
+    :root {
+      color-scheme:light;
+      --paper:#f3efe6;
+      --paper-deep:#e7dfd1;
+      --surface:#fffdf8;
+      --ink:#30443d;
+      --muted:#6d7b75;
+      --line:#d8d1c6;
+      --teal:#5b9c93;
+      --teal-soft:#d9eeea;
+      --violet:#8f86b8;
+      --violet-soft:#e9e5f2;
+      --coral:#d58a78;
+      --coral-soft:#f5e1dc;
+      --amber:#cda654;
+      --amber-soft:#f4ead1;
+      --forest:#334f46;
+      --shadow:0 18px 50px rgba(48,68,61,.11);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    button, input { font:inherit; }
+    button { color:inherit; }
+    a { color:inherit; text-underline-offset:4px; }
+    .skip-link { position:fixed; left:12px; top:-60px; z-index:100; padding:10px 14px; color:white; background:var(--forest); }
+    .skip-link:focus { top:12px; }
+    .topbar { position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:14px clamp(20px,4vw,64px); color:white; background:rgba(51,79,70,.97); }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:900; }
+    .brand-mark { width:18px; height:18px; background:linear-gradient(135deg,var(--teal-soft) 0 50%,var(--coral) 50%); transform:rotate(45deg); }
+    .topbar nav { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:18px; }
+    .topbar a { color:white; text-decoration:none; font-weight:800; }
+    .hero { display:grid; grid-template-columns:1.25fr .75fr; gap:56px; align-items:end; padding:72px clamp(24px,7vw,110px) 58px; background:linear-gradient(135deg,#fffdf8 0%,#eef7f4 58%,#f4eee8 100%); border-bottom:1px solid var(--line); }
+    .eyebrow { margin:0 0 16px; color:var(--teal); font-size:14px; font-weight:900; letter-spacing:.12em; }
+    h1 { margin:0; max-width:900px; font-size:clamp(42px,6vw,82px); line-height:1.03; letter-spacing:-.055em; }
+    .hero-lead { max-width:850px; margin:24px 0 0; color:var(--muted); font-size:clamp(18px,1.7vw,24px); line-height:1.65; }
+    .hero-note { padding:22px 0 0 22px; border-left:6px solid var(--coral); }
+    .hero-note strong { display:block; margin-bottom:9px; font-size:21px; }
+    .hero-note p { margin:0; color:var(--muted); line-height:1.65; }
+    main { width:min(1480px,calc(100% - 36px)); margin:0 auto; padding:42px 0 80px; }
+    .subject-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+    .subject-tab { min-height:62px; border:1px solid var(--line); background:rgba(255,253,248,.72); font-weight:900; font-size:18px; cursor:pointer; }
+    .subject-tab[aria-selected="true"] { color:white; border-color:var(--forest); background:var(--forest); }
+    .subject-tab:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline:4px solid rgba(91,156,147,.35); outline-offset:3px; }
+    .lab { display:none; }
+    .lab.active { display:block; }
+    .lab-head { display:flex; justify-content:space-between; gap:28px; align-items:end; margin:30px 0 22px; }
+    .lab-head h2 { margin:0; font-size:clamp(30px,3.2vw,48px); letter-spacing:-.04em; }
+    .lab-head p { max-width:680px; margin:0; color:var(--muted); font-size:17px; line-height:1.6; }
+    .activity-shell { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr); gap:22px; align-items:start; }
+    .stage, .control-panel { background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow); }
+    .stage { min-height:520px; padding:26px; }
+    .control-panel { padding:24px; }
+    .panel-label { display:block; margin-bottom:6px; color:var(--teal); font-size:12px; font-weight:900; letter-spacing:.13em; }
+    .control-panel h3, .stage h3 { margin:0 0 12px; font-size:23px; }
+    .control-panel p { color:var(--muted); line-height:1.55; }
+    fieldset { margin:0 0 22px; padding:0; border:0; }
+    legend, .field-label { display:block; margin-bottom:10px; font-weight:900; }
+    .choice-row { display:flex; flex-wrap:wrap; gap:8px; }
+    .choice { position:relative; }
+    .choice input { position:absolute; opacity:0; pointer-events:none; }
+    .choice span { display:block; padding:10px 13px; border:1px solid var(--line); background:var(--surface); cursor:pointer; font-weight:800; }
+    .choice input:checked + span { color:white; border-color:var(--forest); background:var(--forest); }
+    .choice input:focus-visible + span { outline:4px solid rgba(91,156,147,.35); outline-offset:3px; }
+    .range-line { display:flex; justify-content:space-between; gap:18px; align-items:baseline; margin-bottom:8px; }
+    input[type="range"] { width:100%; accent-color:var(--teal); }
+    .checks { display:grid; gap:10px; }
+    .check { display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-top:1px solid var(--line); cursor:pointer; }
+    .check input { width:20px; height:20px; margin-top:1px; accent-color:var(--teal); }
+    .button-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+    .btn { border:1px solid var(--forest); padding:11px 15px; background:transparent; cursor:pointer; font-weight:900; }
+    .btn.primary { color:white; background:var(--forest); }
+    .btn.ghost { border-color:var(--line); }
+    .result-note { margin-top:18px; padding:14px 16px; border-left:5px solid var(--teal); background:var(--teal-soft); line-height:1.55; }
+    .result-note.warn { border-left-color:var(--coral); background:var(--coral-soft); }
+    .source { margin:18px 0 0; color:var(--muted); font-size:13px; line-height:1.55; }
+    .geo-scene { position:relative; display:grid; grid-template-columns:1fr 120px 1fr; gap:0; align-items:stretch; min-height:330px; margin-top:24px; }
+    .district { position:relative; display:flex; flex-direction:column; justify-content:space-between; min-width:0; padding:26px; overflow:hidden; }
+    .district-a { background:linear-gradient(160deg,var(--teal-soft),#f7fbf9); }
+    .district-b { background:linear-gradient(160deg,var(--amber-soft),#fffaf0); }
+    .district h4 { margin:0 0 6px; font-size:27px; }
+    .district .place { color:var(--muted); font-size:14px; }
+    .district-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:50px; }
+    .district-stats div { padding-top:10px; border-top:3px solid currentColor; }
+    .district-stats b { display:block; font-size:28px; }
+    .district-stats span { color:var(--muted); font-size:13px; }
+    .job-pin { position:absolute; right:18px; top:18px; padding:7px 9px; color:white; background:var(--coral); font-size:13px; font-weight:900; }
+    .job-pin.hidden { display:none; }
+    .corridor { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(90deg,var(--teal-soft),var(--paper-deep),var(--amber-soft)); }
+    .corridor::before { content:""; width:100%; height:8px; background:var(--forest); opacity:.45; }
+    .flow-value { margin-top:12px; text-align:center; }
+    .flow-value b { display:block; font-size:30px; }
+    .flow-value span { color:var(--muted); font-size:12px; }
+    .flow-direction { margin-bottom:10px; font-size:28px; font-weight:900; letter-spacing:.15em; }
+    .challenge { margin-top:20px; padding:14px 16px; background:var(--violet-soft); line-height:1.55; }
+    .history-source { padding:18px 20px; background:var(--amber-soft); border-left:6px solid var(--amber); line-height:1.65; }
+    .sequence { display:grid; gap:10px; margin:22px 0 0; padding:0; list-style:none; }
+    .sequence-item { display:grid; grid-template-columns:45px 1fr auto; gap:12px; align-items:center; padding:13px 14px; border-top:1px solid var(--line); background:rgba(255,253,248,.72); }
+    .sequence-no { display:grid; place-items:center; width:36px; height:36px; color:white; background:var(--violet); font-weight:900; }
+    .sequence-item b { display:block; margin-bottom:3px; }
+    .sequence-item span { color:var(--muted); font-size:13px; }
+    .move-buttons { display:flex; gap:6px; }
+    .move-buttons button { width:38px; height:38px; border:1px solid var(--line); background:var(--surface); cursor:pointer; font-weight:900; }
+    .risk-line { margin-top:20px; padding:14px 16px; border-left:5px solid var(--coral); background:var(--coral-soft); }
+    .principles { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:24px; }
+    .principle { padding:16px; border-top:5px solid var(--teal); background:rgba(255,253,248,.72); }
+    .principle:nth-child(2) { border-color:var(--violet); }
+    .principle:nth-child(3) { border-color:var(--coral); }
+    .principle b { display:block; margin-bottom:5px; font-size:19px; }
+    .principle output { display:block; color:var(--muted); line-height:1.5; }
+    .procedure { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:26px; }
+    .procedure-step { min-height:126px; padding:14px; border-top:5px solid var(--line); background:rgba(255,253,248,.7); opacity:.42; }
+    .procedure-step.active { border-color:var(--teal); opacity:1; }
+    .procedure-step b { display:block; margin-bottom:8px; }
+    .procedure-step span { color:var(--muted); font-size:13px; line-height:1.45; }
+    .transfer { margin-top:28px; padding:24px; background:var(--surface); border-top:7px solid var(--violet); box-shadow:var(--shadow); }
+    .transfer h3 { margin:0 0 8px; font-size:24px; }
+    .transfer > p { margin:0 0 16px; color:var(--muted); line-height:1.55; }
+    details { border-top:1px solid var(--line); }
+    summary { padding:15px 0; cursor:pointer; font-weight:900; }
+    pre { margin:0 0 14px; padding:16px; overflow:auto; white-space:pre-wrap; color:var(--ink); background:var(--paper); font:700 14px/1.6 "Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    .page-footer { display:flex; justify-content:space-between; gap:22px; margin-top:36px; padding:24px 0; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+    .toast { position:fixed; right:22px; bottom:22px; z-index:50; padding:12px 16px; color:white; background:var(--forest); opacity:0; transform:translateY(12px); pointer-events:none; transition:.2s ease; }
+    .toast.show { opacity:1; transform:none; }
+    @media (max-width:980px) {
+      .hero, .activity-shell { grid-template-columns:1fr; }
+      .hero { gap:28px; }
+      .lab-head { display:block; }
+      .lab-head p { margin-top:10px; }
+      .control-panel { order:-1; }
+      .geo-scene { grid-template-columns:1fr; }
+      .corridor { min-height:110px; }
+      .corridor::before { width:8px; height:100%; position:absolute; }
+      .flow-direction { transform:rotate(90deg); }
+      .procedure { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:680px) {
+      .topbar { align-items:flex-start; flex-direction:column; }
+      .topbar nav { justify-content:flex-start; gap:12px; font-size:14px; }
+      .hero { padding-top:45px; }
+      main { width:min(100% - 22px,1480px); padding-top:24px; }
+      .subject-tabs { grid-template-columns:1fr; }
+      .stage, .control-panel { padding:18px; }
+      .district-stats, .principles, .procedure { grid-template-columns:1fr; }
+      .sequence-item { grid-template-columns:38px 1fr; }
+      .move-buttons { grid-column:1/-1; justify-content:flex-end; }
+      .page-footer { flex-direction:column; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .toast { transition:none; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#labs">跳到互動示範</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>社會科概念互動實驗室</span></div>
+    <nav aria-label="網站導覽">
+      <a href="20261022.html">研習簡報</a>
+      <a href="20261022_question.html">出題網站</a>
+      <a href="20261022_beginner.html">初階教材</a>
+      <a href="20261022_advanced.html">進階教材</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">GEMINI CANVAS · 三科互動示範</p>
+      <h1>同一題目，改造成可操作的概念體驗</h1>
+      <p class="hero-lead">三個活動都取自出題網站的內建示範題。學生不只選答案，還要改變條件、觀察畫面，再用證據解釋結果。</p>
+    </div>
+    <aside class="hero-note">
+      <strong>這是教學原型，不是事實模擬器</strong>
+      <p>地理數值與公民情境均為研習模擬資料；歷史活動呈現合理推論順序之一。教師正式使用前仍須查核資料與概念。</p>
+    </aside>
+  </section>
+
+  <main id="labs">
+    <div class="subject-tabs" role="tablist" aria-label="選擇互動示範">
+      <button class="subject-tab" id="tab-geography" role="tab" aria-selected="true" aria-controls="geography" data-tab="geography">地理 · 空間與人口移動</button>
+      <button class="subject-tab" id="tab-history" role="tab" aria-selected="false" aria-controls="history" data-tab="history">歷史 · 編年與因果</button>
+      <button class="subject-tab" id="tab-civics" role="tab" aria-selected="false" aria-controls="civics" data-tab="civics">公民 · 程序參與</button>
+    </div>
+
+    <section class="lab active" id="geography" role="tabpanel" aria-labelledby="tab-geography">
+      <div class="lab-head">
+        <div><span class="panel-label">01 · 地理位置與區域關係</span><h2>工作機會改變後，人口與通勤如何變化？</h2></div>
+        <p>改寫自「都市化與人口移動」示範題。調整就業中心位置及乙區公車班次，觀察青壯人口、人口老化與跨區通勤的關係。</p>
+      </div>
+      <div class="activity-shell">
+        <div class="stage">
+          <span class="panel-label">概念示意圖 · 數值為模擬指標</span>
+          <h3>甲、乙兩區的空間互動</h3>
+          <div class="geo-scene" aria-label="甲乙兩區概念示意圖">
+            <section class="district district-a" aria-label="甲區">
+              <div><h4>甲區</h4><span class="place">住宅與就業混合區</span><span class="job-pin" id="jobPinA">就業中心</span></div>
+              <div class="district-stats"><div><b id="geoYouthA">52</b><span>青壯人口指標</span></div><div><b id="geoJobsA">55</b><span>工作機會指標</span></div></div>
+            </section>
+            <div class="corridor" aria-label="兩區通勤走廊">
+              <div class="flow-direction" id="flowDirection" aria-hidden="true">⇄</div>
+              <div class="flow-value"><b id="geoCommuters">32</b><span>跨區通勤指標</span></div>
+            </div>
+            <section class="district district-b" aria-label="乙區">
+              <div><h4>乙區</h4><span class="place">住宅與高齡人口較多</span><span class="job-pin hidden" id="jobPinB">就業中心</span></div>
+              <div class="district-stats"><div><b id="geoSeniorB">22</b><span>高齡人口指標</span></div><div><b id="geoBusB">4</b><span>公車班次等級</span></div></div>
+            </section>
+          </div>
+          <div class="challenge"><b>學生任務：</b>找出最符合原題材料的組合：「甲區工作增加、甲區青壯人口上升、乙區人口老化，而且每天有大量跨區通勤。」</div>
+          <div class="result-note" id="geoFeedback" aria-live="polite"></div>
+          <p class="source">題目材料：甲、乙兩區原本人口相近。十年後，甲區工作機會增加，15 至 39 歲人口占比上升；乙區高齡人口占比提高，公車班次減少。兩區之間每天有大量通勤人口。</p>
+        </div>
+        <aside class="control-panel">
+          <span class="panel-label">操作條件</span>
+          <h3>改變空間吸引力</h3>
+          <fieldset>
+            <legend>主要就業中心</legend>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="jobCenter" value="a" checked><span>設在甲區</span></label>
+              <label class="choice"><input type="radio" name="jobCenter" value="balanced"><span>兩區平均</span></label>
+              <label class="choice"><input type="radio" name="jobCenter" value="b"><span>設在乙區</span></label>
+            </div>
+          </fieldset>
+          <label class="field-label" for="busLevel">乙區公車班次等級</label>
+          <div class="range-line"><span>較少</span><output id="busOutput" for="busLevel">4</output><span>較多</span></div>
+          <input id="busLevel" type="range" min="2" max="10" value="4" step="1">
+          <p>班次會影響跨區通勤是否容易，但不能單獨解釋人口移動。</p>
+          <div class="button-row"><button class="btn ghost" type="button" id="resetGeo">恢復題目情境</button></div>
+        </aside>
+      </div>
+      <section class="transfer">
+        <h3>帶回 Gemini Canvas</h3>
+        <p>以下提示保留這個活動的概念結構，教師可替換區域、指標與資料。</p>
+        <details><summary>查看可複製的地理活動提示</summary><pre id="geoPrompt">請用 Gemini Canvas 建立國中地理互動活動。以兩個虛擬區域呈現人口移動與跨區通勤。學生可選擇主要就業中心的位置，並調整大眾運輸班次。畫面要同步顯示兩區的工作機會、青壯人口、高齡人口與通勤量變化。數值須標示為教學模擬指標，不得假裝是真實統計。學生完成兩次操作後，請他引用畫面證據說明工作機會、人口結構與通勤的關係。加入重新開始、鍵盤操作及手機版面。</pre><button class="btn primary copy-prompt" type="button" data-copy="geoPrompt">複製提示</button></details>
+      </section>
+    </section>
+
+    <section class="lab" id="history" role="tabpanel" aria-labelledby="tab-history" hidden>
+      <div class="lab-head">
+        <div><span class="panel-label">02 · 歷史編排與因果</span><h2>茶葉出口如何改變地方社會？</h2></div>
+        <p>改寫自「清末臺灣茶葉出口與社會變遷」示範題。學生安排合理的推論順序，同時判斷海外價格風險位於歷史解釋中的位置。</p>
+      </div>
+      <div class="activity-shell">
+        <div class="stage">
+          <span class="panel-label">史料改寫 · 合理推論順序之一</span>
+          <div class="history-source">1880 年代，北部港口附近新設多間茶行，山區農民改種茶樹，搬運工與包裝工的需求增加；茶價則受海外市場影響，收入並不穩定。</div>
+          <ol class="sequence" id="historySequence" aria-label="歷史因果編排"></ol>
+          <div class="risk-line"><b>市場風險卡：</b>茶價受海外市場影響，收入並不穩定。這張卡應視為擴張過程中的伴隨條件，而不是所有事件結束後才出現的結果。</div>
+          <div class="result-note warn" id="historyFeedback" aria-live="polite">目前順序尚未檢查。請用上下按鈕調整卡片。</div>
+          <p class="source">本活動練習的是史料證據與因果推論。事件之間可能互相影響，不能把這一條排列當成唯一歷史真相。</p>
+        </div>
+        <aside class="control-panel">
+          <span class="panel-label">編排任務</span>
+          <h3>建立合理因果鏈</h3>
+          <p>先找外部條件，再找產業反應與社會影響。完成後檢查哪些變化可能同時發生。</p>
+          <fieldset>
+            <legend>價格波動應放在哪裡？</legend>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="riskPlace" value="start"><span>所有變化之前</span></label>
+              <label class="choice"><input type="radio" name="riskPlace" value="alongside" checked><span>伴隨出口擴張</span></label>
+              <label class="choice"><input type="radio" name="riskPlace" value="end"><span>所有變化之後</span></label>
+            </div>
+          </fieldset>
+          <div class="button-row"><button class="btn primary" type="button" id="checkHistory">檢查編排</button><button class="btn ghost" type="button" id="resetHistory">重新排列</button></div>
+        </aside>
+      </div>
+      <section class="transfer">
+        <h3>帶回 Gemini Canvas</h3>
+        <p>歷史互動活動要保留多重因果與資料限制，避免把複雜變遷簡化成唯一線性答案。</p>
+        <details><summary>查看可複製的歷史活動提示</summary><pre id="historyPrompt">請用 Gemini Canvas 建立國中歷史編排活動。材料主題是清末臺灣茶葉出口與地方社會變遷。提供四張可重新排序的事件卡：海外需求增加、港口出口貿易擴張、農民改種茶樹與茶行增加、搬運與包裝工作需求增加。另設一張「海外價格波動」卡，要求學生判斷它是伴隨條件，不是單一終點。學生檢查後，說明排序使用了哪些史料證據。頁面必須提醒：這只是合理推論之一，事件可能同時發生或互相影響。支援鍵盤、重新排列與手機版面。</pre><button class="btn primary copy-prompt" type="button" data-copy="historyPrompt">複製提示</button></details>
+      </section>
+    </section>
+
+    <section class="lab" id="civics" role="tabpanel" aria-labelledby="tab-civics" hidden>
+      <div class="lab-head">
+        <div><span class="panel-label">03 · 公民程序體驗</span><h2>誰能參與，如何公開，又何時檢討？</h2></div>
+        <p>改寫自「校園公共議題與程序參與」示範題。調整參與角色及程序步驟，觀察公共決策的參與、透明與課責是否完整。</p>
+      </div>
+      <div class="activity-shell">
+        <div class="stage">
+          <span class="panel-label">研習模擬情境 · 不代表特定學校規定</span>
+          <h3>手機使用規範修訂流程</h3>
+          <div class="procedure" aria-label="規範修訂程序">
+            <div class="procedure-step" id="stepOpinions"><b>01 蒐集意見</b><span id="opinionSummary">學生、教師、家長、行政皆納入</span></div>
+            <div class="procedure-step" id="stepMeeting"><b>02 公開討論</b><span>比較不同角色的需求與理由</span></div>
+            <div class="procedure-step" id="stepPublish"><b>03 公開理由</b><span>公告會議紀錄與修正理由</span></div>
+            <div class="procedure-step" id="stepReview"><b>04 試行檢討</b><span>試行一個月後再評估</span></div>
+          </div>
+          <div class="principles">
+            <div class="principle"><b>參與</b><output id="participationOutput">多方角色均有表達機會</output></div>
+            <div class="principle"><b>透明</b><output id="transparencyOutput">理由與紀錄對外公開</output></div>
+            <div class="principle"><b>課責與修正</b><output id="reviewOutput">試行後可以檢討調整</output></div>
+          </div>
+          <div class="result-note" id="civicsFeedback" aria-live="polite"></div>
+          <p class="source">本活動評估的是程序是否納入意見、公開理由並保留修正機會，不判定哪一種手機規範必然最好。</p>
+        </div>
+        <aside class="control-panel">
+          <span class="panel-label">程序條件</span>
+          <h3>調整決策流程</h3>
+          <fieldset>
+            <legend>哪些角色可以參與？</legend>
+            <div class="checks">
+              <label class="check"><input type="checkbox" name="stakeholder" value="學生" checked><span><b>學生代表</b><br>提供使用情境與權利需求</span></label>
+              <label class="check"><input type="checkbox" name="stakeholder" value="教師" checked><span><b>教師代表</b><br>說明課堂秩序與教學需求</span></label>
+              <label class="check"><input type="checkbox" name="stakeholder" value="家長" checked><span><b>家長代表</b><br>提出聯絡與照顧考量</span></label>
+              <label class="check"><input type="checkbox" name="stakeholder" value="行政" checked><span><b>行政代表</b><br>說明執行方式與責任</span></label>
+            </div>
+          </fieldset>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="publishReasons" checked><span><b>公告紀錄與理由</b><br>讓未參與者也能理解決策依據</span></label>
+            <label class="check"><input type="checkbox" id="trialReview" checked><span><b>試行後再檢討</b><br>依實際影響修正規範</span></label>
+          </div>
+          <div class="button-row"><button class="btn ghost" type="button" id="resetCivics">恢復完整程序</button></div>
+        </aside>
+      </div>
+      <section class="transfer">
+        <h3>帶回 Gemini Canvas</h3>
+        <p>公民活動應呈現程序與價值取捨，不要把某一角色的偏好設定成唯一正確答案。</p>
+        <details><summary>查看可複製的公民活動提示</summary><pre id="civicsPrompt">請用 Gemini Canvas 建立國中公民公共參與體驗。情境是學校修訂手機使用規範。學生可勾選學生、教師、家長與行政等參與角色，也能決定是否公告會議紀錄與修正理由、是否試行後再檢討。畫面即時呈現「參與、透明、課責與修正」三項程序觀察，並指出缺少哪些聲音或步驟。不得把某一手機規範立場設定成唯一正解。活動結束時請學生區分「我是否喜歡結果」與「程序是否合理」。加入重新開始、鍵盤操作與手機版面，不蒐集姓名或意見內容。</pre><button class="btn primary copy-prompt" type="button" data-copy="civicsPrompt">複製提示</button></details>
+      </section>
+    </section>
+
+    <footer class="page-footer"><span>2026.10.22 國中社會科 AI 研習</span><span>三個示範皆取自 <a href="20261022_question.html">社會科素養題實驗室</a>的內建題目</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite">已複製提示</div>
+
+  <script>
+    (() => {
+      const tabs = [...document.querySelectorAll('.subject-tab')];
+      const labs = [...document.querySelectorAll('.lab')];
+      const toast = document.getElementById('toast');
+
+      function showTab(id, focus=false) {
+        tabs.forEach(tab => {
+          const selected = tab.dataset.tab === id;
+          tab.setAttribute('aria-selected', String(selected));
+          if (selected && focus) tab.focus();
+        });
+        labs.forEach(lab => {
+          const active = lab.id === id;
+          lab.classList.toggle('active', active);
+          lab.hidden = !active;
+        });
+        history.replaceState(null, '', `#${id}`);
+      }
+
+      tabs.forEach((tab,index) => {
+        tab.addEventListener('click', () => showTab(tab.dataset.tab));
+        tab.addEventListener('keydown', event => {
+          if (!['ArrowLeft','ArrowRight'].includes(event.key)) return;
+          event.preventDefault();
+          const delta = event.key === 'ArrowRight' ? 1 : -1;
+          const next = (index + delta + tabs.length) % tabs.length;
+          showTab(tabs[next].dataset.tab, true);
+        });
+      });
+
+      const busLevel = document.getElementById('busLevel');
+      const busOutput = document.getElementById('busOutput');
+      const geoFeedback = document.getElementById('geoFeedback');
+
+      function updateGeography() {
+        const center = document.querySelector('input[name="jobCenter"]:checked').value;
+        const bus = Number(busLevel.value);
+        const data = center === 'a'
+          ? {jobsA:86,youthA:64,seniorB:31,direction:'→',base:25}
+          : center === 'b'
+            ? {jobsA:38,youthA:43,seniorB:20,direction:'←',base:22}
+            : {jobsA:58,youthA:52,seniorB:24,direction:'⇄',base:16};
+        const commuters = Math.round(data.base + bus * (center === 'balanced' ? 2.5 : 4.5));
+        document.getElementById('geoJobsA').textContent = data.jobsA;
+        document.getElementById('geoYouthA').textContent = data.youthA;
+        document.getElementById('geoSeniorB').textContent = data.seniorB;
+        document.getElementById('geoBusB').textContent = bus;
+        document.getElementById('geoCommuters').textContent = commuters;
+        document.getElementById('flowDirection').textContent = data.direction;
+        document.getElementById('jobPinA').classList.toggle('hidden', center !== 'a');
+        document.getElementById('jobPinB').classList.toggle('hidden', center !== 'b');
+        busOutput.value = bus;
+        if (center === 'a' && bus >= 5) {
+          geoFeedback.className = 'result-note';
+          geoFeedback.innerHTML = '<b>符合材料的主要關係。</b> 甲區工作吸引青壯人口，乙區人口結構相對老化；交通條件允許部分居民跨區通勤。';
+        } else if (center === 'a') {
+          geoFeedback.className = 'result-note warn';
+          geoFeedback.innerHTML = '<b>人口移動方向符合，但通勤量偏低。</b> 試著提高交通可達性，再比較「搬到甲區」與「住在乙區、到甲區工作」的差別。';
+        } else {
+          geoFeedback.className = 'result-note warn';
+          geoFeedback.innerHTML = '<b>目前條件無法同時解釋原題。</b> 原材料指出甲區工作與青壯人口增加，請重新考慮就業中心的位置。';
+        }
+      }
+      document.querySelectorAll('input[name="jobCenter"]').forEach(input => input.addEventListener('change', updateGeography));
+      busLevel.addEventListener('input', updateGeography);
+      document.getElementById('resetGeo').addEventListener('click', () => {
+        document.querySelector('input[name="jobCenter"][value="a"]').checked = true;
+        busLevel.value = 4;
+        updateGeography();
+      });
+
+      const historyCards = {
+        demand:{title:'海外市場需求增加',note:'外部需求成為出口擴張的條件'},
+        export:{title:'港口出口貿易擴張',note:'茶行與交易活動增加'},
+        farm:{title:'農民改種茶樹',note:'生產方式回應商品市場'},
+        jobs:{title:'搬運與包裝工作增加',note:'產業擴張改變地方分工'}
+      };
+      let historyOrder = ['farm','demand','jobs','export'];
+      const historySequence = document.getElementById('historySequence');
+      const historyFeedback = document.getElementById('historyFeedback');
+
+      function renderHistory() {
+        historySequence.innerHTML = historyOrder.map((id,index) => `<li class="sequence-item"><span class="sequence-no">${index+1}</span><div><b>${historyCards[id].title}</b><span>${historyCards[id].note}</span></div><div class="move-buttons"><button type="button" data-move="up" data-id="${id}" aria-label="將${historyCards[id].title}往前移" ${index===0?'disabled':''}>↑</button><button type="button" data-move="down" data-id="${id}" aria-label="將${historyCards[id].title}往後移" ${index===historyOrder.length-1?'disabled':''}>↓</button></div></li>`).join('');
+      }
+      historySequence.addEventListener('click', event => {
+        const button = event.target.closest('button[data-move]');
+        if (!button) return;
+        const index = historyOrder.indexOf(button.dataset.id);
+        const next = button.dataset.move === 'up' ? index - 1 : index + 1;
+        if (next < 0 || next >= historyOrder.length) return;
+        [historyOrder[index], historyOrder[next]] = [historyOrder[next], historyOrder[index]];
+        renderHistory();
+        historyFeedback.className = 'result-note warn';
+        historyFeedback.textContent = '順序已改變。請再檢查每一張卡與史料證據的關係。';
+      });
+      document.getElementById('checkHistory').addEventListener('click', () => {
+        const expected = ['demand','export','farm','jobs'];
+        const exact = expected.every((id,index) => historyOrder[index] === id);
+        const risk = document.querySelector('input[name="riskPlace"]:checked').value;
+        if (exact && risk === 'alongside') {
+          historyFeedback.className = 'result-note';
+          historyFeedback.innerHTML = '<b>編排合理。</b> 你先用海外需求解釋出口擴張，再連結生產與工作分工；價格風險則伴隨出口市場，而非最後才突然出現。';
+        } else {
+          const firstIssue = historyOrder[0] !== 'demand' ? '先找出推動出口擴張的外部條件。' : '再檢查出口、生產與工作分工之間的順序。';
+          const riskIssue = risk !== 'alongside' ? '價格波動應視為伴隨出口擴張的條件。' : '';
+          historyFeedback.className = 'result-note warn';
+          historyFeedback.innerHTML = `<b>還有可調整之處。</b> ${firstIssue} ${riskIssue}`;
+        }
+      });
+      document.getElementById('resetHistory').addEventListener('click', () => {
+        historyOrder = ['farm','demand','jobs','export'];
+        document.querySelector('input[name="riskPlace"][value="alongside"]').checked = true;
+        renderHistory();
+        historyFeedback.className = 'result-note warn';
+        historyFeedback.textContent = '已重新排列。請從史料找出外部條件、產業反應與社會影響。';
+      });
+
+      const stakeholders = [...document.querySelectorAll('input[name="stakeholder"]')];
+      const publishReasons = document.getElementById('publishReasons');
+      const trialReview = document.getElementById('trialReview');
+      function updateCivics() {
+        const selected = stakeholders.filter(input => input.checked).map(input => input.value);
+        const missing = stakeholders.filter(input => !input.checked).map(input => input.value);
+        const broad = selected.length >= 3 && selected.includes('學生');
+        document.getElementById('stepOpinions').classList.toggle('active', selected.length > 0);
+        document.getElementById('stepMeeting').classList.toggle('active', selected.length >= 2);
+        document.getElementById('stepPublish').classList.toggle('active', publishReasons.checked);
+        document.getElementById('stepReview').classList.toggle('active', trialReview.checked);
+        document.getElementById('opinionSummary').textContent = selected.length ? `納入：${selected.join('、')}` : '沒有角色能表達意見';
+        document.getElementById('participationOutput').textContent = broad ? '包含學生及多方角色' : missing.length ? `仍缺少：${missing.join('、')}` : '參與角色不足';
+        document.getElementById('transparencyOutput').textContent = publishReasons.checked ? '理由與紀錄對外公開' : '未公開決策依據';
+        document.getElementById('reviewOutput').textContent = trialReview.checked ? '試行後可以檢討調整' : '缺少實施後的修正機會';
+        const complete = broad && publishReasons.checked && trialReview.checked;
+        const feedback = document.getElementById('civicsFeedback');
+        if (complete) {
+          feedback.className = 'result-note';
+          feedback.innerHTML = '<b>程序較完整。</b> 多方角色能表達意見，決策理由公開，也保留試行後修正的機會。這正是原題答案所強調的參與與課責。';
+        } else {
+          const gaps = [];
+          if (!broad) gaps.push('參與角色不夠完整');
+          if (!publishReasons.checked) gaps.push('決策理由不透明');
+          if (!trialReview.checked) gaps.push('缺少檢討機制');
+          feedback.className = 'result-note warn';
+          feedback.innerHTML = `<b>程序仍有缺口。</b> ${gaps.join('；')}。結果可能仍受歡迎，但程序合理性需要另外判斷。`;
+        }
+      }
+      stakeholders.forEach(input => input.addEventListener('change', updateCivics));
+      publishReasons.addEventListener('change', updateCivics);
+      trialReview.addEventListener('change', updateCivics);
+      document.getElementById('resetCivics').addEventListener('click', () => {
+        stakeholders.forEach(input => input.checked = true);
+        publishReasons.checked = true;
+        trialReview.checked = true;
+        updateCivics();
+      });
+
+      async function copyText(text) {
+        if (navigator.clipboard?.writeText) {
+          try { await navigator.clipboard.writeText(text); return; } catch {}
+        }
+        const area = document.createElement('textarea');
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+      }
+      document.querySelectorAll('.copy-prompt').forEach(button => button.addEventListener('click', async () => {
+        await copyText(document.getElementById(button.dataset.copy).innerText);
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1400);
+      }));
+
+      const initial = ['geography','history','civics'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'geography';
+      showTab(initial);
+      updateGeography();
+      renderHistory();
+      updateCivics();
+    })();
+  </script>
+</body>
+</html>

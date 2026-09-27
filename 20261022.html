@@ -93,12 +93,36 @@
       box-shadow:var(--shadow);
     }
     .instructor-copy { min-width:0; padding:24px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-    .instructor-copy h1 { margin-bottom:18px; font-size:clamp(66px,7vw,112px); }
-    .instructor-identity { margin:0; font-size:clamp(23px,2vw,34px); font-weight:850; line-height:1.45; }
-    .instructor-school { color:var(--muted); font-weight:750; }
-    .instructor-bio { max-width:720px; margin:24px 0 0; color:var(--muted); font-size:clamp(19px,1.55vw,25px); line-height:1.68; }
-    .instructor-expertise { margin:22px 0 0; color:var(--teal); font-size:clamp(17px,1.3vw,22px); font-weight:900; letter-spacing:.04em; }
-    .instructor-quote { margin:28px 0 0; padding:12px 0 12px 24px; border-left:6px solid var(--coral); font-size:clamp(24px,2.25vw,36px); font-weight:900; line-height:1.4; }
+    .instructor-eyebrow {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin:0 0 14px;
+      color:var(--teal);
+      font-size:clamp(13px,1.1vw,16px);
+      font-weight:900;
+      letter-spacing:.18em;
+    }
+    .instructor-eyebrow::before { content:""; width:34px; height:2px; background:currentColor; }
+    .instructor-copy h1 { margin:0; font-size:clamp(64px,6.5vw,104px); line-height:.98; letter-spacing:-.075em; }
+    .instructor-identity { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin:18px 0 0; font-size:clamp(19px,1.65vw,26px); font-weight:850; }
+    .instructor-divider { width:1px; height:1.1em; background:var(--line); }
+    .instructor-school { color:var(--muted); }
+    .instructor-bio { max-width:720px; margin:20px 0 0; color:var(--muted); font-size:clamp(17px,1.35vw,21px); line-height:1.58; }
+    .instructor-bio-line { display:block; text-align:justify; text-align-last:justify; text-justify:inter-character; }
+    .instructor-bio-line:last-child { text-align:left; text-align-last:left; }
+    .instructor-keep { white-space:nowrap; }
+    .instructor-tags { display:flex; flex-wrap:wrap; gap:9px; margin:20px 0 0; padding:0; list-style:none; }
+    .instructor-tags li { padding:6px 12px; border:1px solid rgba(79,145,136,.5); color:var(--teal); font-size:clamp(13px,1vw,16px); font-weight:850; letter-spacing:.035em; white-space:nowrap; }
+    .instructor-quote { position:relative; margin:22px 0 0; padding:14px 0 4px 24px; border-left:5px solid var(--coral); font-size:clamp(21px,2vw,31px); font-weight:900; line-height:1.38; letter-spacing:-.035em; }
+    .instructor-quote::before { content:"“"; position:absolute; left:12px; top:-24px; color:rgba(79,145,136,.16); font-family:Georgia,serif; font-size:76px; line-height:1; }
+    .instructor-quote-copy { position:relative; z-index:1; display:block; width:min(13em,100%); }
+    .instructor-quote-lead, .instructor-quote-follow { display:grid; grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr); align-items:center; gap:12px; width:100%; white-space:nowrap; }
+    .instructor-quote-part:first-child { text-align:right; }
+    .instructor-quote-part:last-child { text-align:left; }
+    .instructor-quote-divider { width:100%; height:2px; background:currentColor; opacity:.65; }
+    .instructor-quote-lead { color:var(--teal); font-size:1.35em; line-height:1.15; }
+    .instructor-quote-follow { margin-top:4px; font-size:.9em; line-height:1.3; }
     .section-slide { padding-left:12vw; }
     .section-slide .section-no {
       position:absolute;
@@ -407,6 +431,12 @@
       .controls button { width:44px; height:44px; }
       .overview-grid { grid-template-columns:1fr 1fr; }
     }
+    @media (max-width:480px) {
+      .instructor-identity { display:grid; gap:5px; }
+      .instructor-divider { display:none; }
+      .instructor-bio-line { display:inline; text-align:left; text-align-last:auto; }
+      .instructor-quote-lead, .instructor-quote-follow { grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr); gap:8px; }
+    }
     @media print {
       body { overflow:visible; background:white; }
       .slide { display:flex !important; width:13.333in; height:7.5in; min-height:0; page-break-after:always; }
@@ -422,12 +452,17 @@
         <img src="yssu.png" alt="講師蘇永勝，背景為富士山與湖景" width="1254" height="1254">
       </figure>
       <div class="instructor-copy">
-        <p class="kicker">TODAY'S LECTURER · 今日講師</p>
+        <p class="instructor-eyebrow">TODAY'S LECTURER · 今日講師</p>
         <h1>蘇永勝</h1>
-        <p class="instructor-identity">資訊科技教師<br><span class="instructor-school">高雄市立前峰國中</span></p>
-        <p class="instructor-bio">深耕資訊科技教育二十餘年，專注課程設計、課程統整與跨域共備，致力於把教學想法轉化為學生能參與、教師能共創的學習經驗。</p>
-        <p class="instructor-expertise">課程設計　／　課程統整　／　跨域共備</p>
-        <blockquote class="instructor-quote">先敢想，再動手<br><span class="accent">只要想得到，就能做得到</span></blockquote>
+        <p class="instructor-identity"><span>資訊科技教師</span><span class="instructor-divider" aria-hidden="true"></span><span class="instructor-school">高雄市立前峰國中</span></p>
+        <p class="instructor-bio"><span class="instructor-bio-line"><span class="instructor-keep">深耕資訊科技教育二十餘年</span>，專注於<span class="instructor-keep">課程設計</span>、<span class="instructor-keep">課程統整</span>與</span><span class="instructor-bio-line"><span class="instructor-keep">跨域共備</span>，致力於把<span class="instructor-keep">教學想法</span>轉化為<span class="instructor-keep">學生能參與</span>、<span class="instructor-keep">教師能共創</span></span><span class="instructor-bio-line">的<span class="instructor-keep">學習經驗</span>。</span></p>
+        <ul class="instructor-tags" aria-label="講師專長"><li>課程設計</li><li>課程統整</li><li>跨域共備</li></ul>
+        <blockquote class="instructor-quote">
+          <span class="instructor-quote-copy">
+            <span class="instructor-quote-lead" aria-label="先敢想，再動手"><span class="instructor-quote-part">先敢想</span><span class="instructor-quote-divider" aria-hidden="true"></span><span class="instructor-quote-part">再動手</span></span>
+            <span class="instructor-quote-follow" aria-label="只要想得到，就能做得到"><span class="instructor-quote-part">只要想得到</span><span class="instructor-quote-divider" aria-hidden="true"></span><span class="instructor-quote-part">就能做得到</span></span>
+          </span>
+        </blockquote>
       </div>
     </div>
     <div class="footer"><span>2026.10.22 · 國中社會科教師研習</span><span class="page"></span></div>

@@ -78,6 +78,32 @@
     .tag { display: inline-block; padding: 8px 15px; border-radius: 999px; font-size: clamp(16px, 1.3vw, 21px); font-weight: 800; background: var(--mint); color: #805f55; transform: rotate(-2deg); }
     .lecturer { margin-top: 36px; display: inline-flex; align-items: center; gap: 14px; font-size: clamp(21px, 1.75vw, 29px); font-weight: 700; }
     .lecturer::before { content: ""; display: block; width: 15px; height: 15px; border-radius: 50%; background: var(--terracotta); box-shadow: 11px 0 0 #eed6cb; }
+    .instructor-layout {
+      width: min(1180px, 100%); display: grid; grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr);
+      gap: clamp(42px, 6vw, 90px); align-items: center; margin-top: 10px;
+    }
+    .instructor-portrait {
+      position: relative; margin: 0; width: min(100%, 390px); justify-self: center;
+    }
+    .instructor-portrait::before {
+      content: ""; position: absolute; inset: 20px -18px -18px 18px; z-index: 0;
+      border: 2px solid rgba(189,123,104,.55); transform: rotate(1deg);
+    }
+    .instructor-portrait img {
+      position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
+      object-position: center; border: 1px solid #d7a392; box-shadow: 7px 9px 0 rgba(189,123,104,.14);
+    }
+    .instructor-portrait figcaption {
+      position: absolute; z-index: 2; right: 13px; bottom: 13px; padding: 7px 11px;
+      color: var(--paper); background: rgba(77,72,66,.78); font-size: 15px; font-weight: 800; letter-spacing: .11em;
+    }
+    .instructor-copy { min-width: 0; }
+    .instructor-name { margin: 0; font-size: clamp(54px, 6vw, 92px); line-height: 1; letter-spacing: -.065em; }
+    .instructor-identity { margin: 22px 0 0; color: var(--ink-soft); font-size: clamp(21px, 1.75vw, 29px); font-weight: 800; }
+    .instructor-bio { max-width: 690px; margin: 25px 0 0; color: var(--ink-soft); font-size: clamp(20px, 1.65vw, 27px); line-height: 1.68; }
+    .expertise { display: flex; flex-wrap: wrap; gap: 12px; margin: 25px 0 0; padding: 0; list-style: none; }
+    .expertise li { padding: 9px 15px; color: #805f55; background: #faece5; border: 1px solid #d7a392; font-size: clamp(17px, 1.3vw, 21px); font-weight: 800; }
+    .instructor-quote { margin: 28px 0 0; padding: 9px 0 8px 24px; border-left: 5px solid var(--terracotta); color: #6d5047; font-size: clamp(27px, 2.4vw, 39px); font-weight: 900; line-height: 1.45; letter-spacing: -.04em; }
     .grid { display: grid; gap: 32px; max-width: 1180px; }
     .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -169,6 +195,8 @@
       .slide::before, .slide::after { display: none; }
       .two, .three, .agenda, .role, .case, .activity-options { grid-template-columns: 1fr; }
       .equal-cards { grid-template-rows: none; height: auto; }
+      .instructor-layout { grid-template-columns: 1fr; gap: 28px; }
+      .instructor-portrait { width: min(350px, 90%); justify-self: start; }
       .path, .toolgrid { grid-template-columns: 1fr 1fr; }
       .comparison { grid-template-columns: 1fr; }
       .caption { left: 32px; bottom: 25px; font-size: 17px; } .page { right: 32px; bottom: 25px; font-size: 17px; }
@@ -184,6 +212,28 @@
       <p class="lead">從 Gemini 單頁原型到可持續維護的數位課程網站：<br>ESP32 × motoBlockly 的設計、測試與 AI 協作歷程</p>
       <p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p>
       <span class="page">01 / 30</span>
+    </section>
+
+    <section class="slide instructor-slide">
+      <p class="eyebrow">TODAY'S LECTURER · 今日講師</p>
+      <div class="instructor-layout">
+        <figure class="instructor-portrait">
+          <img src="yssu.png" alt="講師蘇永勝" width="1254" height="1254">
+          <figcaption>今日講師</figcaption>
+        </figure>
+        <div class="instructor-copy">
+          <h2 class="instructor-name">蘇永勝</h2>
+          <p class="instructor-identity">資訊科技教師 · 高雄市立前峰國中</p>
+          <p class="instructor-bio">深耕資訊科技教育二十餘年，專注於課程設計、課程統整與跨域共備；致力於把教學想法轉化為學生能參與、教師能共創的學習經驗。</p>
+          <ul class="expertise" aria-label="講師專長">
+            <li>課程設計</li>
+            <li>課程統整</li>
+            <li>跨域共備</li>
+          </ul>
+          <p class="instructor-quote">先敢想，再動手；<br>只要想得到，就能做得到。</p>
+        </div>
+      </div>
+      <p class="caption">講師介紹</p><span class="page"></span>
     </section>
 
     <section class="slide"><p class="overline">今天想分享的，不是工具清單。</p><div class="quote">而是：如何讓不同基礎、不同理解速度的學生，都能在同一個單元中找到可前進的下一步。</div><p class="caption">分享的主線</p><span class="page">02 / 30</span></section>

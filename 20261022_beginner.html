@@ -43,6 +43,10 @@
     .beginner-start .checks li { padding-top:5px; padding-bottom:5px; }
     .beginner-start table { margin:8px 0; }
     .beginner-start th, .beginner-start td { padding:6px 8px; }
+    .quality-sheet table { margin:8px 0; }
+    .quality-sheet th, .quality-sheet td { padding:5px 8px; }
+    .quality-sheet .task { margin:11px 0 13px; padding-top:8px; }
+    .quality-sheet .notice { margin:9px 0; padding:8px 12px; }
     .adobe-sheet h1 { font-size:25pt; }
     .adobe-sheet .lead { font-size:10.8pt; }
     .adobe-sheet .activation-grid { gap:8px 20px; margin:12px 0; }
@@ -85,7 +89,7 @@
   </style>
 </head>
 <body>
-  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="20261022_question.html">出題介面參考版</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="20261022_canvas.html">互動延伸</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
+  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
 
   <section class="sheet">
     <p class="label">共同準備 · 高雄市教師 Edcafe 授權升級</p>
@@ -136,16 +140,16 @@
 
   <section class="sheet beginner-start">
     <p class="label">A · 初階操作教材</p>
-    <h1>第一次完整走完 AI 備課流程</h1>
-    <p class="lead">先從出版社取得學校選用版本的課程 PDF，再完成一份小測、一題經過審查的素養題，以及一個可重複使用的教師出題介面。</p>
+    <h1>從課本 PDF 做出可派送小測</h1>
+    <p class="lead">依序完成 Edcafe 與 Adobe 授權、出版社登入、PDF 擷取、Edcafe 出題、五項品質檢查與學生預覽。</p>
     <div class="meta"><div>姓名／組別<div class="blank"></div></div><div>今天使用的單元<div class="blank"></div></div></div>
     <div class="route">
-      <div><b>01 教材＋Edcafe</b><span>OpenID 取 PDF，再做成小測</span></div>
-      <div><b>02 Gemini</b><span>用固定提示審查題目</span></div>
-      <div><b>03 試題生成</b><span>完成一題基礎應用題</span></div>
-      <div><b>04 Canvas</b><span>把命題規則做成教師出題介面</span></div>
+      <div><b>01 取得教材</b><span>OpenID 登入出版社，下載 PDF</span></div>
+      <div><b>02 編修 PDF</b><span>只保留本次需要的頁面</span></div>
+      <div><b>03 Edcafe 出題</b><span>上傳 PDF，產生 3 題</span></div>
+      <div><b>04 審題派送</b><span>逐題過五關，學生預覽測試</span></div>
     </div>
-    <div class="success"><b>全程共同定位</b><br>AI 只提供候選草稿。教師必須查核事實、答案唯一性、材料必要性與學生適切性，才能決定是否使用。</div>
+    <div class="success"><b>初階完成作品</b><br>一份由教材 PDF 生成、教師已修訂並以學生視角試做的 Edcafe 小測。三題都通過五項檢查後才派送。</div>
 
     <div class="task">
       <div class="task-head"><h2>材料準備：出版社課程 PDF</h2><span class="time">3 分鐘</span></div>
@@ -162,75 +166,67 @@
         <li>從高雄市入口確認授權後，開啟 Edcafe、登入原帳號並選擇 Quiz。</li>
         <li>貼入剛整理的 300 至 600 字，或上傳只含必要頁面的 PDF。</li>
         <li>指定「國中九年級、社會科、四選一、3 題」。</li>
-        <li>逐題核對答案，挑一個最弱的錯誤選項改寫。</li>
-        <li>開啟學生預覽，完成一次作答並查看回饋。</li>
+        <li>先標記 AI 產生的 3 題為候選草稿，逐題與原始 PDF 核對答案。</li>
+        <li>三題都要逐項檢查；選最需修改的一題，於下一頁詳細記錄修訂。</li>
       </ul>
-      <table><tr><th>我修改的題號</th><td></td></tr><tr><th>修改原因</th><td class="write"></td></tr><tr><th>學生最可能誤選</th><td></td></tr></table>
+      <table><tr><th>準備審查的題號</th><td></td></tr><tr><th>教材來源／頁碼</th><td class="write"></td></tr><tr><th>暫定答案</th><td></td></tr></table>
     </div>
     <div class="footer"><span>2026.10.22 國中社會科 AI 研習</span><span>初階 1 / 3</span></div>
   </section>
 
-  <section class="sheet prompt-sheet">
+  <section class="sheet quality-sheet">
     <p class="label">A · 初階操作教材</p>
-    <h2>任務二：Gemini 固定提示審題</h2>
-    <p>開啟新的 Gemini 對話，複製以下提示，再把 Edcafe 題目貼到提示最下方。整段一次送出，只採用你認同的修改。</p>
-    <div class="notice"><b>Gemini 教育帳號起點</b><br>先登入 <a href="https://mail.google.com/a/go.edu.tw" target="_blank" rel="noreferrer">@go.edu.tw Gmail</a>並確認右上角帳號，再用同一瀏覽器開啟 <a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini</a>，選擇同一帳號並點「新對話」。若顯示無法存取，代表管理員可能尚未啟用服務；API Key 不能代替教育版登入。</div>
-    <div class="prompt"><button class="copy" data-copy="critic">複製</button><pre id="critic">你是國中社會科評量審題委員。這是新對話的第一則訊息，待審題目已附在最下方。請完成以下檢查：
-1. 指出本題評量的核心概念與學生需要完成的推理步驟。
-2. 判斷學生是否能只靠關鍵字或常識猜中。
-3. 檢查四個選項是否同類、長度接近，而且只有一個最佳答案。
-4. 說明每個錯誤選項對應的迷思或錯誤推理。
-5. 只提出必要修改，不要直接重寫整題。
-最後整理成「可保留、要修改、需查證」三欄。請明確標示：這是候選草稿，是否符合會考素養層次仍由教師判定。
-【待審題目】請在這裡貼上材料、題幹、四個選項、暫定答案與來源：＿＿</pre></div>
-    <table><tr><th>Gemini 建議修改</th><td class="write tall"></td></tr><tr><th>我決定採用</th><td class="write"></td></tr><tr><th>仍需教師判斷</th><td class="write"></td></tr></table>
-
+    <h1>題目品質五關</h1>
+    <p class="lead">把 Edcafe 題目與原始 PDF 並排檢查。每題每關都要能指出證據；有一項未通過就先修改。下方挑一題詳細記錄。</p>
+    <table>
+      <tr><th>檢查</th><th>教師要做的測試</th><th>結果</th></tr>
+      <tr><th>事實與答案</th><td>在原始 PDF 找到支持答案的文字、圖表或頁碼；統計與史實再查原始來源。</td><td>□通過<br>□修改</td></tr>
+      <tr><th>學習目標</th><td>說出本題要測的概念與年級；刪除無關或超出教學範圍的知識。</td><td>□通過<br>□修改</td></tr>
+      <tr><th>材料必要</th><td>遮住材料再試答；若只靠常識或題幹關鍵字就能答對，重寫題幹或材料。</td><td>□通過<br>□修改</td></tr>
+      <tr><th>答案與選項</th><td>四個選項同類；只有一個最佳答案；錯誤選項各有可說明的迷思。</td><td>□通過<br>□修改</td></tr>
+      <tr><th>學生可用</th><td>以學生預覽讀題、作答、看回饋；文字清楚，手機畫面可讀。</td><td>□通過<br>□修改</td></tr>
+    </table>
+    <div class="notice"><b>判定方式：</b>三題都要五項全過才派送。若有一項勾「修改」，回 Edcafe 修題後重測。這是教師審題清單，不是 AI 給的分數，也不能直接宣稱達到會考同等級。</div>
+    <table><tr><th>逐題檢核</th><th>五關結果</th></tr><tr><th>第 1 題</th><td>□ 全部通過　□ 修改後重測</td></tr><tr><th>第 2 題</th><td>□ 全部通過　□ 修改後重測</td></tr><tr><th>第 3 題</th><td>□ 全部通過　□ 修改後重測</td></tr></table>
     <div class="task">
-      <div class="task-head"><h2>任務三：一題基礎應用題</h2><span class="time">7 分鐘</span></div>
+      <div class="task-head"><h2>把一題修到能教</h2><span class="time">7 分鐘</span></div>
       <table>
-        <tr><th>核心內容</th><td>學生要使用哪一個社會科概念？</td><td class="write"></td></tr>
-        <tr><th>必要刺激</th><td>學生必須閱讀哪一份文字、圖或表？</td><td class="write"></td></tr>
-        <tr><th>推理鏈</th><td>學生先找什麼，再連結什麼？</td><td class="write"></td></tr>
-        <tr><th>選項</th><td>三個錯誤選項各代表哪一種迷思？</td><td class="write"></td></tr>
+        <tr><th>題號與原始來源</th><td class="write"></td></tr>
+        <tr><th>學生必須讀的證據</th><td class="write"></td></tr>
+        <tr><th>原題最弱的一處</th><td class="write"></td></tr>
+        <tr><th>我在 Edcafe 的修改</th><td class="write"></td></tr>
+        <tr><th>修改後重新檢查</th><td>□ 五項全過　□ 仍需再修</td></tr>
       </table>
-      <div class="prompt"><button class="copy" data-copy="item">複製</button><pre id="item">你是國中社會科評量設計助理。這是新對話的第一則訊息，請只依最下方貼上的資料產出 1 題國中九年級社會科四選一題目；資料不足時先指出缺漏，不要自行補寫事實。
-內容節點：＿＿。學習表現：＿＿。難度：基礎應用。
-刺激材料：＿＿。學生必須先＿＿，再＿＿，才能選出答案。
-四個選項要同類、長度接近。三個錯誤選項分別對應不同迷思，只有一個最佳答案。
-請輸出題幹、四個選項、答案、逐項解析、難度理由與仍需查證之處。輸出開頭標示「AI 候選草稿」，不可自行宣稱已達會考同等級。
-【現在貼上】學習內容：＿＿　作答材料：＿＿　材料來源：＿＿</pre></div>
     </div>
-    <div class="footer"><span>完成後保留生成前後版本</span><span>初階 2 / 3</span></div>
+    <div class="footer"><span>請保留修改前後版本與理由</span><span>初階 2 / 3</span></div>
   </section>
 
   <section class="sheet">
     <p class="label">A · 初階操作教材</p>
+    <h1>學生預覽與派送</h1>
+    <p class="lead">題目通過五關後，先站在學生角度試做，再分享 Edcafe 活動。</p>
     <div class="task" style="margin-top:0">
-      <div class="task-head"><h2>任務四：Canvas 教師出題介面</h2><span class="time">6 分鐘</span></div>
-      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">這是新對話的第一則訊息。請使用 Gemini Canvas 建立教師用的國中社會科出題介面，先完成不需要 API Key 的版本。
-欄位包含：科目、年級、單元或核心概念、難度、題數、學習內容、作答材料、材料來源與額外限制。
-介面內建規則：材料必須參與解題；列出推理鏈；四個選項同類且只有一個最佳答案；錯誤選項對應不同迷思；不可照抄既有考題。
-按下「產生完整提示」後，組合成可直接貼入新 Gemini 對話的第一則訊息。加入「複製提示」「載入示範」「重設」。
-提示要求輸出 AI 候選草稿、題目、答案、逐項解析、來源與仍需教師查核之處。
-頁面不蒐集個資或儲存教材全文，並支援手機與鍵盤。完成後測試三科、空白欄位、複製與重設。</pre></div>
+      <div class="task-head"><h2>完成一份可派送小測</h2><span class="time">6 分鐘</span></div>
       <ul class="checks">
-        <li>從 Gemini 首頁點「新對話」，開啟 Canvas，再貼入上方完整提示。</li>
-        <li>地理、歷史、公民都能切換，必要欄位沒有填寫時會提醒。</li>
-        <li>完整提示包含本次材料與來源，複製後可貼到另一個新對話。</li>
-        <li>重設可以清空內容；縮窄視窗後仍能閱讀，鍵盤可以操作。</li>
+        <li>回到 Edcafe 的 Quiz，確認已儲存修改後的 3 題。</li>
+        <li>開啟學生預覽，從頭讀完材料、作答 3 題並檢查回饋。</li>
+        <li>確認正解不會在作答前出現，錯誤選項的回饋能說明原因。</li>
+        <li>選擇課堂練習或評量設定，取得活動連結或 QR code。</li>
+        <li>以學生身分再開一次連結，確認能進入、作答與送出。</li>
       </ul>
     </div>
+    <div class="notice"><b>分享前最後確認：</b>連結只指向學生作答活動，不是教師編輯畫面。若出版社 PDF 的授權不允許直接呈現教材頁面，改以教師自行整理、可合法使用的材料出題。</div>
     <h2>卡住時的處理順序</h2>
     <table>
-      <tr><th>不知道怎麼開始</th><td>開啟 Gemini → 新對話 → Canvas，再整段貼入本教材提示。</td></tr>
-      <tr><th>AI 一次改太多</th><td>指定「只修改一個問題，保留其餘內容」。</td></tr>
-      <tr><th>沒有 API Key</th><td>保留「產生完整提示」與「複製提示」，作品仍算完成。</td></tr>
-      <tr><th>網頁無法執行</th><td>要求 Gemini 修正錯誤，或輸出完整單一 HTML 檔。</td></tr>
+      <tr><th>Adobe 尚未啟用</th><td>以瀏覽器列印指定頁碼，另存新的 PDF。</td></tr>
+      <tr><th>Edcafe 尚未顯示 Pro</th><td>檢查確認信及原本 Edcafe Email；先與同桌共作，不重複申請。</td></tr>
+      <tr><th>PDF 無法上傳</th><td>確認檔案可開啟、頁數較少；改貼教師整理的 300 至 600 字材料。</td></tr>
+      <tr><th>題目品質未過關</th><td>只修正最關鍵的一處，再重做五關與學生預覽。</td></tr>
     </table>
     <h2>離場前記錄</h2>
-    <table><tr><th>我完成的作品</th><td class="write"></td></tr><tr><th>下一次會先做</th><td class="write"></td></tr><tr><th>發布前要查核</th><td class="write"></td></tr></table>
-    <div class="success"><b>初階完成標準</b><br>介面能把教師填寫的條件、材料與來源組成完整提示；將提示貼入新的 Gemini 對話後可得到候選題目。教師仍須查證與定稿。</div>
-    <div class="footer"><span>請保存 Canvas 對話、介面連結或 HTML 檔</span><span>初階 3 / 3</span></div>
+    <table><tr><th>Edcafe 活動名稱</th><td class="write"></td></tr><tr><th>我修過的題號</th><td class="write"></td></tr><tr><th>學生連結測試</th><td>□ 可進入　□ 可作答　□ 回饋正確</td></tr></table>
+    <div class="success"><b>初階完成標準</b><br>授權與教材流程已走通；一份小測的每題都通過五關，至少一題留有修訂紀錄，並通過學生預覽與連結測試。</div>
+    <div class="footer"><span>保存 Edcafe 活動與審題紀錄</span><span>初階 3 / 3</span></div>
   </section>
 
   <script>

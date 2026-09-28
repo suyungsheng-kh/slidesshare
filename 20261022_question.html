@@ -325,6 +325,10 @@
               <span class="hint">請貼入可查證的教材摘要、統計資料或史料。不要輸入學生個資或未公開成績。</span>
             </div>
             <div class="field full">
+              <label for="source">材料來源</label>
+              <input id="source" required maxlength="240" autocomplete="off" placeholder="書名與頁碼、統計發布單位與年份，或網址">
+            </div>
+            <div class="field full">
               <label for="extra">額外限制（選填）</label>
               <input id="extra" maxlength="180" placeholder="例如：避免否定句；選項不超過 24 字">
             </div>
@@ -479,6 +483,7 @@
           className: '',
           topic: '都市化與人口移動',
           material: '甲、乙兩區原本人口相近。十年後，甲區的工作機會增加，15 至 39 歲人口占比上升；乙區的高齡人口占比提高，公車班次減少。兩區之間每天有大量通勤人口。',
+          source: '研習模擬資料；正式使用前請替換為可查證來源。',
           summary: '從位置、分布、尺度與人地互動讀取證據。圖表或地圖必須成為作答必要條件。',
           rules: [
             '核心可放在空間分布、區域差異、人地互動、環境變遷或尺度轉換。',
@@ -492,6 +497,7 @@
           className: 'history',
           topic: '清末臺灣茶葉出口與社會變遷',
           material: '某商人在 1880 年代的書信中提到：北部港口附近新設多間茶行，山區農民改種茶樹，搬運工與包裝工的需求也增加。另一方面，茶價受海外市場影響，收入並不穩定。',
+          source: '研習改寫示例；正式使用前請補原始史料作者與年份。',
           summary: '把史料放回年代與背景，比對證據後判斷因果、變遷、延續或觀點。',
           rules: [
             '核心可放在時間脈絡、因果關係、變遷與延續、比較或史料觀點。',
@@ -505,6 +511,7 @@
           className: 'civics',
           topic: '校園公共議題與程序參與',
           material: '學校準備調整手機使用規範。學生會先蒐集各班意見，再邀請教師、家長與行政代表公開討論。會議紀錄與修正理由將公告，試行一個月後再檢討。',
+          source: '研習模擬情境；正式使用前請替換為可查證來源。',
           summary: '從生活案例辨識制度、程序、權利義務與利害關係，區分事實判斷與價值選擇。',
           rules: [
             '核心可放在制度運作、權利義務、公共參與、法律原則或經濟選擇。',
@@ -519,7 +526,7 @@
         geography: {
           metadata:{subject:'地理',grade:'九年級',topic:'都市化與人口移動',difficulty:'基礎應用',learningGoal:'依人口結構與交通資訊判斷區域變遷',reasoningChain:'讀取兩區差異，再以人口移動概念解釋',sourceUse:'短文中的年齡結構、就業與通勤資訊',estimatedMinutes:'2 分鐘'},
           stimulus:{title:'兩區的人口與交通變化',type:'短文資料',content:'甲、乙兩區原本人口相近。十年後，甲區工作機會增加，15 至 39 歲人口占比上升；乙區高齡人口占比提高，公車班次減少。兩區之間每天有大量通勤人口。',source_note:'研習模擬資料，正式使用前請替換為可查證資料。'},
-          questions:[{stem:'根據材料，哪一項推論最能同時解釋甲、乙兩區的變化？',options:[{label:'A',text:'甲區出生率提高，使所有年齡人口同步增加'},{label:'B',text:'就業機會吸引青壯人口往甲區移動，並形成跨區通勤'},{label:'C',text:'乙區氣候轉冷，使居民減少搭乘大眾運輸'},{label:'D',text:'兩區產業完全相同，因此人口結構逐漸一致'}],answer:'B',explanation:'甲區工作機會與青壯人口占比同時上升，加上大量跨區通勤，符合就業吸引人口移動的解釋。',distractorAnalysis:{A:'把年齡结构變化誤解為自然增加，材料沒有出生率資訊。',C:'以材料未提供的氣候因素解釋公車變化。',D:'忽略兩區呈現的產業與人口差異。'},qualityChecks:{materialNecessary:true,singleBestAnswer:true,versionNeutral:true,factCheckNote:'正式使用時需提供資料年份、範圍與來源。'}}],
+          questions:[{stem:'根據材料，哪一項推論最能同時解釋甲、乙兩區的變化？',options:[{label:'A',text:'甲區出生率提高，使所有年齡人口同步增加'},{label:'B',text:'就業機會吸引青壯人口往甲區移動，並形成跨區通勤'},{label:'C',text:'乙區氣候轉冷，使居民減少搭乘大眾運輸'},{label:'D',text:'兩區產業完全相同，因此人口結構逐漸一致'}],answer:'B',explanation:'甲區工作機會與青壯人口占比同時上升，加上大量跨區通勤，符合就業吸引人口移動的解釋。',distractorAnalysis:{A:'把年齡結構變化誤解為自然增加，材料沒有出生率資訊。',C:'以材料未提供的氣候因素解釋公車變化。',D:'忽略兩區呈現的產業與人口差異。'},qualityChecks:{materialNecessary:true,singleBestAnswer:true,versionNeutral:true,factCheckNote:'正式使用時需提供資料年份、範圍與來源。'}}],
           teacherNotes:{howToUse:'先請學生圈出工作、年齡與通勤三項證據，再作答。',followUp:'比較「人口移動」與「自然增加」如何在資料中留下不同線索。',factsToVerify:['資料年份與行政區範圍','人口占比的統計口徑']}
         },
         history: {
@@ -544,6 +551,7 @@
       const stimulusType = document.getElementById('stimulusType');
       const questionCount = document.getElementById('questionCount');
       const material = document.getElementById('material');
+      const source = document.getElementById('source');
       const extra = document.getElementById('extra');
       const ruleSummary = document.getElementById('ruleSummary');
       const promptText = document.getElementById('promptText');
@@ -580,6 +588,7 @@
         if (replaceInputs) {
           topic.value = data.topic;
           material.value = data.material;
+          source.value = data.source;
           stimulusType.value = subject === 'history' ? '史料節錄與背景說明' : subject === 'civics' ? '生活案例或制度情境' : '短文與資料表';
         }
         updatePrompt();
@@ -607,6 +616,9 @@
 
 【教師提供材料】
 ${material.value.trim() || '未提供'}
+
+【材料來源】
+${source.value.trim() || '未提供'}
 
 【全科共同規則】
 1. 對應第四學習階段，版本中立，不使用單一出版社才有的冷僻敘述。
@@ -808,7 +820,7 @@ teacherNotes 包含 howToUse、followUp、factsToVerify。`;
       }
 
       tabs.forEach(tab => tab.addEventListener('click', () => setSubject(tab.dataset.subject)));
-      [grade,difficulty,topic,stimulusType,questionCount,material,extra].forEach(element => element.addEventListener('input', updatePrompt));
+      [grade,difficulty,topic,stimulusType,questionCount,material,source,extra].forEach(element => element.addEventListener('input', updatePrompt));
 
       form.addEventListener('submit', async event => {
         event.preventDefault();

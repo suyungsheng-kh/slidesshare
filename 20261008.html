@@ -190,6 +190,16 @@
     }
     .source-links a::after { content: "↗"; color: var(--terracotta); font-size: 1.15em; }
     .source-links a:hover, .source-links a:focus-visible { background: #f5ddd3; transform: translateY(-3px); outline: 3px solid rgba(189,123,104,.25); outline-offset: 3px; }
+    .evolution-flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; max-width: 1180px; width: 100%; }
+    .evolution-stage { min-width: 0; padding: 23px 27px 25px; border: 1px solid var(--line); background: var(--white); box-shadow: 3px 5px 0 rgba(184,160,132,.11); }
+    .evolution-stage .no { margin-bottom: 8px; }
+    .evolution-stage h3 { font-size: clamp(28px, 2.25vw, 36px); margin-bottom: 10px; }
+    .evolution-stage p { color: var(--ink-soft); font-size: clamp(18px, 1.45vw, 23px); line-height: 1.46; margin-bottom: 16px; }
+    .evolution-links { display: grid; gap: 10px; }
+    .evolution-links a { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 16px; border: 1px solid #d7a392; background: #faece5; color: #674f47; font-size: clamp(18px, 1.4vw, 23px); font-weight: 800; text-decoration: none; }
+    .evolution-links a::after { content: "↗"; flex: 0 0 auto; color: var(--terracotta); }
+    .evolution-links a:hover, .evolution-links a:focus-visible { background: #f5ddd3; outline: 3px solid rgba(189,123,104,.25); outline-offset: 2px; }
+    .evolution-summary { max-width: 1180px; margin: 24px 0 0; padding-left: 20px; border-left: 5px solid var(--terracotta); color: var(--ink-soft); font-size: clamp(21px, 1.75vw, 28px); line-height: 1.45; font-weight: 700; }
     .activity h2 { font-size: clamp(48px, 4.9vw, 78px); }
     .activity-prompt { margin: -8px 0 24px; color: #765b51; font-size: clamp(22px, 1.7vw, 28px); font-weight: 800; letter-spacing: .04em; }
     .activity-prompt span { display: inline-block; margin-right: 12px; padding: 5px 12px; color: #fffaf3; background: var(--terracotta); border-radius: 999px; font-size: .8em; letter-spacing: .08em; }
@@ -225,7 +235,7 @@
     @media (max-width: 850px) {
       .slide { padding: 62px 32px 72px; justify-content: flex-start !important; }
       .slide::before, .slide::after { display: none; }
-      .two, .three, .agenda, .role, .case, .activity-options { grid-template-columns: 1fr; }
+      .two, .three, .agenda, .role, .case, .activity-options, .evolution-flow { grid-template-columns: 1fr; }
       .equal-cards { grid-template-rows: none; height: auto; }
       .instructor-layout { grid-template-columns: 1fr; gap: 28px; }
       .instructor-portrait { width: min(350px, 90%); height: auto; aspect-ratio: 1; justify-self: start; }
@@ -238,15 +248,7 @@
 </head>
 <body>
   <main class="deck" aria-label="課程開發與設計分享簡報">
-    <section class="slide active">
-      <p class="eyebrow">資訊科技課程（ESP32 × motoBlockly） · 2026.10.08</p>
-      <h1>讓每個學生都能<br><span class="hand">用適合自己的速度學習。</span></h1>
-      <p class="lead">從 Gemini 單頁原型到可持續維護的數位課程網站：<br>ESP32 × motoBlockly 的設計、測試與 AI 協作歷程</p>
-      <p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p>
-      <span class="page">01 / 30</span>
-    </section>
-
-    <section class="slide instructor-slide">
+    <section class="slide instructor-slide active">
       <div class="instructor-layout">
         <figure class="instructor-portrait">
           <img src="yssu.png" alt="講師蘇永勝" width="1254" height="1254">
@@ -279,9 +281,44 @@
       <p class="caption">講師介紹</p><span class="page"></span>
     </section>
 
+    <section class="slide">
+      <p class="eyebrow">資訊科技課程（ESP32 × motoBlockly） · 2026.10.08</p>
+      <h1>讓每個學生都能<br><span class="hand">用適合自己的速度學習。</span></h1>
+      <p class="lead">從 Gemini 單頁原型到可持續維護的數位課程網站：<br>ESP32 × motoBlockly 的設計、測試與 AI 協作歷程</p>
+      <p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p>
+      <span class="page"></span>
+    </section>
+
+    <section class="slide evolution-slide">
+      <p class="eyebrow">從小開始 · 與 AI 協作建構</p>
+      <h2>系統不是一天長成的。</h2>
+      <div class="evolution-flow">
+        <div class="evolution-stage">
+          <span class="no">起點 · 先做出可用的單元</span>
+          <h3>早期課程頁面</h3>
+          <p>從教材整理、單元導覽與一個個學習活動開始，先讓學生有入口可走。</p>
+          <div class="evolution-links">
+            <a href="https://sites.google.com/mail.qfm.kh.edu.tw/11402cs/%E9%A6%96%E9%A0%81" target="_blank" rel="noopener noreferrer">114-2 資訊科技課程</a>
+            <a href="https://sites.google.com/mail.qfm.kh.edu.tw/11501cs/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88" target="_blank" rel="noopener noreferrer">115-1 程式設計單元</a>
+          </div>
+        </div>
+        <div class="evolution-stage">
+          <span class="no">累積 · 逐步整合為系統</span>
+          <h3>現在的學習平台</h3>
+          <p>和 AI 反覆討論、試作、測試與修改，把分散的單元逐步串成學習路徑。</p>
+          <div class="evolution-links">
+            <a href="https://su-yung-sheng.github.io/course_115/" target="_blank" rel="noopener noreferrer">資訊科技闖關基地</a>
+            <a href="https://byte-core-su.github.io/cs-11507/" target="_blank" rel="noopener noreferrer">資訊科技學習平台</a>
+          </div>
+        </div>
+      </div>
+      <p class="evolution-summary">由最小的可用頁面出發，透過教學現場與 AI 協作，一步步長成完整系統。</p>
+      <p class="caption">點選卡片內的連結，可直接體驗各階段的公開網站</p><span class="page"></span>
+    </section>
+
     <section class="slide"><p class="overline">今天想分享的，不是工具清單。</p><div class="quote">而是：如何讓不同基礎、不同理解速度的學生，都能在同一個單元中找到可前進的下一步。</div><p class="caption">分享的主線</p><span class="page">02 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">分享架構</p><h2>今天的旅程</h2><div class="agenda"><div class="reveal-card"><b>01</b><span>從教學問題出發</span></div><div class="reveal-card"><b>02</b><span>設計學習路徑</span></div><div class="reveal-card"><b>03</b><span>從原型到網站</span></div><div class="reveal-card"><b>04</b><span>網站體驗與交流</span></div><div class="reveal-card"><b>05</b><span>工具、資料與 AI 協作</span></div><div class="reveal-card"><b>06</b><span>測試、反思與帶走的方法</span></div></div><p class="caption">依現場交流情況，彈性調整分享節奏</p><span class="page">03 / 30</span></section>
+    <section class="slide"><p class="eyebrow">分享架構</p><h2>今天的旅程</h2><div class="agenda"><div class="reveal-card"><b>01</b><span>從教學問題出發</span></div><div class="reveal-card"><b>02</b><span>設計學習路徑</span></div><div class="reveal-card"><b>03</b><span>從原型到網站</span></div><div class="reveal-card"><b>04</b><span>網站體驗與交流</span></div><div class="reveal-card"><b>05</b><span>工具、資料與 AI 協作</span></div><div class="reveal-card"><b>06</b><span>上線測試、維護與反思</span></div></div><p class="caption">依現場交流情況，彈性調整分享節奏</p><span class="page">03 / 30</span></section>
 
     <section class="slide section"><p class="eyebrow">Part 1 · Why</p><h2>從 ESP32 × motoBlockly 課程，<br>看見學生<span class="hand">學習差異。</span></h2><p class="lead">先理解學生的基礎、理解速度與卡關方式，再設計能支持每個人的路徑。</p><span class="page">04 / 30</span></section>
 
@@ -339,6 +376,8 @@
 
     <section class="slide"><p class="eyebrow">如何測試？</p><h2>開課前，先走一遍<br>學生真正會走的路。</h2><div class="path"><div><b>安全鷹架</b><span>測試 G／V／S、找錯接線與上電前檢核。</span></div><div><b>學習工具</b><span>測試接線練習、除錯護照、每日回饋與專題設計單。</span></div><div><b>AI 自評連線</b><span>啟動 Colab，確認健康檢查與學生頁可正常連線。</span></div><div><b>真實作品試評</b><span>以 motoBlockly XML 範例完成一次上傳與自評。</span></div></div><p class="caption">測試不是考學生，而是檢驗我們的設計假設</p><span class="page">28 / 30</span></section>
 
+    <section class="slide"><p class="eyebrow">上線之後 · 持續維護</p><h2>真正的壓力測試，<br>在多人使用時才開始。</h2><div class="grid three"><div class="card"><span class="no">01 · 同時使用</span><h3>觀察系統負荷</h3><p>從一個人試用到多班學生同時登入、開啟任務與送出作品，檢查速度、連線與資料是否穩定。</p></div><div class="card"><span class="no">02 · 現場回報</span><h3>找出真實問題</h3><p>蒐集學生卡關、操作錯誤與教師觀察，分辨是介面不清楚、流程不順，還是系統故障。</p></div><div class="card"><span class="no">03 · 小步更新</span><h3>修正後再驗證</h3><p>記錄問題、與 AI 討論修法、更新版本，再回到課堂確認是否真的改善學習體驗。</p></div></div><p class="caption">上線不是完工；系統要隨課程與使用情況持續調整</p><span class="page"></span></section>
+
     <section class="slide"><p class="eyebrow">具體案例 · AI 作業助教</p><h2>把 AI 自評放進學習流程，<br>讓學生能依自己的速度修正。</h2><div class="case"><div><b>ESP32 × motoBlockly</b><p>學生上傳 XML；系統解析積木與腳位，再依教師規準回傳初步評語與分數。</p></div><div><b>ScratchGrader</b><p>學生上傳 .sb3；系統解析角色、背景、音效、變數與積木流程，再依教師規則提出建議。</p></div><div><b>教師聚焦需要支持的人</b><p>學生可先依回饋自己修正；教師則更能辨識需要協助的學生，聚焦邏輯差異、卡關原因與下一步策略。</p></div></div><div class="source-links"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noopener noreferrer">查看 ScratchGrader 公開專案</a></div><p class="caption">AI 是作業回饋助教；教師保有最終判斷與個別引導</p><span class="page">29 / 30</span></section>
 
     <section class="slide activity"><p class="eyebrow">活動 04 · 留給自己的行動選擇</p><h2>下一次教這個單元時，<br>你最願意先試哪一件事？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項要帶走的小改變</p><div class="activity-options"><div>重新寫出學生看得懂的任務</div><div>設定最低完成線</div><div>加入一張操作檢核卡</div><div>把作業拆成階段任務</div><div>設計除錯或反思紀錄</div><div>準備基礎與延伸挑戰</div><div>讓學生自行回看學習紀錄</div><div>讓 AI 協助初步檢核</div><div>其他：用一句話寫下想法</div></div><p class="caption">選不出來也沒關係；那可能正是你自己的新做法開始成形。</p><span class="page"></span></section>
@@ -359,7 +398,7 @@
       });
       function getRevealCards(slide) {
         const cards = Array.from(slide.querySelectorAll(
-          '.agenda > div, .card, .tool, .path > div, .case > div, .comparison > .left, .comparison > .right, .role > div'
+          '.agenda > div, .card, .tool, .path > div, .case > div, .comparison > .left, .comparison > .right, .role > div, .evolution-stage'
         ));
         cards.forEach(card => card.classList.add('reveal-card'));
         return cards;

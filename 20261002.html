@@ -78,6 +78,201 @@
     .slide.cover::before,
     .slide.closing::before { background: var(--amber); }
 
+    /* 講師頁沿用 yssu.html 的左右兩欄、相片框與引言構圖。 */
+    .instructor-slide {
+      --lecturer-accent: var(--teal);
+      --lecturer-accent-rgb: 0, 157, 154;
+    }
+    .instructor-slide.active { align-items: center; }
+    .instructor-slide .instructor {
+      position: relative;
+      width: min(1180px, 100%);
+      display: grid;
+      grid-template-columns: minmax(300px, .82fr) minmax(430px, 1.18fr);
+      gap: clamp(42px, 6vw, 92px);
+      align-items: center;
+      padding: clamp(26px, 4vw, 52px) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .instructor-slide .instructor::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: clamp(74px, 9vw, 120px);
+      height: 5px;
+      background: var(--lecturer-accent);
+    }
+    .instructor-slide .portrait {
+      position: relative;
+      margin: 0;
+      isolation: isolate;
+    }
+    .instructor-slide .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      z-index: -1;
+      border: 2px solid rgba(var(--lecturer-accent-rgb), .5);
+    }
+    .instructor-slide .portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center;
+      box-shadow: 0 18px 46px rgba(7, 31, 49, .16);
+    }
+    .instructor-slide .portrait figcaption {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      padding: 8px 12px;
+      color: var(--white);
+      background: rgba(7, 31, 49, .8);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .instructor-slide .instructor-content { min-width: 0; }
+    .instructor-slide .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 18px;
+      color: var(--lecturer-accent);
+      font-size: clamp(13px, 1.1vw, 16px);
+      font-weight: 900;
+      letter-spacing: .18em;
+    }
+    .instructor-slide .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: currentColor;
+    }
+    .instructor-slide .instructor-name {
+      max-width: none;
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(58px, 7.3vw, 102px);
+      line-height: .98;
+      letter-spacing: -.075em;
+      font-weight: 900;
+    }
+    .instructor-slide .identity {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      align-items: center;
+      margin: 24px 0 0;
+      font-size: clamp(18px, 1.7vw, 25px);
+      font-weight: 800;
+    }
+    .instructor-slide .identity .divider {
+      width: 1px;
+      height: 1.1em;
+      background: var(--line);
+    }
+    .instructor-slide .school { color: var(--muted); }
+    .instructor-slide .bio {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.75;
+    }
+    .instructor-slide .keep { white-space: nowrap; }
+    .instructor-slide .bio-line {
+      display: block;
+      text-align: justify;
+      text-align-last: justify;
+      text-justify: inter-character;
+    }
+    .instructor-slide .bio-line:last-child {
+      text-align: left;
+      text-align-last: left;
+    }
+    .instructor-slide .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .instructor-slide .tags li {
+      padding: 8px 14px;
+      border: 1px solid rgba(var(--lecturer-accent-rgb), .45);
+      color: var(--lecturer-accent);
+      font-size: clamp(14px, 1.1vw, 17px);
+      font-weight: 850;
+      letter-spacing: .035em;
+      white-space: nowrap;
+    }
+    .instructor-slide blockquote {
+      position: relative;
+      margin: 36px 0 0;
+      padding: 19px 0 4px 28px;
+      border-left: 5px solid var(--lecturer-accent);
+      color: var(--navy);
+      font-size: clamp(23px, 2.4vw, 35px);
+      font-weight: 900;
+      line-height: 1.45;
+      letter-spacing: -.035em;
+    }
+    .instructor-slide blockquote::before {
+      content: "“";
+      position: absolute;
+      left: 15px;
+      top: -29px;
+      color: rgba(var(--lecturer-accent-rgb), .16);
+      font-family: Georgia, serif;
+      font-size: 90px;
+      line-height: 1;
+    }
+    .instructor-slide .quote-copy {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: min(13em, 100%);
+    }
+    .instructor-slide .quote-lead,
+    .instructor-slide .quote-follow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(28px, 3vw, 38px) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(10px, 1.2vw, 16px);
+      width: 100%;
+      white-space: nowrap;
+    }
+    .instructor-slide .quote-part:first-child { text-align: right; }
+    .instructor-slide .quote-part:last-child { text-align: left; }
+    .instructor-slide .quote-divider {
+      width: 100%;
+      height: 2px;
+      background: var(--lecturer-accent);
+      opacity: .72;
+    }
+    .instructor-slide .quote-follow .quote-divider {
+      background: currentColor;
+      opacity: .58;
+    }
+    .instructor-slide .quote-lead {
+      color: var(--lecturer-accent);
+      font-size: 1.45em;
+      line-height: 1.18;
+      letter-spacing: -.045em;
+    }
+    .instructor-slide .quote-follow {
+      margin-top: 5px;
+      font-size: .96em;
+      line-height: 1.35;
+      letter-spacing: -.025em;
+    }
+
     .kicker {
       margin: 0 0 1rem;
       color: var(--teal);
@@ -787,10 +982,33 @@
     }
     .overview-close { position: fixed; right: 1.5rem; top: 1.5rem; }
 
+    @media (min-width: 901px) and (max-width: 1180px) {
+      .instructor-slide .bio-line {
+        display: inline;
+        text-align: left;
+        text-align-last: auto;
+      }
+    }
+    @media (min-width: 901px) and (max-height: 800px) {
+      .instructor-slide .instructor { padding-block: 20px; }
+      .instructor-slide .eyebrow { margin-bottom: 12px; }
+      .instructor-slide .identity { margin-top: 14px; }
+      .instructor-slide .bio { margin-top: 16px; line-height: 1.55; }
+      .instructor-slide .tags { margin-top: 18px; }
+      .instructor-slide blockquote { margin-top: 22px; padding-top: 12px; }
+    }
     @media (max-width: 900px) {
       body { overflow: auto; }
       .slide { min-height: 100svh; padding: 5.4rem 1.4rem 8rem; }
       .slide.active { justify-content: flex-start; }
+      .instructor-slide .instructor {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        padding: 28px 0 38px;
+      }
+      .instructor-slide .portrait { width: min(460px, calc(100% - 16px)); }
+      .instructor-slide .instructor-content { padding-top: 2px; }
+      .instructor-slide .instructor-name { font-size: clamp(58px, 18vw, 86px); }
       .formula,
       .stage-grid,
       .choice-grid,
@@ -813,6 +1031,16 @@
       .dimension-focus { min-height: 12rem; }
     }
     @media (max-width: 560px) {
+      .instructor-slide .identity { display: grid; gap: 5px; }
+      .instructor-slide .identity .divider { display: none; }
+      .instructor-slide .bio { margin-top: 22px; }
+      .instructor-slide .bio-line {
+        display: inline;
+        text-align: left;
+        text-align-last: auto;
+      }
+      .instructor-slide .tags { margin-top: 22px; }
+      .instructor-slide blockquote { margin-top: 30px; font-size: clamp(19px, 5vw, 25px); }
       .formula,
       .stage-grid,
       .choice-grid,
@@ -839,7 +1067,46 @@
 </head>
 <body>
   <main class="deck" aria-label="通用型系統開發工作流程簡報">
-    <section class="slide cover active" data-title="封面">
+    <section class="slide instructor-slide active" data-title="講師介紹：蘇永勝">
+      <article class="instructor" aria-labelledby="instructor-name">
+        <figure class="portrait">
+          <img src="assets/yssu.png" alt="講師蘇永勝的插畫肖像，背景為富士山與湖景" width="1254" height="1254">
+          <figcaption>今日講師</figcaption>
+        </figure>
+        <div class="instructor-content">
+          <p class="eyebrow">TODAY'S LECTURER · 今日講師</p>
+          <h1 class="instructor-name" id="instructor-name">蘇永勝</h1>
+          <p class="identity">
+            <span>資訊科技教師</span>
+            <span class="divider" aria-hidden="true"></span>
+            <span class="school">高雄市立前峰國中</span>
+          </p>
+          <p class="bio"><span class="bio-line"><span class="keep">深耕資訊科技教育二十餘年</span>，專注於<span class="keep">課程設計</span>、<span class="keep">課程統整</span>與</span><span class="bio-line"><span class="keep">跨域共備</span>，致力於把<span class="keep">教學想法</span>轉化為<span class="keep">學生能參與</span>、<span class="keep">教師能共創</span></span><span class="bio-line">的<span class="keep">學習經驗</span>。</span></p>
+          <ul class="tags" aria-label="講師專長">
+            <li>課程設計</li>
+            <li>課程統整</li>
+            <li>跨域共備</li>
+          </ul>
+          <blockquote>
+            <span class="quote-copy">
+              <span class="quote-lead" aria-label="先敢想，再動手">
+                <span class="quote-part">先敢想</span>
+                <span class="quote-divider" aria-hidden="true"></span>
+                <span class="quote-part">再動手</span>
+              </span>
+              <span class="quote-follow" aria-label="只要想得到，就能做得到">
+                <span class="quote-part">只要想得到</span>
+                <span class="quote-divider" aria-hidden="true"></span>
+                <span class="quote-part">就能做得到</span>
+              </span>
+            </span>
+          </blockquote>
+        </div>
+      </article>
+      <span class="page"></span>
+    </section>
+
+    <section class="slide cover" data-title="封面">
       <p class="kicker">給第一次規劃系統的人</p>
       <h1>通用型系統<br><span class="accent">開發工作流程</span></h1>
       <p class="lead"><span class="nowrap">從問題定義到持續改善，</span><wbr><span class="nowrap">適用於靜態網站、</span><wbr><span class="nowrap">內部工具與含帳號資料的服務。</span></p>
@@ -1428,6 +1695,7 @@
       };
 
       const slideDimensions = [
+        [],
         ['pedagogy', 'growth'],
         ['human', 'ethics'],
         ['pedagogy', 'growth'],
@@ -1495,7 +1763,7 @@
         const dimensions = slideDimensions[index] || [];
         slide.dataset.dimensions = dimensions.join(' ');
 
-        if (index < 42 && dimensions.length) {
+        if (index >= 1 && index <= 42 && dimensions.length) {
           const cornerTags = createDimensionTags(dimensions, 'corner-dimensions');
           cornerTags.setAttribute('aria-label', '本頁對應的教師 AI 素養面向');
           slide.appendChild(cornerTags);

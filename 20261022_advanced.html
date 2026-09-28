@@ -67,7 +67,7 @@
   </style>
 </head>
 <body>
-  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_beginner.html">改選初階教材</a><a href="20261022_question.html">出題介面參考版</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="https://aistudio.google.com/api-keys" target="_blank" rel="noreferrer">API Key</a><a href="20261022_canvas.html">互動延伸</a><button onclick="window.print()">列印／存成 PDF</button></nav>
+  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_beginner.html">改選初階教材</a><a href="20261022_question.html">出題介面參考版</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="https://aistudio.google.com/api-keys" target="_blank" rel="noreferrer">API Key</a><a href="20261022_canvas.html">三科互動示範</a><button onclick="window.print()">列印／存成 PDF</button></nav>
 
   <section class="sheet">
     <p class="label">B · 進階挑戰教材 · 起點</p>
@@ -115,15 +115,15 @@
   <section class="sheet">
     <p class="label">B · 進階挑戰教材</p>
     <h1>從參照題走到自己的作品</h1>
-    <p class="lead">先看懂一題為何可答，再用自己的材料命題；最後把定稿題轉為學生可操作的 HTML。</p>
+    <p class="lead">先看懂一題為何可答，再用自己的材料命題；最後把題目背後的抽象概念做成可操作的 HTML 活動。</p>
     <div class="meta"><div>姓名／組別<div class="blank"></div></div><div>今天使用的單元<div class="blank"></div></div></div>
     <div class="route">
       <div><b>01 登入與 Key</b><span>教育帳號、AI Studio 與連線測試</span></div>
       <div><b>02 體驗出題</b><span>用示範介面比較候選題</span></div>
       <div><b>03 自行命題</b><span>上傳參照題，改用自選材料</span></div>
-      <div><b>04 學生網頁</b><span>Canvas 產生 HTML 並分享測試</span></div>
+      <div><b>04 概念互動</b><span>Canvas 製作操作體驗並分享</span></div>
     </div>
-    <div class="challenge"><b>進階完成作品</b><br>一題由教師自行定稿、通過品質五關的題目，加上一個能由學生開啟、閱讀材料並作答的單一 HTML 網頁。</div>
+    <div class="challenge"><b>進階完成作品</b><br>一題通過品質五關的定稿題，加上一個能讓學生改變條件、觀察結果並解釋概念的 HTML 活動；題目用於最後檢核。</div>
 
     <div class="task">
       <div class="task-head"><h2>任務一：上傳參照題並拆解</h2><span class="time">7 分鐘</span></div>
@@ -164,28 +164,30 @@
     <div class="footer"><span>五項全過才把題目放入學生版網頁</span><span>進階 4 / 5</span></div>
   </section>
 
-  <section class="sheet">
+  <section class="sheet canvas-sheet">
     <p class="label">B · 進階挑戰教材</p>
     <div class="task" style="margin-top:0">
-      <div class="task-head"><h2>任務四：Canvas 學生版 HTML</h2><span class="time">6 分鐘</span></div>
-      <p>在 Gemini 首頁點「新對話」，啟用 Canvas。先把上一頁的五關審查完成，再將定稿內容填入下方提示，整段作為第一則訊息送出。</p>
-      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">這是新對話的第一則訊息。請用 Gemini Canvas，依下方已由教師審定的題目，製作學生可操作的單一 HTML 網頁。
-學生先閱讀材料，選 A／B／C／D，再按「送出答案」；之後顯示正解、逐項回饋與材料證據。提供「重新作答」。
-請輸出完整 HTML，CSS 和 JavaScript 都放在同一檔。不依賴外部函式庫、Gemini API、登入或網路連線。不要要求姓名，也不要儲存或傳送作答。
-手機畫面可讀，鍵盤可操作；標明材料來源。若資料不足，先列缺漏，不要自行補寫事實。
-【定稿題】科目與年級：＿＿；材料與來源：＿＿；題幹：＿＿；A：＿＿；B：＿＿；C：＿＿；D：＿＿；正解：＿＿；逐項解析：＿＿。</pre></div>
+      <div class="task-head"><h2>任務四：Canvas 概念互動 HTML</h2><span class="time">6 分鐘</span></div>
+      <p>先試一個 <a href="20261022_canvas.html" target="_blank">三科互動示範</a>，記下「原題材料、學生操作、畫面回應」。示範頁是成品參考，不代表 Gemini 會一次生成相同頁面。再到 Gemini 點「新對話」並啟用 Canvas，把下方填好的提示作為第一則訊息送出。</p>
+      <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">這是新對話的第一則訊息。請用 Gemini Canvas，把下方社會科抽象概念做成學生能操作的單一 HTML 活動；不要只做四選一答題頁。
+先呈現材料與來源，再讓學生改變條件、排列事件或選擇程序。每次操作要看得見變化，並要求學生依畫面證據解釋原因。最後才顯示我審定的題目，作為理解檢核。
+地理可調整位置與交通；歷史可重排事件並討論多重因果；公民可調整參與者、公開與檢討程序。只採與下方科目相符的一種。
+輸出單一 HTML，CSS 和 JavaScript 都放在同一檔；支援手機、鍵盤與重新開始。不用外部函式庫、Gemini API、登入或網路，不蒐集學生資料。
+模擬數值要標明；材料不足時先問我，不補寫史實、制度或正解。
+【教師資料】科目與年級：＿＿；核心概念與學習目標：＿＿；材料與來源：＿＿；學生能做的動作：＿＿；預期變化及依據：＿＿；定稿檢核題、答案與解析：＿＿。</pre></div>
+      <p><b>產碼後先測：</b>在預覽中改兩種條件；點「程式碼」檢視 HTML（內容）、CSS（版面）與 JavaScript（互動）。若操作沒有反應，告訴 Gemini「哪個操作、預期什麼變化」，請它修正後再測。</p>
     </div>
-    <h2>存成檔案，分享給學生</h2>
+    <h2>先用分享網址，Chrome 產生 QR Code</h2>
     <ol class="checks">
-      <li>在 Canvas 切到「程式碼」，複製完整內容，貼到純文字編輯器；以 UTF-8 存成 <b>social_activity.html</b>。</li>
-      <li>先在 Chrome 或 Edge 開啟該檔，測試作答、回饋、重新開始、手機版與鍵盤操作。</li>
-      <li>用學校核准的班級平台上傳 HTML 附檔，請學生下載後以瀏覽器開啟；若學校提供網頁空間，也可上傳後分享 URL 或 QR code。</li>
-      <li>以學生帳號或學生裝置實測交付方式。若平台只顯示原始碼，改用下載附檔或學校網頁網址。</li>
+      <li>Canvas 學生版完成後，按「分享及匯出 → 分享」，複製分享網址。</li>
+      <li>在 Chrome 開啟該網址，點「⋮ → 投放、儲存及分享 → 建立 QR Code」；可投影 QR Code，或下載圖片放到班級平台。</li>
+      <li>先用學生帳號或裝置掃描，確認能操作概念、解釋變化、完成檢核題及重新開始。</li>
+      <li>若學生無法使用 Canvas 連結，切到「程式碼」複製完整內容，以 UTF-8 存成 <b>social_activity.html</b>；放到校方網站取得網址，或讓學生從班級平台下載。</li>
     </ol>
-    <div class="notice"><b>分享界線：</b>不要把教師出題網站、API Key 或 Canvas 編輯連結交給學生。Canvas 分享連結須在 Gemini 開啟；本課以獨立 HTML 檔或校方網站交付，避免學生受帳號權限限制。</div>
-    <table><tr><th>學生取得方式</th><td>□ 班級平台下載　□ 學校網頁 URL／QR code</td></tr><tr><th>學生視角測試</th><td>□ 能開啟　□ 能作答　□ 回饋正確　□ 可重新開始</td></tr></table>
-    <div class="challenge"><b>進階完成標準</b><br>教師自行定稿的題目已通過五關；學生版 HTML 不含 Key 與個資，並已在學生裝置或帳號完成操作測試。</div>
-    <div class="footer"><span><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a> · <a href="https://support.google.com/edu/classroom/answer/9123621" target="_blank" rel="noreferrer">班級平台附檔範例</a></span><span>進階 5 / 5</span></div>
+    <div class="notice"><b>先確認網址：</b>QR Code 只編碼網址；本機 file:/// 或教師電腦的 localhost 無法讓學生跨裝置開啟。Canvas 分享連結須在 Gemini 開啟，學生能否使用以實測為準。學生版不含 API Key、個資或教師命題內容。</div>
+    <table><tr><th>學生取得方式</th><td>□ Canvas 分享網址／QR Code　□ 校方網站　□ 下載 HTML</td></tr><tr><th>學生視角測試</th><td>□ 能操作　□ 變化合理　□ 能說明　□ 題目正確</td></tr></table>
+    <div class="challenge"><b>進階完成標準</b><br>定稿題通過五關；學生版能讓人操作、觀察、解釋並完成檢核，且不含 Key 與個資。分享方式已用學生帳號測試。</div>
+    <div class="footer"><span><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a> · <a href="https://support.google.com/chrome/answer/10051760?hl=zh-Hant" target="_blank" rel="noreferrer">Chrome QR Code 說明</a></span><span>進階 5 / 5</span></div>
   </section>
 
   <script>

@@ -536,7 +536,7 @@
       <div class="track advanced">
         <span class="track-label">B · 進階挑戰</span>
         <h3>自行命題並製作學生網頁</h3>
-        <p>登入 Gemini 教育版並測試 API Key，體驗出題介面。參照舊題自行命題後，用 Canvas 製作<span class="nowrap">學生版 HTML</span>。</p>
+        <p>登入 Gemini 教育版並測試 API Key，參照舊題自行命題；再用 Canvas 把抽象概念做成可操作的學生網頁，附一題檢核。</p>
       </div>
     </div>
     <div class="track-links"><a href="20261022_beginner.html" target="_blank">開啟初階操作單</a><a href="20261022_advanced.html" target="_blank">開啟進階挑戰單</a></div>
@@ -553,7 +553,7 @@
       <div><b>20–34</b><span>初階：品質五關<br>進階：Gemini 與 API</span><small>14 分鐘</small></div>
       <div><b>34–54</b><span>115 會考題型分析</span><small>20 分鐘</small></div>
       <div><b>54–72</b><span>初階：修題預覽<br>進階：自行命題</span><small>18 分鐘</small></div>
-      <div><b>72–86</b><span>初階：派送小測<br>進階：Canvas 網頁</span><small>14 分鐘</small></div>
+      <div><b>72–86</b><span>初階：派送小測<br>進階：Canvas 概念互動</span><small>14 分鐘</small></div>
       <div><b>86–90</b><span>查核與出口單</span><small>4 分鐘</small></div>
     </div>
     <div class="footer"><span>兩組同時進行；每個操作都從官方入口或空白對話開始</span><span class="page"></span></div>
@@ -831,59 +831,89 @@
   <section class="slide dark section-slide" data-title="學生作品" data-minutes="0" style="--accent:var(--aqua)">
     <span class="section-no">05</span>
     <p class="kicker">72–86 分鐘</p>
-    <h2>初階派送小測<br><span class="accent">進階製作學生網頁</span></h2>
-    <p class="lead">初階用 Edcafe 預覽與派送；進階把定稿題做成學生可操作的 HTML。</p>
-    <div class="footer"><span>教師出題介面只供備課；學生版只放定稿內容</span><span class="page"></span></div>
-    <aside class="speaker-note">初階組完成題目品質檢查與 Edcafe 派送。進階組可參考教師出題介面，但最後需將自己定稿的一題轉成學生版互動網頁。不要把教師 API Key 或待審草稿放進學生版。</aside>
+    <h2>初階派送小測<br><span class="accent">進階製作概念互動</span></h2>
+    <p class="lead">初階用 Edcafe 預覽與派送；進階讓學生操作抽象概念、觀察變化，再用定稿題檢核理解。</p>
+    <div class="footer"><span>教師出題介面只供備課；學生版呈現概念、操作與檢核</span><span class="page"></span></div>
+    <aside class="speaker-note">初階組完成題目品質檢查與 Edcafe 派送。進階組用自己審定的一題找出背後的抽象概念，再設計能改變條件、觀察結果、解釋原因的互動活動；題目放在體驗後作檢核。不要把教師 API Key 或待審草稿放進學生版。</aside>
   </section>
 
-  <section class="slide" data-title="學生網頁規格" data-minutes="3" style="--accent:var(--violet)">
-    <p class="kicker">先把工作流程變成欄位</p>
-    <h2>學生版網頁的四個部分</h2>
+  <section class="slide" data-title="概念互動規格" data-minutes="2" style="--accent:var(--violet)">
+    <p class="kicker">B · 進階 · 學生版設計</p>
+    <h2>概念互動網頁的四個部分</h2>
     <div class="prep-strip">
-      <div><b>01 題目與材料</b><p>題目、材料及來源。</p></div>
-      <div><b>02 學生操作</b><p>學生讀材料、選答案，再看逐項回饋；可重新作答。</p></div>
-      <div><b>03 顯示與無障礙</b><p>支援手機與鍵盤，不蒐集姓名或作答紀錄。</p></div>
-      <div><b>04 分享檔案</b><p>輸出單一 HTML，先由教師試開，再透過學校核准管道交給學生。</p></div>
+      <div><b>01 核心概念</b><p>寫出要學的概念，附上材料來源。</p></div>
+      <div><b>02 可做的動作</b><p>調整位置、排列事件或選擇程序，讓學生主動操作。</p></div>
+      <div><b>03 看見變化</b><p>畫面回應每次操作，請學生依證據解釋原因。</p></div>
+      <div><b>04 題目檢核</b><p>體驗後完成教師審定題，檢查理解。</p></div>
     </div>
-    <div class="callout" style="margin-top:28px">學生版必須離開教師的 Gemini 帳號也能開啟並完成操作。</div>
+    <div class="callout" style="margin-top:28px">只選答案、看解析，仍是線上測驗；概念體驗要能「改變條件 → 看見結果 → 說明理由」。</div>
     <div class="footer"><span>學生版不含 Gemini API Key，也不讓學生上傳個資</span><span class="page"></span></div>
-    <aside class="speaker-note">初階組在這段時間完成 Edcafe 學生預覽與派送設定。進階組先確認定稿題，才把內容放入學生版。教師出題介面與學生練習網頁的用途不同。</aside>
+    <aside class="speaker-note">初階組在這段時間完成 Edcafe 學生預覽與派送設定。進階組先選一個值得被具體化的抽象概念，寫清楚學生動作與可觀察結果，再把定稿題作為最後的理解檢核。操作後的變化必須有教學依據，模擬數值要明確標示。</aside>
   </section>
 
-  <section class="slide" data-title="出題介面參考版" data-minutes="4" style="--accent:var(--teal)">
+  <section class="slide" data-title="三科概念互動示範" data-minutes="2" style="--accent:var(--teal)">
     <p class="kicker">B · 進階體驗</p>
-    <h2>社會科素養題實驗室</h2>
+    <h2>從定稿題找出可操作的概念</h2>
     <div class="license-steps">
-      <div class="license-step"><b>三科規則內建</b><p>三科共用基本規則；證據與迷思依科目而異。</p></div>
-      <div class="license-step"><b>無 Key 仍可完成</b><p>填寫表單後查看並複製完整提示，到新的 Gemini 對話產生候選草稿。</p></div>
-      <div class="license-step"><b>API 為進階選項</b><p>Key 可讓介面直接生成，但必須保密並保留無 Key 備援。</p></div>
-      <div class="license-step"><b>課後延伸</b><p>完成學生版網頁後，還能把其中一題改成地理、歷史或公民的互動概念活動。</p></div>
+      <div class="license-step"><b>地理 · 空間關係</b><p>調整就業地點與班次，觀察人口和通勤變化。</p></div>
+      <div class="license-step"><b>歷史 · 因果推論</b><p>重排茶葉出口事件卡，討論先後、多重原因與價格風險。</p></div>
+      <div class="license-step"><b>公民 · 程序參與</b><p>選擇參與者、公開方式與檢討時點，觀察程序是否周全。</p></div>
+      <div class="license-step"><b>延伸 · 理解檢核</b><p>示範先聚焦操作；教師可再加入審定題，檢查理解。</p></div>
     </div>
-    <div class="dual-summary actionable"><span><b>教師版示範：</b>體驗三科規則、提示複製與 API 出題後，改用自己的材料命題；學生版只收錄教師審定的題目。</span><a class="workshop-link" href="20261022_question.html" target="_blank">開啟參考版</a></div>
-    <div class="footer"><span>延伸示例：<a href="20261022_canvas.html" target="_blank">三科抽象概念互動活動</a></span><span class="page"></span></div>
-    <aside class="speaker-note">進階組測試參考版的三科切換與提示，已取得 Key 者再測 API。此網站是教師命題示範，不要把它直接發給學生，因為其中有 API 欄位與未審定草稿。</aside>
+    <div class="dual-summary actionable"><span>現場只選一科試做。把題目的推理過程轉成學生能改變、觀察並解釋的活動。</span><a class="workshop-link" href="20261022_canvas.html" target="_blank">開啟三科互動示範</a></div>
+    <div class="footer"><span>教師命題工具：<a href="20261022_question.html" target="_blank">社會科素養題實驗室</a></span><span class="page"></span></div>
+    <aside class="speaker-note">示範網站各從地理、歷史、公民示範題取一個概念。地理的數值為模擬，歷史排序不是唯一因果，公民程序不預設某種手機規範立場。進階組選一科體驗，再用自己定稿題的概念設計活動。教師出題介面仍供備課，不發給學生。</aside>
   </section>
 
-  <section class="slide" data-title="Canvas 學生版提示" data-minutes="4" style="--accent:var(--violet)">
+  <section class="slide" data-title="示範頁設計流程" data-minutes="2" style="--accent:var(--amber)">
+    <p class="kicker">B · 進階 · 以地理活動為例</p>
+    <h2>示範頁先有設計稿，才有程式碼</h2>
+    <table class="compare">
+      <thead><tr><th>原題提供什麼</th><th>轉成學生能做的事</th><th>畫面如何回應</th></tr></thead>
+      <tbody>
+        <tr><th>就業中心與人口變化</th><td>切換主要就業中心的位置</td><td>比較兩區工作與青壯人口指標</td></tr>
+        <tr><th>公車班次與跨區通勤</th><td>調整乙區公車班次</td><td>顯示通勤指標如何改變</td></tr>
+        <tr><th>材料中的推理關係</th><td>操作兩次，再比較差異</td><td>請學生用畫面證據說明原因</td></tr>
+      </tbody>
+    </table>
+    <div class="dual-summary">先寫清楚操作與回應規則。<a href="20261022_canvas.html" target="_blank">這份示範頁</a>是成品參考，教師要用自己的材料設計活動；模擬數值須明示。</div>
+    <div class="footer"><span>歷史可換成事件編排；公民可換成程序選擇</span><span class="page"></span></div>
+    <aside class="speaker-note">先打開地理示範，現場改動就業中心與公車班次各一次。請教師說出：哪個控制元件改變、畫面哪個指標跟著變，以及這個關係是否有材料支持。示範頁是教學成品參考，不代表 Gemini 會一次生成完全相同的頁面。歷史與公民也沿用「材料、學生動作、畫面回應、解釋任務」的設計順序。</aside>
+  </section>
+
+  <section class="slide" data-title="Canvas 學生版提示" data-minutes="3" style="--accent:var(--violet)">
     <p class="kicker">B · 進階 · 可直接貼入 Gemini Canvas</p>
-    <h2>從新對話建立學生版網頁</h2>
+    <h2>從新對話建立概念互動網頁</h2>
     <div class="prompt-box">
       <button class="copy-btn" data-copy-target="canvas-activity-prompt">複製提示</button>
-      <pre id="canvas-activity-prompt">這是新對話的第一則訊息。請使用 Gemini Canvas，依我貼在最下方、已由教師審定的社會科題目，製作學生可操作的單一 HTML 網頁。
-學生先看材料，再選四個選項；送出後顯示正解、逐項回饋與材料證據，可按「重新作答」。不要在作答前顯示答案。
-請輸出完整 HTML，CSS 與 JavaScript 都寫在同一檔，不依賴外部函式庫、Gemini API、登入或網路連線。
-支援手機和鍵盤；不要求姓名，不記錄或傳送學生作答。頁面標明材料來源，並提供「重新開始」。
-若我提供的材料、答案或解析不足，先列出缺漏，不要自行補寫史實或正解。完成後請說明如何複製程式碼、存成 UTF-8 的 .html 檔並在瀏覽器測試。
-【已審定題目】科目與年級：＿＿；材料與來源：＿＿；題幹：＿＿；A／B／C／D：＿＿；正解：＿＿；逐項解析：＿＿。</pre>
+      <pre id="canvas-activity-prompt">這是新對話的第一則訊息。請用 Gemini Canvas，把下方社會科抽象概念做成學生能操作的單一 HTML 網頁；不要只做選擇題畫面。
+先呈現材料與來源，再讓學生改變條件、排列事件或選擇程序。每次操作都要顯示變化，請學生依畫面證據說明原因，最後才呈現教師定稿題檢核理解。
+地理可調整位置與交通；歷史可重排事件並討論多重因果；公民可選參與者、公開與檢討程序。依下方科目只採用合適的一種。
+請輸出完整單一 HTML，CSS 與 JavaScript 都放在檔內；支援手機與鍵盤，可重新開始。不用外部函式庫、Gemini API、登入或網路，也不蒐集學生資料。
+模擬數值須標為模擬；史實、因果或制度依據不足時先指出缺漏，不要自行補寫。請說明取得 Canvas 分享網址與備援 HTML 檔的方法。
+【教師資料】科目與年級：＿＿；核心概念與學習目標：＿＿；材料與來源：＿＿；學生能做的動作：＿＿；預期變化及依據：＿＿；定稿檢核題、正解與解析：＿＿。</pre>
     </div>
     <div class="footer"><a href="https://support.google.com/gemini/answer/16047321" target="_blank" rel="noreferrer">來源：Gemini Apps Help · Canvas</a><span class="page"></span></div>
-    <aside class="speaker-note">進階組從 Gemini 首頁開新對話、啟用 Canvas，填完最下方所有欄位再送出。先審定題目才做學生版。若 Canvas 無法使用，要求輸出完整單一 HTML 程式碼。</aside>
+    <aside class="speaker-note">進階組從 Gemini 首頁開新對話、啟用 Canvas。先確認概念、可操作的變因與觀察結果，再填入底部教師資料，作為第一則訊息送出。若只產生答題頁，要求新增可改變條件並觀察結果的活動。題目放在操作後作檢核。若 Canvas 無法使用，要求輸出完整單一 HTML 程式碼。</aside>
   </section>
 
-  <section class="slide" data-title="學生網頁分享" data-minutes="3" style="--accent:var(--coral)">
+  <section class="slide" data-title="Canvas 語法生成與修正" data-minutes="3" style="--accent:var(--teal)">
+    <p class="kicker">B · 進階 · 從空白對話開始</p>
+    <h2>Gemini 產碼後，先操作再修正</h2>
+    <div class="prep-strip">
+      <div><b>01 開新對話</b><p>選 Canvas。<br>貼上前一頁的提示。</p></div>
+      <div><b>02 測試預覽</b><p>換兩種條件，檢查變化、解釋與重設。</p></div>
+      <div><b>03 看程式碼</b><p>點「程式碼」：HTML 是內容，CSS 是版面，JavaScript 控制互動。</p></div>
+      <div><b>04 指出錯誤</b><p>指出失效的操作，請 Gemini 修好後再測。</p></div>
+    </div>
+    <div class="callout" style="margin-top:28px">示範修正語句：<b>「公車班次改了，通勤數值沒變。<br>請檢查 JavaScript，其他內容保持原樣。」</b></div>
+    <div class="footer"><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">來源：Gemini Apps Help · Canvas 程式碼與修改</a><span class="page"></span></div>
+    <aside class="speaker-note">Canvas 本身不需要教師輸入 Gemini API Key。教師從新的空白對話開始，貼入上一頁完整提示；Gemini 產生後先在預覽區實際操作。若結果錯誤，指出具體操作與預期畫面，不要只說「再改好一點」。需要獨立 HTML 時，確認程式碼包含 HTML、CSS 與 JavaScript，複製完整內容存成 UTF-8 的 .html 檔。Google 官方說明：Canvas 右上角可切到程式碼，也可用主對話要求修改，並能查看預覽錯誤訊息。</aside>
+  </section>
+
+  <section class="slide" data-title="學生網頁分享" data-minutes="2" style="--accent:var(--coral)">
     <p class="kicker">發布前測試與分享</p>
-    <h2>HTML 如何交給學生操作</h2>
+    <h2>分享網址，再用 Chrome 製作 QR Code</h2>
     <div class="track-grid">
       <div class="track">
         <span class="track-label">A · 初階操作</span>
@@ -892,31 +922,31 @@
       </div>
       <div class="track advanced">
         <span class="track-label">B · 進階挑戰</span>
-        <h3>單一 HTML 分享給學生</h3>
-        <ol><li>將 Canvas 程式碼存成 UTF-8 的 <span class="nowrap">.html</span> 檔。</li><li>先在瀏覽器以學生視角測試，再上傳到學校核准的平台。</li><li>以班級平台附檔，或貼上學校網站連結／QR code。</li></ol>
+        <h3>Canvas 學生版快速分享</h3>
+        <ol><li>在 Canvas 按「分享及匯出 → 分享」，複製學生版網址。</li><li>用 Chrome 開啟網址，選「⋮ → 投放、儲存及分享 → 建立 QR Code」。</li><li>用學生帳號掃描，確認能操作、解釋變化並完成檢核題。</li></ol>
       </div>
     </div>
-    <div class="dual-summary">學生版不得含 API Key、教師專用欄位或學生個資。Canvas 分享連結需在 Gemini 開啟；本課以獨立 HTML 檔或校方網站交付，避免學生受帳號權限限制。</div>
-    <div class="footer"><span><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a> · <a href="https://support.google.com/edu/classroom/answer/9123621" target="_blank" rel="noreferrer">班級平台附檔範例</a></span><span class="page"></span></div>
-    <aside class="speaker-note">此處的學生交付方式是 HTML 檔或學校核准網站的 URL，不是教師 Canvas 編輯連結。若班級平台只預覽 HTML 文字，請學生下載檔案後以瀏覽器開啟，或改由校方網站提供網址。先用學生帳號測試。公開網站上不可放 Gemini API Key。</aside>
+    <div class="dual-summary">QR Code 只代表網址，不會把本機 HTML 變成公開網頁。Canvas 連結須在 Gemini 開啟；若學生帳號無法使用，改由校方網站提供網址，或讓學生下載 HTML 檔。</div>
+    <div class="footer"><span><a href="https://support.google.com/chrome/answer/10051760?hl=zh-Hant" target="_blank" rel="noreferrer">Google Chrome：建立 QR Code</a> · <a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a></span><span class="page"></span></div>
+    <aside class="speaker-note">先分享沒有 API Key、個資或教師命題內容的 Canvas 學生版。於 Canvas 取得分享網址後，在 Chrome 開啟並建立 QR Code。請先用學生帳號實際掃描操作並完成檢核；Canvas 連結只能在 gemini.google.com 開啟，未滿 18 歲目前不能複製或編輯共享 Canvas。若學生無法進入或操作，才改用獨立 HTML：複製完整程式碼、存成 UTF-8 的 .html 檔，放在校方核准的網站取得網址，或透過班級平台讓學生下載。本機 file:/// 網址或教師電腦的 localhost 不可直接製成學生可用的 QR Code。</aside>
   </section>
 
   <section class="slide" data-title="出口單" data-minutes="2" style="--accent:var(--amber)">
     <p class="kicker">86–88 分鐘</p>
     <h2>請留下三句話</h2>
     <div class="stack" style="width:min(1080px,100%)">
-      <div class="line-item"><b>作品</b><p>我的 Edcafe 小測／學生版 HTML 已完成＿＿＿＿＿＿。</p></div>
+      <div class="line-item"><b>作品</b><p>我的 Edcafe 小測／Canvas 概念互動已完成＿＿＿＿＿＿。</p></div>
       <div class="line-item"><b>分享</b><p>學生會透過＿＿＿＿＿＿開啟並操作。</p></div>
       <div class="line-item"><b>查核</b><p>我還要確認的題目品質條件是＿＿＿＿＿＿。</p></div>
     </div>
     <div class="footer"><span>出口單可改成 Edcafe 短答活動</span><span class="page"></span></div>
-    <aside class="speaker-note">初階保存 Edcafe 活動與題目修改紀錄；進階保存定稿題、Canvas 對話、HTML 檔及學生視角測試結果。請大家寫出實際分享管道。</aside>
+    <aside class="speaker-note">初階保存 Edcafe 活動與題目修改紀錄；進階保存定稿題、Canvas 分享網址或 HTML 檔，以及學生視角測試結果。請大家寫出實際分享管道。</aside>
   </section>
 
   <section class="slide dark" data-title="資源與結語" data-minutes="2" style="--accent:var(--aqua)">
     <p class="kicker">88–90 分鐘</p>
     <h2>先把題目審好，再交給學生</h2>
-    <p class="lead"><b>初階完成可派送的 Edcafe 小測；進階完成自己命題的學生版 HTML。</b><br>兩條路線都要用原始資料查證，並以學生視角完整試做。</p>
+    <p class="lead"><b>初階完成可派送的 Edcafe 小測；進階完成可操作的社會科概念互動網頁。</b><br>兩條路線都要用原始資料查證，並以學生視角完整試做。</p>
     <div class="sources">
       <a href="20261022_beginner.html" target="_blank">初階操作教材</a>
       <a href="20261022_advanced.html" target="_blank">進階挑戰教材</a>

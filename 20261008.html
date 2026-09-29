@@ -38,7 +38,7 @@
         linear-gradient(135deg, rgba(255,255,255,.32), transparent 48%),
         var(--paper);
     }
-    .slide.active { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 11vh; }
+    .slide.active { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 8.5vh; }
     .slide.active > .eyebrow,
     .slide.active > .overline { min-height: 34px; margin-bottom: 18px; }
     .slide.active > h1,
@@ -116,6 +116,7 @@
     .instructor-bio .bio-line { display: block; text-align: justify; text-align-last: justify; text-justify: inter-character; }
     .instructor-bio .bio-line:last-child { text-align-last: left; }
     .keep { white-space: nowrap; }
+    .word-unit { white-space: nowrap; }
     .expertise { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
     .expertise li { padding: 9px 15px; color: #805f55; background: #faece5; border: 1px solid #d7a392; font-size: clamp(17px, 1.3vw, 21px); font-weight: 800; }
     .instructor-quote {
@@ -152,7 +153,7 @@
     .path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; max-width: 1180px; align-items: stretch; }
     .path div { min-height: 163px; background: var(--white); border: 1px solid var(--line); padding: 22px 20px; position: relative; }
     .path b { display: block; font-size: clamp(22px, 1.9vw, 31px); margin-bottom: 14px; }
-    .path span { display: block; color: var(--ink-soft); font-size: clamp(17px, 1.4vw, 22px); line-height: 1.5; }
+    .path > div > span { display: block; color: var(--ink-soft); font-size: clamp(17px, 1.4vw, 22px); line-height: 1.5; }
     .agenda { max-width: 1180px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
     .agenda div { min-height: 145px; padding: 24px; border: 1px solid var(--line); background: var(--white); display: grid; grid-template-columns: 52px 1fr; gap: 16px; align-items: start; font-size: clamp(21px, 1.75vw, 28px); }
     .agenda b { color: var(--terracotta); }
@@ -202,12 +203,12 @@
     .evolution-summary { max-width: 1180px; margin: 24px 0 0; padding-left: 20px; border-left: 5px solid var(--terracotta); color: var(--ink-soft); font-size: clamp(21px, 1.75vw, 28px); line-height: 1.45; font-weight: 700; }
     .activity h2 { font-size: clamp(48px, 4.9vw, 78px); }
     .activity-prompt { margin: -8px 0 24px; color: #765b51; font-size: clamp(22px, 1.7vw, 28px); font-weight: 800; letter-spacing: .04em; }
-    .activity-prompt span { display: inline-block; margin-right: 12px; padding: 5px 12px; color: #fffaf3; background: var(--terracotta); border-radius: 999px; font-size: .8em; letter-spacing: .08em; }
-    .activity-options { max-width: 1180px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .activity-prompt > span:first-child { display: inline-block; margin-right: 12px; padding: 5px 12px; color: #fffaf3; background: var(--terracotta); border-radius: 999px; font-size: .8em; letter-spacing: .08em; }
+    .activity-options { max-width: 1300px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .activity-options > div {
-      min-height: 126px; padding: 28px 24px 23px; position: relative; background: #fff9f2;
+      min-height: 126px; padding: 28px 20px 23px; position: relative; background: #fff9f2;
       border: 2px solid #d1a797; box-shadow: 4px 5px 0 rgba(151,99,83,.16);
-      font-size: clamp(25px, 1.95vw, 32px); line-height: 1.38; font-weight: 700; display: grid; grid-template-columns: 43px 1fr; gap: 15px; align-items: center;
+      font-size: clamp(24px, 1.75vw, 29px); line-height: 1.38; font-weight: 700; display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: center;
     }
     .activity-options > div::before {
       content: ""; display: block; width: 37px; height: 37px;
@@ -218,6 +219,7 @@
       transform: translateX(-50%) rotate(-1.5deg); background: rgba(235,202,187,.7);
       border-left: 1px solid rgba(189,123,104,.16); border-right: 1px solid rgba(189,123,104,.16);
     }
+    .activity-options .line-content { min-width: 0; }
     .activity-options > div:nth-child(3n + 2) { transform: rotate(.35deg); }
     .activity-options > div:nth-child(3n + 3) { transform: rotate(-.3deg); }
     .reveal-card {
@@ -232,6 +234,14 @@
     .controls button:hover { background: var(--peach); }
     .progress { position: fixed; left: 0; bottom: 0; height: 7px; background: var(--terracotta); width: 3.333%; transition: width .25s ease; z-index: 12; }
     .hint { position: fixed; right: 24px; bottom: 14px; font-size: 13px; color: rgba(255,255,255,.88); z-index: 12; }
+    @media (max-height: 800px) and (min-width: 851px) {
+      .activity h2 { margin-bottom: 20px; }
+      .activity-prompt { margin-bottom: 16px; }
+      .activity-options { gap: 16px; }
+      .activity-options > div { min-height: 96px; padding-top: 18px; padding-bottom: 16px; }
+      .equal-cards { height: min(49vh, 410px); }
+      .case + .source-links { margin-top: 18px; }
+    }
     @media (max-width: 850px) {
       .slide { padding: 62px 32px 72px; justify-content: flex-start !important; }
       .slide::before, .slide::after { display: none; }
@@ -283,7 +293,7 @@
 
     <section class="slide">
       <p class="eyebrow">資訊科技課程（ESP32 × motoBlockly） · 2026.10.08</p>
-      <h1>讓每個學生都能<br><span class="hand">用適合自己的速度學習。</span></h1>
+      <h1>讓每個學生，<br><span class="hand">用適合自己的步調學習。</span></h1>
       <p class="lead">從 Gemini 單頁原型到可持續維護的數位課程網站：<br>ESP32 × motoBlockly 的設計、測試與 AI 協作歷程</p>
       <p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p>
       <span class="page"></span>
@@ -318,7 +328,7 @@
 
     <section class="slide"><p class="overline">今天想分享的，不是工具清單。</p><div class="quote">而是：如何讓不同基礎、不同理解速度的學生，都能在同一個單元中找到可前進的下一步。</div><p class="caption">分享的主線</p><span class="page">02 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">分享架構</p><h2>今天的旅程</h2><div class="agenda"><div class="reveal-card"><b>01</b><span>從教學問題出發</span></div><div class="reveal-card"><b>02</b><span>設計學習路徑</span></div><div class="reveal-card"><b>03</b><span>從原型到網站</span></div><div class="reveal-card"><b>04</b><span>網站體驗與交流</span></div><div class="reveal-card"><b>05</b><span>工具、資料與 AI 協作</span></div><div class="reveal-card"><b>06</b><span>上線測試、維護與反思</span></div></div><p class="caption">依現場交流情況，彈性調整分享節奏</p><span class="page">03 / 30</span></section>
+    <section class="slide"><p class="eyebrow">分享架構</p><h2>今天的旅程</h2><div class="agenda"><div class="reveal-card"><b>01</b><span>從教學問題出發</span></div><div class="reveal-card"><b>02</b><span>設計學習路徑</span></div><div class="reveal-card"><b>03</b><span>從原型到網站</span></div><div class="reveal-card"><b>04</b><span>網站體驗與交流</span></div><div class="reveal-card"><b>05</b><span><span class="keep">工具與資料、</span><br><span class="keep">AI 協作</span></span></div><div class="reveal-card"><b>06</b><span><span class="keep">上線測試、</span><br><span class="keep">維護與反思</span></span></div></div><p class="caption">依現場交流情況，彈性調整分享節奏</p><span class="page">03 / 30</span></section>
 
     <section class="slide section"><p class="eyebrow">Part 1 · Why</p><h2>從 ESP32 × motoBlockly 課程，<br>看見學生<span class="hand">學習差異。</span></h2><p class="lead">先理解學生的基礎、理解速度與卡關方式，再設計能支持每個人的路徑。</p><span class="page">04 / 30</span></section>
 
@@ -336,7 +346,7 @@
 
     <section class="slide section"><p class="eyebrow">Part 2 · Learning design</p><h1>先設計<span class="hand">學習路徑</span>，<br>再設計網站。</h1><span class="page">10 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">課程藍圖 · ESP32 × motoBlockly</p><h2>把三天的硬體整合課，<br>拆成可前進的學習路徑。</h2><div class="path"><div><b>課前／Day 1</b><span>ESP32、motoBlockly、G／V／S 與用電安全。</span></div><div><b>Day 1</b><span>有聲紅綠燈：輸出、按鈕與控制邏輯。</span></div><div><b>Day 2</b><span>光影與閘門：類比輸入、伺服馬達與條件控制。</span></div><div><b>Day 3</b><span>感測器整合、專題設計、實作與發表。</span></div></div><p class="caption">課程架構就是網站架構的起點</p><span class="page">11 / 30</span></section>
+    <section class="slide"><p class="eyebrow">課程藍圖 · ESP32 × motoBlockly</p><h2>把三天的硬體整合課，<br>拆成可前進的學習路徑。</h2><div class="path"><div><b>課前／Day 1</b><span>ESP32、motoBlockly、G／V／S 與用電安全。</span></div><div><b>Day 1</b><span>有聲紅綠燈：輸出、按鈕與控制邏輯。</span></div><div><b>Day 2</b><span>光影閘門：類比輸入、馬達與條件控制。</span></div><div><b>Day 3</b><span>感測器整合、專題設計、實作與發表。</span></div></div><p class="caption">課程架構就是網站架構的起點</p><span class="page">11 / 30</span></section>
 
     <section class="slide"><p class="eyebrow">設計原則</p><h2>學生需要的不是更多頁面，<br>而是能依自己速度前進的路徑。</h2><div class="grid three"><div class="card"><h3>先站穩基礎</h3><p>Day 1～3 設定每日最低完成線，讓學生先完成可驗證的核心功能。</p></div><div class="card"><h3>需要時回看</h3><p>用除錯闖關護照與每日回饋，讓學生能回到卡關處重新理解。</p></div><div class="card"><h3>準備不同路徑</h3><p>從安全闖關、上電前檢核到分層任務卡，讓需要支持或挑戰的學生都有下一步。</p></div></div><p class="caption">以學生的起點、速度與理解需求作為設計判準</p><span class="page">12 / 30</span></section>
 
@@ -344,19 +354,19 @@
 
     <section class="slide section"><p class="eyebrow">Part 3 · Development journey</p><h1>從構想，<br>到可以操作的<span class="hand">第一個原型。</span></h1><span class="page">13 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">第一階段 · Gemini</p><h2>從 Gemini 開始：<br>快速做出 ESP32 × motoBlockly 的單頁原型</h2><div class="grid two"><div class="card"><h3>先說清楚需求</h3><p>學生常卡在哪裡？需要什麼提示？先定義學習目標、使用對象與操作路徑。</p></div><div class="card"><h3>先做可測試的版本</h3><p>把一個單元做成可操作的頁面，再觀察學生能否找到任務、理解下一步。</p></div></div><p class="lead" style="margin-top:27px">原型的價值：<span class="hand">把「想像」變成可以對話的東西。</span></p><p class="caption">與 AI 對話的起點，是具體的教學問題與學生使用情境</p><span class="page">14 / 30</span></section>
+    <section class="slide"><p class="eyebrow">第一階段 · Gemini · ESP32 × motoBlockly</p><h2>從 Gemini 開始：<br>做出第一個單頁原型。</h2><div class="grid two"><div class="card"><h3>先說清楚需求</h3><p>學生常卡在哪裡？需要什麼提示？先定義學習目標、使用對象與操作路徑。</p></div><div class="card"><h3>先做可測試的版本</h3><p>把一個單元做成可操作的頁面，再觀察學生能否找到任務、理解下一步。</p></div></div><p class="lead" style="margin-top:27px">原型的價值：<span class="hand">把「想像」變成可以對話的東西。</span></p><p class="caption">與 AI 對話的起點，是具體的教學問題與學生使用情境</p><span class="page">14 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">專案例頁 01 · ESP32 × motoBlockly 學習入口</p><h2>學生不知道從哪裡開始，<br>就先改變「進入單元」的方式。</h2><div class="case"><div><b>原本設計</b><p>在單一頁面提供完整的 ESP32 與 motoBlockly 教材、任務，讓學生自行選擇。</p></div><div><b>使用後發現</b><p>學生看見很多內容，卻難以判斷先後順序，也不容易開始。</p></div><div><b>調整與影響</b><p>改為單元任務、階段提示與清楚下一步，降低一開始的迷路感。</p></div></div><p class="caption">建議搭配：調整前後的首頁或單元入口畫面</p><span class="page">15 / 30</span></section>
+    <section class="slide"><p class="eyebrow">專案例頁 01 · ESP32 × motoBlockly 學習入口</p><h2>學生不知道從哪裡開始，<br>就先改變「進入單元」的方式。</h2><div class="case"><div><b>原本設計</b><p>單頁放入完整教材與任務，讓學生自行選擇。</p></div><div><b>使用後發現</b><p>學生看見很多內容，卻難以判斷先後順序，也不容易開始。</p></div><div><b>調整與影響</b><p>改為單元任務、階段提示與清楚下一步，降低一開始的迷路感。</p></div></div><p class="caption">建議搭配：調整前後的首頁或單元入口畫面</p><span class="page">15 / 30</span></section>
 
     <section class="slide"><p class="eyebrow">專案例頁 02 · ESP32 × motoBlockly 開發轉折</p><h2>單頁原型能快速開始，<br>但不一定能長期修改。</h2><div class="case"><div><b>原本設計</b><p>以 Gemini 建立單一網頁應用，快速驗證課程流程與介面想法。</p></div><div><b>遇到問題</b><p>教材、功能與資料增加後，牽一髮動全身，修改與維護都變得困難。</p></div><div><b>調整與影響</b><p>改用 Claude／Codex 協助釐清修改範圍、重整與除錯；用 GitHub 留下可運作的版本。</p></div></div><p class="caption">AI 協助實作；教師決定教學需求、檢查結果與發布時機</p><span class="page">16 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">專案例頁 03 · ESP32 × motoBlockly 分層學習</p><h2>把同一個單元，<br>設計成不同學生都能前進的路徑。</h2><div class="case"><div><b>共同基礎</b><p>每位學生先完成安全檢核與每日最低完成線，建立必要的操作與概念基礎。</p></div><div><b>遇到卡關</b><p>可回看教材、使用接線練習與除錯護照，依自己的理解速度重新嘗試。</p></div><div><b>準備延伸</b><p>完成基礎後，再進入挑戰關、創意關與專題整合，不讓較快的學生停在原地。</p></div></div><p class="caption">同一個單元，不必要求所有學生以相同速度完成</p><span class="page">17 / 30</span></section>
+    <section class="slide"><p class="eyebrow">專案例頁 03 · ESP32 × motoBlockly 分層學習</p><h2>把同一個單元，<br>設計成不同學生都能前進的路徑。</h2><div class="case"><div><b>共同基礎</b><p>每位學生先完成安全檢核與每日最低完成線，建立必要的操作與概念基礎。</p></div><div><b>遇到卡關</b><p>可回看教材、使用接線練習與除錯護照，依自己的理解速度重新嘗試。</p></div><div><b>準備延伸</b><p>完成基礎後，進入挑戰與專題整合，繼續往前走。</p></div></div><p class="caption">同一個單元，不必要求所有學生以相同速度完成</p><span class="page">17 / 30</span></section>
 
     <section class="slide section"><p class="eyebrow">Part 4 · Try it · ESP32 × motoBlockly</p><h1>現在，<br>換我們用<span class="hand">學生視角</span>體驗。</h1><div class="source-links" aria-label="專案體驗連結"><a href="https://suyungsheng-kh.github.io/esp32-2026/" target="_blank" rel="noopener noreferrer">開啟成果網站</a><a href="https://github.com/suyungsheng-kh/esp32-2026" target="_blank" rel="noopener noreferrer">查看 GitHub 專案內容</a></div><p class="caption">可直接開啟網站體驗，或查閱公開專案內容</p><span class="page">18 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">體驗前的提示</p><h2>今天不教操作，<br>而是觀察設計。</h2><div class="grid three"><div class="card"><h3>先做安全判斷</h3><p>從 G／V／S 接線與找錯接線題，感受前導鷹架的安排。</p></div><div class="card"><h3>再走一次除錯</h3><p>透過「描述現象到反思」的除錯護照，體會卡關時的支持。</p></div><div class="card"><h3>最後看學習證據</h3><p>從每日回饋、專題設計單與 XML 自評，回看學生的進展。</p></div></div><p class="caption">先以學生視角體驗，再回看設計的用意</p><span class="page">19 / 30</span></section>
+    <section class="slide"><p class="eyebrow">體驗前的提示</p><h2>今天不教操作，<br>而是觀察設計。</h2><div class="grid three"><div class="card"><h3>先做安全判斷</h3><p>從 G／V／S 接線與找錯接線題，感受前導鷹架的安排。</p></div><div class="card"><h3>再走一次除錯</h3><p>透過除錯護照，記錄從描述現象到反思的歷程。</p></div><div class="card"><h3>最後看學習證據</h3><p>每日回饋、專題設計單與 XML 自評，幫助教師回看學生進展。</p></div></div><p class="caption">先以學生視角體驗，再回看設計的用意</p><span class="page">19 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">學生學習流程</p><h2>在三天課程裡，<br>讓學生經歷四個時刻。</h2><div class="path"><div><b>安全開始</b><span>認識 G／V／S，完成接線與上電前檢核。</span></div><div><b>小步完成</b><span>從紅綠燈到光影閘門，先完成每日最低完成線。</span></div><div><b>整合專題</b><span>用專題設計單規劃輸入、輸出、邏輯與成功條件。</span></div><div><b>反思與發表</b><span>每日回饋，並用「問題、規則、解法」完成成果發表。</span></div></div><p class="caption">體驗網站時，對照每個環節的教學目的</p><span class="page">20 / 30</span></section>
+    <section class="slide"><p class="eyebrow">學生學習流程</p><h2>在三天課程裡，<br>讓學生經歷四個時刻。</h2><div class="path"><div><b>安全開始</b><span>認識 G／V／S，完成接線與上電前檢核。</span></div><div><b>小步完成</b><span>從紅綠燈走到光影閘門，完成每日最低完成線。</span></div><div><b>整合專題</b><span>用專題設計單規劃輸入、輸出、邏輯與成功條件。</span></div><div><b>反思與發表</b><span>每日回饋，並用「問題、規則、解法」完成成果發表。</span></div></div><p class="caption">體驗網站時，對照每個環節的教學目的</p><span class="page">20 / 30</span></section>
 
     <section class="slide"><p class="eyebrow">體驗後交流</p><h2>一起討論三件事</h2><ul class="list"><li>哪個設計最能降低學生的學習不安？</li><li>哪些地方仍需要教師親自介入？</li><li>這套方式能如何轉化到自己的單元？</li></ul><p class="caption">讓體驗回到自己的教學現場</p><span class="page">21 / 30</span></section>
 
@@ -364,23 +374,23 @@
 
     <section class="slide section"><p class="eyebrow">Part 5 · Tools &amp; data</p><h1>工具存在的目的，<br>是讓不同速度的學生，<br><span class="hand">都能繼續前進。</span></h1><span class="page">22 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">ESP32 × motoBlockly 專案的教學支持</p><h2>先串起既有工具，<br>提供可自行回看的學習支持。</h2><div class="toolgrid"><div class="tool"><b>Google Drive</b><span>集中教材與參考資料，讓學生可依需要回看。</span></div><div class="tool"><b>Google Classroom</b><span>發布任務與作品繳交，讓每個人掌握目前進度。</span></div><div class="tool"><b>Google Apps Script</b><span>串接表單與試算表，整理學生卡關與回饋的線索。</span></div><div class="tool"><b>Google Colab</b><span>提供 XML 作業的初步檢核與個別回饋。</span></div></div><p class="caption">工具的價值，是讓學生在需要時找到合適支持</p><span class="page">23 / 30</span></section>
+    <section class="slide"><p class="eyebrow">ESP32 × motoBlockly 專案的教學支持</p><h2>先串起既有工具，<br>提供可自行回看的學習支持。</h2><div class="toolgrid"><div class="tool"><b>Google Drive</b><span>集中教材與參考資料，讓學生可依需要回看。</span></div><div class="tool"><b>Google Classroom</b><span>發布任務與收取作品，讓學生掌握進度。</span></div><div class="tool"><b>Google Apps Script</b><span>串接表單與試算表，整理卡關與回饋。</span></div><div class="tool"><b>Google Colab</b><span>提供 XML 作業的初步檢核與個別回饋。</span></div></div><p class="caption">工具的價值，是讓學生在需要時找到合適支持</p><span class="page">23 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">網站與資料支持</p><h2>大多數課程頁是靜態網站；<br>只有作業回饋需要 AI 助教。</h2><div class="comparison"><div class="left"><b>課程與互動鷹架</b><p>前導、Day 1～3、接線練習、除錯護照與專題設計單，皆可由靜態 HTML 網站直接提供。</p></div><div class="right"><b>AI 作業回饋助教</b><p>學生上傳 motoBlockly 的 XML；Colab Flask 後端先解析內容，再由 Gemini 依教師規準提供初步檢核與回饋，並可選擇以 Firestore 保存紀錄。</p></div></div><p class="caption">AI 先協助處理可重複檢核的作業回饋；教師仍負責教學判斷</p><span class="page">24 / 30</span></section>
+    <section class="slide"><p class="eyebrow">網站與資料支持</p><h2>大多數課程頁是靜態網站；<br>只有作業回饋需要 AI 助教。</h2><div class="comparison"><div class="left"><b>課程與互動鷹架</b><p>前導、Day 1～3、接線練習、除錯護照與專題設計單，由靜態網站提供。</p></div><div class="right"><b>AI 作業回饋助教</b><p>學生上傳 motoBlockly 的 XML；Colab Flask 後端先解析內容，再由 Gemini 依教師規準提供初步檢核與回饋，並可選擇以 Firestore 保存紀錄。</p></div></div><p class="caption">AI 先協助處理可重複檢核的作業回饋；教師仍負責教學判斷</p><span class="page">24 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">工具地圖</p><h2>每個工具，服務不同的工作</h2><div class="path"><div><b>課程素材</b><span>Drive／Classroom：教材、任務、作品與班級溝通。</span></div><div><b>網站開發</b><span>Gemini／Claude／Codex 協作開發；GitHub 保存版本與修改紀錄。</span></div><div><b>AI 作業助教</b><span>ESP32 XML 與 ScratchGrader：依教師規準初步檢核作品、提出回饋。</span></div><div><b>保存與回看</b><span>Colab／Firebase／Firestore／Apps Script：設定、紀錄、整理與教學反思。</span></div></div><p class="caption">工具串接的是工作流程，不是炫技</p><span class="page">25 / 30</span></section>
+    <section class="slide"><p class="eyebrow">工具地圖</p><h2>每個工具，服務不同的工作</h2><div class="path"><div><b>課程素材</b><span>Drive／Classroom：教材、任務、作品與班級溝通。</span></div><div><b>網站開發</b><span>Gemini／Claude／Codex 協作開發；GitHub 留存版本。</span></div><div><b>AI 作業助教</b><span>ESP32 XML 與 ScratchGrader：依教師規準初步檢核作品、提出回饋。</span></div><div><b>保存與回看</b><span>Colab／Firebase／Firestore／Apps Script：設定、紀錄、整理與教學反思。</span></div></div><p class="caption">工具串接的是工作流程，不是炫技</p><span class="page">25 / 30</span></section>
 
     <section class="slide"><p class="eyebrow">AI 協作 · 作業回饋</p><h2>把 AI 當成助教，<br>不是取代教師。</h2><div class="role"><div class="system"><b>AI 助教先做什麼？</b><p>依教師規準初步檢核作品、指出可能缺漏、提供可再嘗試的回饋，協助學生先自我修正。</p></div><div class="teacher"><b>教師更能做什麼？</b><p>根據作品與回饋線索，關注更需要協助的學生，理解卡關原因，給予個別引導與真正的對話。</p></div></div><p class="caption">AI 協助第一輪作業回饋；教師把時間留給最需要支持的學生</p><span class="page">26 / 30</span></section>
 
     <section class="slide section"><p class="eyebrow">Part 6 · Test &amp; reflect</p><h1>做完不是終點，<br><span class="hand">聽見回饋</span>才是。</h1><span class="page">27 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">如何測試？</p><h2>開課前，先走一遍<br>學生真正會走的路。</h2><div class="path"><div><b>安全鷹架</b><span>測試 G／V／S、找錯接線與上電前檢核。</span></div><div><b>學習工具</b><span>測試接線練習、除錯護照、每日回饋與專題設計單。</span></div><div><b>AI 自評連線</b><span>啟動 Colab，確認健康檢查與學生頁可正常連線。</span></div><div><b>真實作品試評</b><span>以 motoBlockly XML 範例完成一次上傳與自評。</span></div></div><p class="caption">測試不是考學生，而是檢驗我們的設計假設</p><span class="page">28 / 30</span></section>
+    <section class="slide"><p class="eyebrow">如何測試？</p><h2>開課前，站在學生的位置，<br>走一遍學習路徑。</h2><div class="path"><div><b>安全鷹架</b><span>測試 G／V／S、找錯接線與上電前檢核。</span></div><div><b>學習工具</b><span>測試接線練習、除錯護照、每日回饋與專題設計單。</span></div><div><b>AI 自評連線</b><span>啟動 Colab，確認學生頁與健康檢查正常連線。</span></div><div><b>真實作品試評</b><span>上傳 motoBlockly XML 範例，檢查自評結果。</span></div></div><p class="caption">測試不是考學生，而是檢驗我們的設計假設</p><span class="page">28 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">上線之後 · 持續維護</p><h2>真正的壓力測試，<br>在多人使用時才開始。</h2><div class="grid three"><div class="card"><span class="no">01 · 同時使用</span><h3>觀察系統負荷</h3><p>從一個人試用到多班學生同時登入、開啟任務與送出作品，檢查速度、連線與資料是否穩定。</p></div><div class="card"><span class="no">02 · 現場回報</span><h3>找出真實問題</h3><p>蒐集學生卡關、操作錯誤與教師觀察，分辨是介面不清楚、流程不順，還是系統故障。</p></div><div class="card"><span class="no">03 · 小步更新</span><h3>先預覽再發布</h3><p>先保存可用版本，在預覽版修正與測試；確認有效再發布，出問題可回到穩定版。</p></div></div><p class="caption">更新後再回到課堂觀察：是否真的讓學生更容易前進？</p><span class="page"></span></section>
+    <section class="slide"><p class="eyebrow">上線之後 · 持續維護</p><h2>真正的壓力測試，<br>在多人使用時才開始。</h2><div class="grid three"><div class="card"><span class="no">01 · 同時使用</span><h3>觀察系統負荷</h3><p>從一個人試用到多班學生同時登入、開啟任務與送出作品，檢查速度、連線與資料是否穩定。</p></div><div class="card"><span class="no">02 · 現場回報</span><h3>找出真實問題</h3><p>蒐集學生與教師回報，分辨介面、流程或系統問題。</p></div><div class="card"><span class="no">03 · 小步更新</span><h3>先預覽再發布</h3><p>保存可用版本，先在預覽版修正與測試，再發布更新；出問題可回復穩定版。</p></div></div><p class="caption">更新後再回到課堂觀察：是否真的讓學生更容易前進？</p><span class="page"></span></section>
 
-    <section class="slide"><p class="eyebrow">具體案例 · AI 作業助教</p><h2>把 AI 自評放進學習流程，<br>讓學生能依自己的速度修正。</h2><div class="case"><div><b>ESP32 × motoBlockly</b><p>學生上傳 XML；系統解析積木與腳位，再依教師規準回傳初步評語與分數。</p></div><div><b>ScratchGrader</b><p>學生上傳 .sb3；系統解析角色、背景、音效、變數與積木流程，再依教師規則提出建議。</p></div><div><b>教師聚焦需要支持的人</b><p>學生可先依回饋自己修正；教師則更能辨識需要協助的學生，聚焦邏輯差異、卡關原因與下一步策略。</p></div></div><div class="source-links"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noopener noreferrer">查看 ScratchGrader 公開專案</a></div><p class="caption">AI 是作業回饋助教；教師保有最終判斷與個別引導</p><span class="page">29 / 30</span></section>
+    <section class="slide"><p class="eyebrow">具體案例 · AI 作業助教</p><h2>把 AI 自評放進學習流程，<br>讓學生能依自己的速度修正。</h2><div class="case"><div><b>ESP32 × motoBlockly</b><p>學生上傳 XML；系統解析積木與腳位，依教師規準回傳初評。</p></div><div><b>ScratchGrader</b><p>學生上傳 .sb3；系統解析角色、背景、音效、變數與積木流程，再依教師規則提出建議。</p></div><div><b>教師聚焦需要支持的人</b><p>學生可先依回饋自己修正；教師則更能辨識需要協助的學生，聚焦邏輯差異、卡關原因與下一步策略。</p></div></div><div class="source-links"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noopener noreferrer">查看 ScratchGrader 公開專案</a></div><p class="caption">AI 是作業回饋助教；教師保有最終判斷與個別引導</p><span class="page">29 / 30</span></section>
 
-    <section class="slide activity"><p class="eyebrow">活動 04 · 留給自己的行動選擇</p><h2>下一次教這個單元時，<br>你最願意先試哪一件事？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項要帶走的小改變</p><div class="activity-options"><div>重新寫出學生看得懂的任務</div><div>設定最低完成線</div><div>加入一張操作檢核卡</div><div>把作業拆成階段任務</div><div>設計除錯或反思紀錄</div><div>準備基礎與延伸挑戰</div><div>讓學生自行回看學習紀錄</div><div>讓 AI 協助初步檢核</div><div>其他：用一句話寫下想法</div></div><p class="caption">選不出來也沒關係；那可能正是你自己的新做法開始成形。</p><span class="page"></span></section>
+    <section class="slide activity"><p class="eyebrow">活動 04 · 留給自己的行動選擇</p><h2>下一次教這個單元時，<br>你最願意先試哪一件事？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項要帶走的小改變</p><div class="activity-options"><div>寫出清楚的學習任務</div><div>設定最低完成線</div><div>加入一張操作檢核卡</div><div>把作業拆成階段任務</div><div>設計除錯或反思紀錄</div><div>準備基礎與延伸挑戰</div><div>讓學生回看學習紀錄</div><div>讓 AI 協助初步檢核</div><div>其他：寫下自己的想法</div></div><p class="caption">選不出來也沒關係；那可能正是你自己的新做法開始成形。</p><span class="page"></span></section>
 
     <section class="slide final"><p class="eyebrow">Takeaway</p><h1>不同的起點，<br>都能找到<span class="hand">下一步。</span></h1><p class="lead">從一個真實單元開始：先看見差異，再設計讓學生能以適合自己速度前進的路徑。</p><p class="lecturer">高雄市立前峰國中　蘇永勝 老師</p><p class="caption">謝謝聆聽 · 討論與提問</p><span class="page">30 / 30</span></section>
   </main>
@@ -392,6 +402,44 @@
       const slides = Array.from(document.querySelectorAll('.slide'));
       const progress = document.querySelector('.progress');
       let current = 0, startY = null;
+      if (Intl.Segmenter) {
+        const segmenter = new Intl.Segmenter('zh-Hant', { granularity: 'word' });
+        slides.forEach(slide => {
+          const layoutWalker = document.createTreeWalker(slide, NodeFilter.SHOW_TEXT);
+          const directText = [];
+          while (layoutWalker.nextNode()) directText.push(layoutWalker.currentNode);
+          directText.forEach(node => {
+            if (!node.textContent || !/[\p{Script=Han}]/u.test(node.textContent)) return;
+            const display = getComputedStyle(node.parentElement).display;
+            if (!['grid', 'inline-grid', 'flex', 'inline-flex'].includes(display)) return;
+            const wrapper = document.createElement('span');
+            wrapper.className = 'line-content';
+            node.replaceWith(wrapper);
+            wrapper.appendChild(node);
+          });
+          const walker = document.createTreeWalker(slide, NodeFilter.SHOW_TEXT);
+          const textNodes = [];
+          while (walker.nextNode()) textNodes.push(walker.currentNode);
+          textNodes.forEach(node => {
+            const content = node.textContent;
+            if (!content || !/[\p{Script=Han}]/u.test(content)) return;
+            const fragment = document.createDocumentFragment();
+            let protectedWord = false;
+            for (const part of segmenter.segment(content)) {
+              if (part.isWordLike && part.segment.length > 1 && /[\p{Script=Han}]/u.test(part.segment)) {
+                const word = document.createElement('span');
+                word.className = 'word-unit';
+                word.textContent = part.segment;
+                fragment.appendChild(word);
+                protectedWord = true;
+              } else {
+                fragment.appendChild(document.createTextNode(part.segment));
+              }
+            }
+            if (protectedWord) node.replaceWith(fragment);
+          });
+        });
+      }
       slides.forEach((slide, index) => {
         const page = slide.querySelector('.page');
         if (page) page.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');

@@ -12,6 +12,7 @@
     .toolbar a, .toolbar button { border:1px solid rgba(255,255,255,.3); background:transparent; color:white; padding:9px 14px; text-decoration:none; cursor:pointer; font-weight:800; }
     .sheet { width:210mm; min-height:297mm; margin:12px auto; padding:17mm 16mm 15mm; background:var(--paper); box-shadow:0 10px 30px rgba(0,0,0,.12); page-break-after:always; position:relative; }
     .sheet:last-of-type { page-break-after:auto; }
+    #teacher-form-design { scroll-margin-top:80px; }
     .label { margin:0 0 8px; color:var(--violet); font-size:11pt; font-weight:900; letter-spacing:.12em; }
     h1 { margin:0 0 8px; font-size:28pt; letter-spacing:-.05em; line-height:1.1; }
     h2 { margin:0 0 12px; font-size:20pt; letter-spacing:-.035em; }
@@ -90,7 +91,7 @@
       </ul>
     </div>
     <table><tr><th>參照題來源</th><td class="write"></td></tr><tr><th>我想保留的推理方式</th><td class="write"></td></tr><tr><th>我自己的新材料</th><td class="write"></td></tr></table>
-    <div class="footer"><span><a href="https://support.google.com/gemini/answer/13278668" target="_blank" rel="noreferrer">Google 帳號與登入說明</a></span><span>進階 1 / 5</span></div>
+    <div class="footer"><span><a href="https://support.google.com/gemini/answer/13278668" target="_blank" rel="noreferrer">Google 帳號與登入說明</a></span><span>進階 1 / 6</span></div>
   </section>
 
   <section class="sheet">
@@ -109,7 +110,7 @@
       <table><tr><th>連線測試</th><td>□ 成功　□ 受權限限制　□ 其他錯誤：＿＿＿＿</td></tr><tr><th>生成題目的優點</th><td class="write"></td></tr><tr><th>還需教師修改之處</th><td class="write"></td></tr></table>
     </div>
     <div class="notice"><b>Key 只供教師端測試：</b>不要貼進對話、投影片、HTML 原始碼或學生可下載的檔案。公開網站需要由學校核准的後端代管秘密。</div>
-    <div class="footer"><span><a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" rel="noreferrer">Google Gemini API Key 說明</a></span><span>進階 2 / 5</span></div>
+    <div class="footer"><span><a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" rel="noreferrer">Google Gemini API Key 說明</a></span><span>進階 2 / 6</span></div>
   </section>
 
   <section class="sheet">
@@ -120,10 +121,10 @@
     <div class="route">
       <div><b>01 登入與 Key</b><span>教育帳號、AI Studio 與連線測試</span></div>
       <div><b>02 體驗出題</b><span>用示範介面比較候選題</span></div>
-      <div><b>03 自行命題</b><span>上傳參照題，改用自選材料</span></div>
-      <div><b>04 概念互動</b><span>Canvas 製作操作體驗並分享</span></div>
+      <div><b>03 自行命題</b><span>拆解參照題，改用自選材料</span></div>
+      <div><b>04 自己的網頁</b><span>命題表單與學生概念互動</span></div>
     </div>
-    <div class="challenge"><b>進階完成作品</b><br>一題通過品質五關的定稿題，加上一個能讓學生改變條件、觀察結果並解釋概念的 HTML 活動；題目用於最後檢核。</div>
+    <div class="challenge"><b>進階完成作品</b><br>可產生完整提示的命題表單原型、一題通過品質五關的定稿題，以及學生能操作並解釋概念的 HTML 活動。</div>
 
     <div class="task">
       <div class="task-head"><h2>任務一：上傳參照題並拆解</h2><span class="time">7 分鐘</span></div>
@@ -135,7 +136,7 @@
       </ul>
       <table><tr><th>參照題的必要證據</th><td class="write"></td></tr><tr><th>可能的捷徑或歧義</th><td class="write"></td></tr><tr><th>我自己的新材料與來源</th><td class="write"></td></tr></table>
     </div>
-    <div class="footer"><span>參照結構可以，題幹與選項不照抄</span><span>進階 3 / 5</span></div>
+    <div class="footer"><span>參照結構可以，題幹與選項不照抄</span><span>進階 3 / 6</span></div>
   </section>
 
   <section class="sheet prompt-sheet">
@@ -161,13 +162,40 @@
       <table><tr><th>我改寫的題幹或選項</th><td class="write"></td></tr><tr><th>必須閱讀的材料證據</th><td class="write"></td></tr><tr><th>五關結果</th><td>□ 事實　□ 目標　□ 材料　□ 選項　□ 學生可用</td></tr></table>
     </div>
     <div class="notice"><b>五關全過才定稿：</b>① 事實與答案可查證；② 符合單元與年級；③ 材料是解題必要條件；④ 唯一最佳答案、干擾項有迷思依據；⑤ 學生預覽讀得懂並能正確操作。有一關未過就修題，不能把 API 連線成功當成品質保證。</div>
-    <div class="footer"><span>五項全過才把題目放入學生版網頁</span><span>進階 4 / 5</span></div>
+    <div class="footer"><span>五項全過才把題目放入學生版網頁</span><span>進階 4 / 6</span></div>
+  </section>
+
+  <section class="sheet prompt-sheet" id="teacher-form-design">
+    <p class="label">B · 進階挑戰教材 · 教師出題介面設計</p>
+    <h1>任務四：設計命題表單</h1>
+    <p class="lead">借鏡「填表、即時預覽、複製提示」流程，把自己的命題規則做成可重複使用的教師介面。</p>
+    <div class="notice"><b>資料參考：</b>高雄市立陽明國中吳宜蓉老師<br><a href="https://share.gemini.google/MTitQWAr6ABS" target="_blank" rel="noreferrer">《素養命題小幫手》／國中社會科命題模板 - 2026</a>。本教材依研習規則另行設計，參考可見的表單與預覽流程。</div>
+    <table><tr><th>教師要填的資料</th><td>學科、年級、單元、目標、材料與來源、推理步驟、三個學生迷思</td></tr><tr><th>介面內建的規則</th><td>材料須參與解題、四項同類、唯一最佳答案、逐項解析與待查核項目</td></tr><tr><th>表單輸出</th><td>可貼入新的 AI 對話的完整提示，包含資料全文與固定規則</td></tr></table>
+    <div class="task">
+      <div class="task-head"><h2>空白對話啟用 Canvas，整段送出</h2><span class="time">5 分鐘</span></div>
+      <div class="prompt"><button class="copy" data-copy="teacherForm">複製</button><pre id="teacherForm">這是新對話的第一則訊息。請用 Gemini Canvas 建立國中社會科教師的「命題提示表單」。
+輸出單一 HTML，CSS 與 JavaScript 放在檔內，支援手機與鍵盤。
+欄位：學科（地理／歷史／公民）、年級、單元、學習目標、考點、難度（基礎／精熟）。
+另設材料全文、來源、學生推理步驟、三個不同迷思欄位。必填資料缺漏時暫停複製。
+右側即時預覽完整命題提示，包含所有填寫資料與固定規則，可貼入全新 AI 對話。
+固定規則：依所附材料出一題四選一候選題，材料須為作答必要條件。
+四項同類，只有一個最佳答案，三個干擾項對應不同迷思。資料不足先指出缺漏，不補寫事實。
+提示要求 AI 輸出：題目、答案、逐項解析、材料證據、推理鏈及待查核項目，標示「AI 候選草稿」。
+提供「複製完整提示」「開啟 Gemini」「清空表單」按鈕。
+標示「將提示貼到新對話後，才由 AI 出題」。表單本身不用 API Key，也不呼叫 AI。
+頁尾標註設計參考：高雄市立陽明國中吳宜蓉老師《素養命題小幫手》
+國中社會科命題模板 - 2026，https://share.gemini.google/MTitQWAr6ABS。本頁依研習規則另行設計。</pre></div>
+    </div>
+    <h2>生成後試填與檢查</h2>
+    <ol class="checks"><li>填一份自己的材料與來源，確認右側提示包含資料全文、推理步驟與三個迷思。</li><li>清空必要欄位，確認介面提示缺漏；再試「複製完整提示」與手機顯示。</li><li>另開新的 Gemini 對話，貼上完整提示出題，按品質五關審查候選題。</li></ol>
+    <table><tr><th>我想增減的欄位</th><td class="write"></td></tr><tr><th>這個欄位如何改善題目</th><td class="write"></td></tr></table>
+    <div class="footer"><span>現成流程參考：<a href="20261022_question.html">社會科素養題實驗室</a></span><span>進階 5 / 6</span></div>
   </section>
 
   <section class="sheet canvas-sheet">
     <p class="label">B · 進階挑戰教材</p>
     <div class="task" style="margin-top:0">
-      <div class="task-head"><h2>任務四：Canvas 概念互動 HTML</h2><span class="time">6 分鐘</span></div>
+      <div class="task-head"><h2>任務五：Canvas 概念互動 HTML</h2><span class="time">6 分鐘</span></div>
       <p>先試一個 <a href="20261022_canvas.html" target="_blank">三科互動示範</a>，記下「原題材料、學生操作、畫面回應」。示範頁是成品參考，不代表 Gemini 會一次生成相同頁面。再到 Gemini 點「新對話」並啟用 Canvas，把下方填好的提示作為第一則訊息送出。</p>
       <div class="prompt"><button class="copy" data-copy="canvas">複製</button><pre id="canvas">這是新對話的第一則訊息。請用 Gemini Canvas，把下方社會科抽象概念做成學生能操作的單一 HTML 活動；不要只做四選一答題頁。
 先呈現材料與來源，再讓學生改變條件、排列事件或選擇程序。每次操作要看得見變化，並要求學生依畫面證據解釋原因。最後才顯示我審定的題目，作為理解檢核。
@@ -187,7 +215,7 @@
     <div class="notice"><b>先確認網址：</b>QR Code 只編碼網址；本機 file:/// 或教師電腦的 localhost 無法讓學生跨裝置開啟。Canvas 分享連結須在 Gemini 開啟，學生能否使用以實測為準。學生版不含 API Key、個資或教師命題內容。</div>
     <table><tr><th>學生取得方式</th><td>□ Canvas 分享網址／QR Code　□ 校方網站　□ 下載 HTML</td></tr><tr><th>學生視角測試</th><td>□ 能操作　□ 變化合理　□ 能說明　□ 題目正確</td></tr></table>
     <div class="challenge"><b>進階完成標準</b><br>定稿題通過五關；學生版能讓人操作、觀察、解釋並完成檢核，且不含 Key 與個資。分享方式已用學生帳號測試。</div>
-    <div class="footer"><span><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a> · <a href="https://support.google.com/chrome/answer/10051760?hl=zh-Hant" target="_blank" rel="noreferrer">Chrome QR Code 說明</a></span><span>進階 5 / 5</span></div>
+    <div class="footer"><span><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a> · <a href="https://support.google.com/chrome/answer/10051760?hl=zh-Hant" target="_blank" rel="noreferrer">Chrome QR Code 說明</a></span><span>進階 6 / 6</span></div>
   </section>
 
   <script>

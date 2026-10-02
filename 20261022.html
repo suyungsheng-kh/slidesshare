@@ -236,6 +236,12 @@
     .track-grid { display:grid; grid-template-columns:1fr 1fr; gap:42px; width:min(1230px,100%); }
     .track { --track-color:var(--teal); border-top:8px solid var(--track-color); padding:20px 4px 0; }
     .track.advanced { --track-color:var(--violet); }
+    .prompt-reference { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:40px; align-items:center; width:min(1230px,100%); }
+    .prompt-reference figure { margin:0; }
+    .prompt-reference img { display:block; width:100%; height:340px; object-fit:contain; object-position:left center; }
+    .prompt-reference figcaption { margin-top:10px; color:var(--muted); font-size:clamp(13px,1vw,16px); line-height:1.5; }
+    .prompt-reference .line-item { grid-template-columns:78px 1fr; gap:16px; padding:14px 0; }
+    .prompt-reference .line-item p { font-size:clamp(18px,1.4vw,23px); }
     .track-label { display:block; margin-bottom:12px; color:var(--track-color); font-size:clamp(15px,1.1vw,19px); font-weight:900; letter-spacing:.12em; }
     .track h3 { margin-bottom:14px; font-size:clamp(25px,2.15vw,36px); }
     .track p { color:var(--muted); font-size:clamp(17px,1.35vw,23px); line-height:1.48; }
@@ -411,6 +417,7 @@
       .instructor-slide { padding-top:48px; }
       .timeline, .feature-band, .blueprint, .ladder, .stat-strip, .evidence-grid { grid-template-columns:1fr 1fr; }
       .track-grid { grid-template-columns:1fr; }
+      .prompt-reference { grid-template-columns:1fr; gap:24px; }
       .dual-summary.actionable { align-items:flex-start; flex-direction:column; gap:14px; }
       .license-steps { grid-template-columns:1fr; }
       .prep-strip { grid-template-columns:1fr 1fr; }
@@ -536,11 +543,11 @@
       <div class="track advanced">
         <span class="track-label">B · 進階挑戰</span>
         <h3>自行命題並製作學生網頁</h3>
-        <p>登入 Gemini 教育版並測試 API Key，參照舊題自行命題；再用 Canvas 把抽象概念做成可操作的學生網頁，附一題檢核。</p>
+        <p>登入 Gemini 教育版並測試 API Key，參照舊題自行命題；用 Canvas 設計教師命題表單，再把抽象概念做成學生可操作的網頁。</p>
       </div>
     </div>
     <div class="track-links"><a href="20261022_beginner.html" target="_blank">開啟初階操作單</a><a href="20261022_advanced.html" target="_blank">開啟進階挑戰單</a></div>
-    <div class="footer"><span>初階交付可派送小測；進階交付已審定題目與學生版網頁</span><span class="page"></span></div>
+    <div class="footer"><span>初階交付小測；進階保存命題表單原型、定稿題與學生網頁</span><span class="page"></span></div>
     <aside class="speaker-note">初階組專注 Edcafe 的完整上手流程，不必操作 Gemini 或 Canvas。進階組從 Gemini 新對話開始，API Key 若受校方限制，記錄障礙並改走無 Key 提示流程。教師出題介面只供教師使用；給學生的網頁只放定稿內容。</aside>
   </section>
 
@@ -552,7 +559,7 @@
       <div><b>08–20</b><span>初階：PDF 與 Edcafe<br>進階：題目素材</span><small>12 分鐘</small></div>
       <div><b>20–34</b><span>初階：品質五關<br>進階：Gemini 與 API</span><small>14 分鐘</small></div>
       <div><b>34–54</b><span>115 會考題型分析</span><small>20 分鐘</small></div>
-      <div><b>54–72</b><span>初階：修題預覽<br>進階：自行命題</span><small>18 分鐘</small></div>
+      <div><b>54–72</b><span>初階：修題預覽<br>進階：命題表單與出題</span><small>18 分鐘</small></div>
       <div><b>72–86</b><span>初階：派送小測<br>進階：Canvas 概念互動</span><small>14 分鐘</small></div>
       <div><b>86–90</b><span>查核與出口單</span><small>4 分鐘</small></div>
     </div>
@@ -764,7 +771,7 @@
     <div class="footer"><span>同等級以認知需求相近為準</span><span class="page"></span></div>
   </section>
 
-  <section class="slide" data-title="同等級生成規格" data-minutes="3" style="--accent:var(--teal)">
+  <section class="slide" data-title="同等級生成規格" data-minutes="2" style="--accent:var(--teal)">
     <p class="kicker">會考同等級題目 · 描述定義</p>
     <h2>四欄規格：內容、材料、推理與選項</h2>
     <div class="blueprint">
@@ -777,7 +784,7 @@
     <aside class="speaker-note">用刪除測試檢查刺激：把圖表拿掉後若仍可憑課本知識答題，圖表大多只是裝飾。</aside>
   </section>
 
-  <section class="slide" data-title="難度控制" data-minutes="4" style="--accent:var(--violet)">
+  <section class="slide" data-title="難度控制" data-minutes="3" style="--accent:var(--violet)">
     <p class="kicker">難度控制</p>
     <h2>題目難度取決於推理步驟與材料複雜度</h2>
     <div class="ladder">
@@ -789,7 +796,48 @@
     <aside class="speaker-note">請參與者把自己的題目定位在一層。若說不出學生的推理步驟，先不要要求 AI 出題。</aside>
   </section>
 
-  <section class="slide" data-title="出題提示" data-minutes="4" style="--accent:var(--coral)">
+  <section class="slide" data-title="命題表單設計參考" data-minutes="2" style="--accent:var(--teal)">
+    <p class="kicker">B · 進階 · 教師出題介面設計</p>
+    <h2>命題表單的設計參考</h2>
+    <div class="prompt-reference">
+      <figure>
+        <img src="assets/20261022/wu-yirong-question-helper.png" alt="素養命題小幫手畫面參考：左側命題表單，右側即時提示預覽">
+        <figcaption>資料參考：高雄市立陽明國中吳宜蓉老師<br>《素養命題小幫手》<br>國中社會科命題模板 - 2026</figcaption>
+      </figure>
+      <div>
+        <div class="line-item"><b>填表</b><p>學科、單元、考點、材料與三個學生迷思，先由教師決定。</p></div>
+        <div class="line-item"><b>預覽</b><p>表單即時組合完整提示，教師能檢查材料與要求是否齊全。</p></div>
+        <div class="line-item"><b>出題</b><p>貼到 Gemini 新對話出題。<br>再用五關清單檢查候選題。</p></div>
+        <p class="note">自製表單須納入材料必要性、推理步驟與唯一最佳答案。</p>
+      </div>
+    </div>
+    <div class="footer"><a href="https://share.gemini.google/MTitQWAr6ABS" target="_blank" rel="noreferrer">參考作品：素養命題小幫手（Gemini 分享）</a><span class="page"></span></div>
+    <aside class="speaker-note">作者與作品名稱依講師提供資料標註。畫面來自講師提供的截圖，本頁分析的是可見的填表、預覽與複製流程，不把作品認定為 Gem，也不宣稱已驗證其內部程式或命題品質。請教師指出一個自己想增減的欄位，說明它如何影響題目。借鏡操作流程後，依本研習規則另行設計。</aside>
+  </section>
+
+  <section class="slide" data-title="自製命題表單提示" data-minutes="3" style="--accent:var(--violet)">
+    <p class="kicker">B · 進階 · 新對話啟用 Canvas</p>
+    <h2>命題表單的完整設計提示</h2>
+    <div class="prompt-box">
+      <button class="copy-btn" data-copy-target="teacher-form-prompt">複製提示</button>
+      <pre id="teacher-form-prompt">這是新對話的第一則訊息。請用 Gemini Canvas 建立國中社會科教師的「命題提示表單」。
+輸出單一 HTML，CSS 與 JavaScript 放在檔內，支援手機與鍵盤。
+欄位：學科（地理／歷史／公民）、年級、單元、學習目標、考點、難度（基礎／精熟）。
+另設材料全文、來源、學生推理步驟、三個不同迷思欄位。必填資料缺漏時暫停複製。
+右側即時預覽完整命題提示，包含所有填寫資料與固定規則，可貼入全新 AI 對話。
+固定規則：依所附材料出一題四選一候選題，材料須為作答必要條件。
+四項同類，只有一個最佳答案，三個干擾項對應不同迷思。資料不足先指出缺漏，不補寫事實。
+提示要求 AI 輸出：題目、答案、逐項解析、材料證據、推理鏈及待查核項目，標示「AI 候選草稿」。
+提供「複製完整提示」「開啟 Gemini」「清空表單」按鈕。
+標示「將提示貼到新對話後，才由 AI 出題」。表單本身不用 API Key，也不呼叫 AI。
+頁尾標註設計參考：高雄市立陽明國中吳宜蓉老師《素養命題小幫手》
+國中社會科命題模板 - 2026，https://share.gemini.google/MTitQWAr6ABS。本頁依研習規則另行設計。</pre>
+    </div>
+    <div class="footer"><span>先核對提示再出題 · <a href="20261022_advanced.html#teacher-form-design" target="_blank">完整設計操作單</a></span><span class="page"></span></div>
+    <aside class="speaker-note">這段提示完全自足，教師在空白 Gemini 對話啟用 Canvas 後整段送出，不必先有其他對話。產生的是教師命題表單，並非學生互動活動。生成後填入自己的材料，核對預覽是否包含材料全文、來源、推理步驟與三個迷思，並試驗空白欄位是否會提示缺漏。複製組合好的提示，另開一個新的 Gemini 對話出題。接 API 是後續功能，可參考本課程既有出題介面。</aside>
+  </section>
+
+  <section class="slide" data-title="出題提示" data-minutes="2" style="--accent:var(--coral)">
     <p class="kicker">B · 進階示範 · 新對話的第一則訊息</p>
     <h2>材料和出題要求一次說清楚</h2>
     <div class="prompt-box">
@@ -808,8 +856,8 @@
     <aside class="speaker-note">這是進階組示範；初階組繼續用五關檢查 Edcafe 題目。材料就在第一次送出提示時提供：先把教材節錄、題目要使用的圖表或文字，以及書名頁碼或網址貼入最下方三欄，再整段送出。不要先送出一句「請依據我提供的材料」，也不要假設新對話看得到上一個對話。若工具沒有來源查核能力，要求它標示「待查證」。</aside>
   </section>
 
-  <section class="slide" data-title="出題工作坊" data-minutes="7" style="--accent:var(--amber)">
-    <p class="kicker">現場實作 · 7 分鐘</p>
+  <section class="slide" data-title="出題工作坊" data-minutes="6" style="--accent:var(--amber)">
+    <p class="kicker">現場實作 · 6 分鐘</p>
     <h2>兩組都要說出題目的推理依據</h2>
     <div class="track-grid">
       <div class="track">
@@ -819,8 +867,8 @@
       </div>
       <div class="track advanced">
         <span class="track-label">B · 進階挑戰</span>
-        <h3>參照舊題後自行命題</h3>
-        <ol><li>新對話上傳完整參照題；請 Gemini 指出其證據與推理鏈。</li><li>另選新材料命題，不照抄<span class="nowrap">原題</span>。</li><li>標出正解與三個迷思，請同伴找第二答案或捷徑。</li></ol>
+        <h3>用自己的表單整理命題要求</h3>
+        <ol><li>用 Canvas 提示生成表單，填入自選材料與來源。</li><li>核對完整提示，貼到另一個新的 Gemini 對話出題。</li><li>查核正解與三個迷思，請同伴找第二答案或捷徑。</li></ol>
       </div>
     </div>
     <div class="dual-summary actionable"><span><b>教師定稿條件：</b>材料必須參與解題，四個選項同類，只有一個最佳答案，干擾項能對應迷思。未通過查核，仍是 <span class="nowrap">AI 候選草稿</span>。</span><a class="workshop-link" href="20261022_question.html" target="_blank">開啟出題介面參考版</a></div>

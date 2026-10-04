@@ -149,6 +149,7 @@
     .no { display: block; color: var(--terracotta); font-size: 18px; font-weight: 800; margin-bottom: 14px; letter-spacing: .08em; }
     .quote { border-left: 7px solid var(--terracotta); padding: 10px 0 10px 30px; font-size: clamp(34px, 4vw, 63px); line-height: 1.45; letter-spacing: -.04em; max-width: 1060px; }
     .caption { position: absolute; left: 10vw; bottom: 3.8vh; color: #5a5248; font-size: 20px; font-weight: 700; letter-spacing: .025em; }
+    .source-credit { max-width: 1180px; margin: 24px 0 0; padding-left: 16px; border-left: 3px solid var(--terracotta); color: var(--ink-soft); font-size: clamp(22px, 1.65vw, 27px); line-height: 1.5; }
     .page { position: absolute; right: 10vw; bottom: 3.8vh; color: #456d60; font-size: 20px; font-weight: 800; }
     .path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; max-width: 1180px; align-items: stretch; }
     .path div { min-height: 163px; background: var(--white); border: 1px solid var(--line); padding: 22px 20px; position: relative; }
@@ -346,7 +347,7 @@
 
     <section class="slide section"><p class="eyebrow">Part 2 · Learning design</p><h1>先設計<span class="hand">學習路徑</span>，<br>再設計網站。</h1><span class="page">10 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">課程藍圖 · ESP32 × motoBlockly</p><h2>把三天的硬體整合課，<br>拆成可前進的學習路徑。</h2><div class="path"><div><b>課前／Day 1</b><span>ESP32、motoBlockly、G／V／S 與用電安全。</span></div><div><b>Day 1</b><span>有聲紅綠燈：輸出、按鈕與控制邏輯。</span></div><div><b>Day 2</b><span>光影閘門：類比輸入、馬達與條件控制。</span></div><div><b>Day 3</b><span>感測器整合、專題設計、實作與發表。</span></div></div><p class="caption">課程架構就是網站架構的起點</p><span class="page">11 / 30</span></section>
+    <section class="slide"><p class="eyebrow">課程藍圖 · ESP32 × motoBlockly</p><h2>把三天的硬體整合課，<br>拆成可前進的學習路徑。</h2><div class="path"><div><b>課前／Day 1</b><span>ESP32、motoBlockly、G／V／S 與用電安全。</span></div><div><b>Day 1</b><span>有聲紅綠燈：輸出、按鈕與控制邏輯。</span></div><div><b>Day 2</b><span>光影閘門：類比輸入、馬達與條件控制。</span></div><div><b>Day 3</b><span>感測器整合、專題設計、實作與發表。</span></div></div><p class="source-credit">課程資料來源：<span class="keep">高雄市立福山國中</span> <span class="keep">王朝葦 老師</span></p><p class="caption">課程架構就是網站架構的起點</p><span class="page">11 / 30</span></section>
 
     <section class="slide"><p class="eyebrow">設計原則</p><h2>學生需要的不是更多頁面，<br>而是能依自己速度前進的路徑。</h2><div class="grid three"><div class="card"><h3>先站穩基礎</h3><p>Day 1～3 設定每日最低完成線，讓學生先完成可驗證的核心功能。</p></div><div class="card"><h3>需要時回看</h3><p>用除錯闖關護照與每日回饋，讓學生能回到卡關處重新理解。</p></div><div class="card"><h3>準備不同路徑</h3><p>從安全闖關、上電前檢核到分層任務卡，讓需要支持或挑戰的學生都有下一步。</p></div></div><p class="caption">以學生的起點、速度與理解需求作為設計判準</p><span class="page">12 / 30</span></section>
 
@@ -378,7 +379,7 @@
 
     <section class="slide"><p class="eyebrow">網站與資料支持</p><h2>大多數課程頁是靜態網站；<br>只有作業回饋需要 AI 助教。</h2><div class="comparison"><div class="left"><b>課程與互動鷹架</b><p>前導、Day 1～3、接線練習、除錯護照與專題設計單，由靜態網站提供。</p></div><div class="right"><b>AI 作業回饋助教</b><p>學生上傳 motoBlockly 的 XML；Colab Flask 後端先解析內容，再由 Gemini 依教師規準提供初步檢核與回饋，並可選擇以 Firestore 保存紀錄。</p></div></div><p class="caption">AI 先協助處理可重複檢核的作業回饋；教師仍負責教學判斷</p><span class="page">24 / 30</span></section>
 
-    <section class="slide"><p class="eyebrow">工具地圖</p><h2>每個工具，服務不同的工作</h2><div class="path"><div><b>課程素材</b><span>Drive／Classroom：教材、任務、作品與班級溝通。</span></div><div><b>網站開發</b><span>Gemini／Claude／Codex 協作開發；GitHub 留存版本。</span></div><div><b>AI 作業助教</b><span>ESP32 XML 與 ScratchGrader：依教師規準初步檢核作品、提出回饋。</span></div><div><b>保存與回看</b><span>Colab／Firebase／Firestore／Apps Script：設定、紀錄、整理與教學反思。</span></div></div><p class="caption">工具串接的是工作流程，不是炫技</p><span class="page">25 / 30</span></section>
+    <section class="slide"><p class="eyebrow">工具地圖</p><h2>每個工具，服務不同的工作</h2><div class="path"><div><b>課程素材</b><span>Drive／Classroom：教材、任務、作品與班級溝通。</span></div><div><b>網站開發</b><span>Gemini／Claude／Codex 協作開發；GitHub 留存版本。</span></div><div><b>AI 作業助教</b><span>XMLGrader 與 ScratchGrader：依教師規準初步檢核作品、提出回饋。</span></div><div><b>保存與回看</b><span>Colab／Firebase／Firestore／Apps Script：設定、紀錄、整理與教學反思。</span></div></div><p class="caption">工具串接的是工作流程，不是炫技</p><span class="page">25 / 30</span></section>
 
     <section class="slide"><p class="eyebrow">AI 協作 · 作業回饋</p><h2>把 AI 當成助教，<br>不是取代教師。</h2><div class="role"><div class="system"><b>AI 助教先做什麼？</b><p>依教師規準初步檢核作品、指出可能缺漏、提供可再嘗試的回饋，協助學生先自我修正。</p></div><div class="teacher"><b>教師更能做什麼？</b><p>根據作品與回饋線索，關注更需要協助的學生，理解卡關原因，給予個別引導與真正的對話。</p></div></div><p class="caption">AI 協助第一輪作業回饋；教師把時間留給最需要支持的學生</p><span class="page">26 / 30</span></section>
 
@@ -388,7 +389,18 @@
 
     <section class="slide"><p class="eyebrow">上線之後 · 持續維護</p><h2>真正的壓力測試，<br>在多人使用時才開始。</h2><div class="grid three"><div class="card"><span class="no">01 · 同時使用</span><h3>觀察系統負荷</h3><p>從一個人試用到多班學生同時登入、開啟任務與送出作品，檢查速度、連線與資料是否穩定。</p></div><div class="card"><span class="no">02 · 現場回報</span><h3>找出真實問題</h3><p>蒐集學生與教師回報，分辨介面、流程或系統問題。</p></div><div class="card"><span class="no">03 · 小步更新</span><h3>先預覽再發布</h3><p>保存可用版本，先在預覽版修正與測試，再發布更新；出問題可回復穩定版。</p></div></div><p class="caption">更新後再回到課堂觀察：是否真的讓學生更容易前進？</p><span class="page"></span></section>
 
-    <section class="slide"><p class="eyebrow">具體案例 · AI 作業助教</p><h2>把 AI 自評放進學習流程，<br>讓學生能依自己的速度修正。</h2><div class="case"><div><b>ESP32 × motoBlockly</b><p>學生上傳 XML；系統解析積木與腳位，依教師規準回傳初評。</p></div><div><b>ScratchGrader</b><p>學生上傳 .sb3；系統解析角色、背景、音效、變數與積木流程，再依教師規則提出建議。</p></div><div><b>教師聚焦需要支持的人</b><p>學生可先依回饋自己修正；教師則更能辨識需要協助的學生，聚焦邏輯差異、卡關原因與下一步策略。</p></div></div><div class="source-links"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noopener noreferrer">查看 ScratchGrader 公開專案</a></div><p class="caption">AI 是作業回饋助教；教師保有最終判斷與個別引導</p><span class="page">29 / 30</span></section>
+    <section class="slide">
+      <p class="eyebrow">具體案例 · XMLGrader 作業助教</p>
+      <h2>把 AI 自評放進學習流程，<br>讓學生能依自己的速度修正。</h2>
+      <div class="case">
+        <div><b>01 · 儲存 XML 檔</b><p>在 motoBlockly 中，<br>儲存為 <span class="keep">XML 格式檔</span>。</p></div>
+        <div><b>02 · XMLGrader 初評</b><p>上傳 XML 檔；系統解析積木與腳位，依教師規準提供初步檢核與回饋。</p></div>
+        <div><b>03 · 修正與教師引導</b><p>學生依回饋修正程式，重新儲存並上傳；教師針對<span class="keep">卡關原因</span>個別引導。</p></div>
+      </div>
+      <div class="source-links"><a href="https://github.com/suyungsheng-kh/esp32-2026/blob/main/XML_Grader/STANDALONE.md" target="_blank" rel="noopener noreferrer">查看 XMLGrader 公開專案</a></div>
+      <p class="caption">XML 格式檔串起作品、自評與修正；教師保有最終判斷</p>
+      <span class="page">29 / 30</span>
+    </section>
 
     <section class="slide activity"><p class="eyebrow">活動 04 · 留給自己的行動選擇</p><h2>下一次教這個單元時，<br>你最願意先試哪一件事？</h2><p class="activity-prompt"><span>單選題</span>請在心中選一項要帶走的小改變</p><div class="activity-options"><div>寫出清楚的學習任務</div><div>設定最低完成線</div><div>加入一張操作檢核卡</div><div>把作業拆成階段任務</div><div>設計除錯或反思紀錄</div><div>準備基礎與延伸挑戰</div><div>讓學生回看學習紀錄</div><div>讓 AI 協助初步檢核</div><div>其他：寫下自己的想法</div></div><p class="caption">選不出來也沒關係；那可能正是你自己的新做法開始成形。</p><span class="page"></span></section>
 

@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ScratchGrader 開發脈絡、初階復刻與進階客製化指南">
+  <meta name="description" content="ScratchGrader 2026-10-04 更新：開發脈絡、初階復刻、證據評分、盲評校正與進階客製化指南">
+  <meta name="scratchgrader-source-revision" content="c5767201c043b1cd67e31c20de28a5c4322d38e3">
   <meta name="color-scheme" content="dark light">
   <title>ScratchGrader｜從復刻到客製</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23855cd6'/%3E%3Cpath d='M17 18h30v10c-5-3-10 1-8 6 1 4 5 5 8 3v9H17V36c5 3 10-1 8-6-1-4-5-5-8-3z' fill='%23fff'/%3E%3C/svg%3E">
@@ -52,6 +53,9 @@
         linear-gradient(135deg,#0d0c20 0%,#15132e 58%,#101027 100%);
     }
     .slide.active { display:flex; flex-direction:column; justify-content:center; }
+    .slide > * { flex-shrink:0; }
+    .slide.overflowing { justify-content:flex-start; }
+    .slide.overflowing .footer { position:static; margin-top:30px; }
     .slide.light {
       color:var(--ink-dark);
       background:
@@ -271,6 +275,7 @@
       box-shadow:0 20px 46px rgba(5,4,18,.22);
     }
     code { font-family:"Cascadia Code","SFMono-Regular",Consolas,monospace; }
+    code:not(pre code) { overflow-wrap:anywhere; }
     .light code:not(pre code) { color:#4d2e98; }
     .callout {
       max-width:1250px;
@@ -351,6 +356,7 @@
       display:flex;
       justify-content:space-between;
       gap:18px;
+      padding-right:350px;
       align-items:center;
       color:rgba(255,255,255,.48);
       font-size:13px;
@@ -381,6 +387,8 @@
     .controls button:hover,.controls button:focus-visible { outline:none; background:var(--purple); }
     .progress { position:fixed; left:0; bottom:0; z-index:35; width:0; height:6px; background:linear-gradient(90deg,var(--purple),var(--blue),var(--orange),var(--coral)); transition:width .25s ease; }
     .keyboard-hint { position:fixed; right:202px; bottom:33px; z-index:20; color:rgba(255,255,255,.58); font-size:12px; }
+    body:has(.slide.active.light) .keyboard-hint { color:rgba(24,22,42,.55); }
+    body:has(.slide.active.overflowing) .keyboard-hint { display:none; }
     .overview {
       display:none;
       position:fixed; inset:0; z-index:60;
@@ -405,6 +413,8 @@
       .flow-step:not(:last-child)::after { display:none; }
       .block-stack { opacity:.22; width:50vw; }
       .cover-copy { max-width:760px; }
+      .footer { padding-right:180px; }
+      .keyboard-hint { display:none; }
     }
     @media (max-width:720px) {
       body { overflow:hidden; }
@@ -450,7 +460,7 @@
       html,body { height:auto; overflow:visible; background:#fff; }
       .slide { display:flex !important; width:16in; height:9in; min-height:9in; padding:0.7in 0.8in; page-break-after:always; overflow:hidden; }
       .controls,.progress,.keyboard-hint,.overview { display:none !important; }
-      .footer { left:.8in; right:.8in; bottom:.23in; }
+      .footer { left:.8in; right:.8in; bottom:.23in; padding-right:0; }
     }
   </style>
 </head>
@@ -464,23 +474,23 @@
       <p class="lead">初階完成可用部署，進階依課程需求調整規則、容量、資料與介面。</p>
       <div class="metric-row">
         <div class="metric"><b>2</b><span>條學習路徑</span></div>
-        <div class="metric"><b>7</b><span>筆公開提交可追溯</span></div>
-        <div class="metric"><b>19</b><span>項現有單元測試</span></div>
+        <div class="metric"><b>8</b><span>筆公開提交可追溯</span></div>
+        <div class="metric"><b>4</b><span>種必做盲評樣本</span></div>
       </div>
     </div>
     <div class="block-stack" aria-hidden="true"><div class="block"></div><div class="block"></div><div class="block"></div><div class="block"></div></div>
-    <div class="footer"><span>資料基準：GitHub main · 2026-09-23</span><span class="tag">← → 翻頁</span></div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md" target="_blank" rel="noreferrer">README 基準：c576720 · 比對日期 2026-10-04</a><span class="tag">← → 翻頁</span></div>
   </section>
 
   <section class="slide light" data-title="兩條學習路徑" style="--accent:var(--purple)">
-    <span class="slide-no">02 / 19</span>
+    <span class="slide-no">02 / 34</span>
     <p class="eyebrow">閱讀方式</p>
     <h2>同一套系統，兩種完成標準</h2>
     <div class="grid2">
       <article class="pathway" style="--accent:var(--blue)">
         <span class="path-no">01</span>
         <h3>初階：先讓自己的版本跑起來</h3>
-        <p>不改核心程式。建立自己的服務帳號與祕密、啟動 Colab 後端、連上教師與學生頁，完成一個關卡的四份校正。</p>
+        <p>建立自己的憑證與祕密、啟動 Colab 後端、連上教師與學生頁。審閱規則並一般試評，儲存後完成一關的四種盲評校正。</p>
       </article>
       <article class="pathway" style="--accent:var(--coral)">
         <span class="path-no">02</span>
@@ -492,18 +502,18 @@
   </section>
 
   <section class="slide" data-title="證據與推論界線" style="--accent:var(--cyan)">
-    <span class="slide-no">03 / 19</span>
+    <span class="slide-no">03 / 34</span>
     <p class="eyebrow">研究方法</p>
-    <h2>README 沒寫歷程，Git 紀錄補上了骨架</h2>
-    <div class="evidence"><b>文件明寫</b><p>部署方式、檔案用途、評分流程、祕密管理與四份校正要求。</p></div>
-    <div class="evidence"><b>原始碼可驗證</b><p>12 個 Flask 路由、FIFO 排隊、結果快取、Firestore 存取、官方繁中積木對照與測試案例。</p></div>
-    <div class="evidence"><b>提交紀錄可排序</b><p>公開歷史共有 7 筆提交，從 2026-08-03 的首次公開版到 2026-09-23 的逐關校正。</p></div>
+    <h2>README 說明現況，Git 紀錄補上開發脈絡</h2>
+    <div class="evidence"><b>文件明寫</b><p>新版增加分析更新、既有部署升級，以及教師建立、試評、盲評校正與修訂的完整流程。</p></div>
+    <div class="evidence"><b>模組分工可核對</b><p>Flask API、FIFO 排隊、正式結果快取、Firestore、繁中積木詞彙，以及新增的扣分證據驗證與後端算分。</p></div>
+    <div class="evidence"><b>提交紀錄可排序</b><p>公開歷史共有 8 筆提交，從 2026-08-03 的首次公開版到 2026-10-03 的證據評分與盲評校正更新。</p></div>
     <div class="evidence"><b>必須標為推論</b><p>第一筆提交已加入 2,325 行，代表公開前已有大量設計與改寫；那段私人開發順序無法由此儲存庫還原。</p></div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/commits/main" target="_blank" rel="noreferrer">來源：公開提交紀錄</a><span class="tag">事實與推論分開</span></div>
   </section>
 
   <section class="slide light" data-title="從上游到 ScratchGrader" style="--accent:var(--purple)">
-    <span class="slide-no">04 / 19</span>
+    <span class="slide-no">04 / 34</span>
     <p class="eyebrow">開發起點</p>
     <h2>從教師單機批改，改成學生可使用的網路服務</h2>
     <div class="compare">
@@ -531,7 +541,7 @@
   </section>
 
   <section class="slide" data-title="公開開發時間線" style="--accent:var(--orange)">
-    <span class="slide-no">05 / 19</span>
+    <span class="slide-no">05 / 34</span>
     <p class="eyebrow">公開可見的開發過程</p>
     <h2>功能先成形，再補語言、穩定性與評分治理</h2>
     <div class="timeline">
@@ -541,26 +551,66 @@
       <article class="moment" style="--accent:var(--coral)"><time>09 / 15</time><b>一致性機制</b><p>首次結果快取、Claude 條件式備援、固定星等與校正基礎。</p></article>
       <article class="moment" style="--accent:var(--green)"><time>09 / 23</time><b>逐關校正閘門</b><p>四種樣本全部通過後，學生才能進入正式評分。</p></article>
     </div>
-    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/commits/main" target="_blank" rel="noreferrer">來源：7 筆 commit 與 diff</a><span class="tag">2026-08-03 至 2026-09-23</span></div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/commits/main" target="_blank" rel="noreferrer">來源：公開提交紀錄，日期採臺灣時間</a><span class="tag">後續更新見下一頁</span></div>
+  </section>
+
+  <section class="slide light" data-title="2026-10-03 更新重點" style="--accent:var(--coral)">
+    <span class="slide-no">06 / 34</span>
+    <p class="eyebrow">公開開發更新 · 2026-10-03</p>
+    <h2>扣分證據、統一算分與盲評校正</h2>
+    <div class="evidence"><b>解析更完整</b><p>保留自訂積木名稱、參數與呼叫順序，修正空的如果分支，補上分身與同事件多段程式的語意。</p></div>
+    <div class="evidence"><b>分數由後端計算</b><p>新增 <code>grading_scoring.py</code>。AI 提供扣分／加分證據，後端驗證後計算 0～110 分。</p></div>
+    <div class="evidence"><b>校正檢驗模型判斷</b><p>四種樣本採盲評。啟用 Claude 時，兩模型必須用同四份作品通過比較，才開放學生。</p></div>
+    <div class="evidence"><b>舊部署需升級</b><p>更新全部後端檔案、重啟工作階段、重新上傳範本／解答、儲存，再逐關重新校正。</p></div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/commit/c5767201c043b1cd67e31c20de28a5c4322d38e3" target="_blank" rel="noreferrer">來源：c576720 更新與 README</a><span class="tag">分析版本 evidence-v2</span></div>
+  </section>
+
+  <section class="slide" data-title="靜態分析與教師覆核" style="--accent:var(--cyan)">
+    <span class="slide-no">07 / 34</span>
+    <p class="eyebrow">新版解析 · 教師需要理解的界線</p>
+    <h2>程式結構與實際執行結果的差別</h2>
+    <div class="grid2">
+      <div class="rule" style="--accent:var(--blue)"><strong>存檔值是快照</strong><p>變數與清單的存檔內容不代表程式真的產生該結果。評分要檢查處理資料的積木流程。</p></div>
+      <div class="rule" style="--accent:var(--purple)"><strong>程式語意要完整</strong><p>新版補充自訂積木、分身建立時狀態、區域變數獨立性，以及同事件多段程式的啟動方式。</p></div>
+      <div class="rule" style="--accent:var(--orange)"><strong>證據不足需確認</strong><p>未知擴充或超長截斷內容會標示限制，模型不能憑猜測扣分。教師需回 Scratch 檢查作品。</p></div>
+      <div class="rule" style="--accent:var(--green)"><strong>人工先確認樣本</strong><p>教師親自在 Scratch 執行四種作品，先寫下哪些要求成立與期望分數，再進行模型校正。</p></div>
+    </div>
+    <div class="callout"><strong>使用界線：</strong>系統讀取程式並分析，沒有實際執行 Scratch 作品。算分格式正確仍可能判斷錯功能，正式成績需由教師覆核。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#本次分析更新與既有部署升級" target="_blank" rel="noreferrer">來源：分析更新與靜態分析限制</a><span class="tag">人工判斷作為基準</span></div>
   </section>
 
   <section class="slide light" data-title="系統資料流" style="--accent:var(--blue)">
-    <span class="slide-no">06 / 19</span>
+    <span class="slide-no">08 / 34</span>
     <p class="eyebrow">目前架構</p>
     <h2>一份 .sb3 如何變成學生看得懂的回饋</h2>
     <div class="flow">
       <article class="flow-step" style="--accent:var(--purple)"><b>學生頁</b><span>學號與 .sb3 經 HTTPS 送到後端。</span></article>
       <article class="flow-step" style="--accent:var(--blue)"><b>Flask API</b><span>驗證請求、檢查校正狀態、送入 FIFO 佇列。</span></article>
       <article class="flow-step" style="--accent:var(--cyan)"><b>解析核心</b><span>讀 project.json，轉成官方繁中積木與可比較結構。</span></article>
-      <article class="flow-step" style="--accent:var(--orange)"><b>AI 評分</b><span>Gemini 依規則產生分數與建議；特定錯誤才使用 Claude。</span></article>
-      <article class="flow-step" style="--accent:var(--green)"><b>固定結果</b><span>門檻換算星等，首次正式結果寫入快取與選用的 Firestore。</span></article>
+      <article class="flow-step" style="--accent:var(--orange)"><b>AI 判斷</b><span>模型提供結構化扣分、加分證據與建議。啟用備援後，特定錯誤才使用 Claude。</span></article>
+      <article class="flow-step" style="--accent:var(--green)"><b>後端算分</b><span>驗證明細，計算 100 − 扣分 + 加分，限制 0～110，再換算星等並快取。</span></article>
     </div>
-    <div class="callout"><strong>設計重點：</strong>AI 負責解讀作品；排隊、通關門檻、快取與校正由程式控制。</div>
+    <div class="callout"><strong>評分分工：</strong>AI 判斷功能是否成立，後端統一算分與換算成果。靜態分析沒有在 Scratch 中執行作品，教師仍需覆核證據。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/main/README.md" target="_blank" rel="noreferrer">來源：README 與核心模組</a><span class="tag">端到端資料流</span></div>
   </section>
 
+  <section class="slide" data-title="既有部署升級流程" style="--accent:var(--orange)">
+    <span class="slide-no">09 / 34</span>
+    <p class="eyebrow">已有舊版 · 新手也能照做</p>
+    <h2>既有部署的新版升級流程</h2>
+    <div class="steps">
+      <div class="n">1</div><div class="step"><b>備份自己的資料</b><p>保留設定、成績、規則文字、原始範本／解答與四份校正作品。後端不長期保存原始 .sb3。</p></div>
+      <div class="n">2</div><div class="step"><b>取得完整新版</b><p>下載最新整包，或上傳 README「Colab 啟動」列出的全部檔案。前端 HTML 也使用同版。</p></div>
+      <div class="n">3</div><div class="step"><b>重新啟動 Colab 工作階段</b><p>用 Colab 的工作階段重啟功能，再確認檔案所在目錄並重跑安全啟動器。只 reload server 可能沿用舊核心。</p></div>
+      <div class="n">4</div><div class="step"><b>核對版本與重新轉換</b><p>/api/health 應有 evidence-v2。教師頁重新上傳原始範本／解答，等「已轉換」後儲存。</p></div>
+      <div class="n">5</div><div class="step"><b>逐關重做盲評校正</b><p>新版分析會使舊快取與校正失效。通過後再開放學生，需新版成績者重新提交。</p></div>
+    </div>
+    <div class="callout"><strong>資料延續：</strong>不用手動刪除 Firestore。既有成績保留，也不會自動重算；教師需辨識新舊規則與版本下的結果。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#本次分析更新與既有部署升級" target="_blank" rel="noreferrer">來源：舊部署更新步驟</a><span class="tag">新安裝從下一頁開始</span></div>
+  </section>
+
   <section class="slide section-slide" data-title="初階復刻" style="--accent:var(--blue)">
-    <span class="slide-no">07 / 19</span>
+    <span class="slide-no">10 / 34</span>
     <p class="section-index">01</p>
     <h2>初階：復刻一套給自己使用</h2>
     <p class="lead">目標不是讀懂全部程式，而是建立自己的憑證、完成安全啟動，並讓一個 Scratch 關卡通過校正。</p>
@@ -568,23 +618,23 @@
   </section>
 
   <section class="slide light" data-title="新手復刻路線圖" style="--accent:var(--blue)">
-    <span class="slide-no">08 / 26</span>
+    <span class="slide-no">11 / 34</span>
     <p class="eyebrow">初階 · 全流程</p>
     <h2>先跑通一條最短路線，再處理選用功能</h2>
     <div class="grid3">
       <div class="rule" style="--accent:var(--purple)"><strong>1　準備資料</strong><p>Google 帳號、ngrok 帳號、Gemini key，以及一組自己產生的教師密碼。</p></div>
       <div class="rule" style="--accent:var(--blue)"><strong>2　取得程式</strong><p>Colab 複製完整儲存庫；電腦下載 ZIP，保留教師頁與學生頁。</p></div>
-      <div class="rule" style="--accent:var(--cyan)"><strong>3　啟動後端</strong><p>在 Colab 建立 Secrets，執行三個程式儲存格，取得 ngrok 網址。</p></div>
+      <div class="rule" style="--accent:var(--cyan)"><strong>3　啟動後端</strong><p>建立 Colab Secrets，使用專案安全啟動 notebook，核對健康檢查中的兩個版本欄位。</p></div>
       <div class="rule" style="--accent:var(--orange)"><strong>4　連接前端</strong><p>把公開網址填進 app-config.js，先開教師頁檢查連線。</p></div>
-      <div class="rule" style="--accent:var(--coral)"><strong>5　建立關卡</strong><p>填作業主題、關卡 ID 與規則，完成四份不同作品的校正。</p></div>
-      <div class="rule" style="--accent:var(--green)"><strong>6　學生驗收</strong><p>用第五份作品走完上傳、排隊、評分與教師端紀錄流程。</p></div>
+      <div class="rule" style="--accent:var(--coral)"><strong>5　建立關卡</strong><p>審閱 AI 規則草稿、一般試評、儲存，再用四份不同作品盲評校正。</p></div>
+      <div class="rule" style="--accent:var(--green)"><strong>6　學生驗收</strong><p>用第五份作品檢查上傳、排隊與回饋；有啟用 Firestore 時再檢查教師端紀錄。</p></div>
     </div>
-    <div class="callout"><strong>初次復刻先不要啟用：</strong>Firestore 與 Claude 備援。兩者不影響基本功能，等整條流程成功後再加入。</div>
+    <div class="callout"><strong>最小試用方式：</strong>先使用主模型，Firestore 與 Claude 可稍後加入。沒有 Firestore 仍能評分，但不保存學生自評紀錄，設定與快取也可能隨 runtime 遺失。</div>
     <div class="footer"><span>每一步都有可觀察的成功訊號</span><span class="tag">新手路線圖</span></div>
   </section>
 
   <section class="slide" data-title="四個基本名詞" style="--accent:var(--cyan)">
-    <span class="slide-no">09 / 26</span>
+    <span class="slide-no">12 / 34</span>
     <p class="eyebrow">初階 · 先懂再操作</p>
     <h2>四個名詞決定問題應該在哪裡處理</h2>
     <div class="grid2">
@@ -598,63 +648,63 @@
   </section>
 
   <section class="slide light" data-title="必要帳號與四項資料" style="--accent:var(--purple)">
-    <span class="slide-no">10 / 26</span>
+    <span class="slide-no">13 / 34</span>
     <p class="eyebrow">初階 · 準備帳號</p>
     <h2>開始前先把四項值整理在自己的安全筆記</h2>
     <table class="setup-table">
       <thead><tr><th>要準備的值</th><th>從哪裡取得</th><th>之後填在哪裡</th></tr></thead>
       <tbody>
         <tr><td data-label="要準備的值"><code>NGROK_AUTHTOKEN</code></td><td data-label="從哪裡取得">登入 ngrok Dashboard，從 Getting Started／Authtoken 複製</td><td data-label="之後填在哪裡">Colab Secrets。視為密碼，不要放進 HTML。</td></tr>
-        <tr><td data-label="要準備的值"><code>NGROK_STATIC_DOMAIN</code></td><td data-label="從哪裡取得">ngrok Dashboard 的 Domains；免費帳號可使用指派的開發網域</td><td data-label="之後填在哪裡">Colab Secrets。填主機名稱，例如 <code>xxxx.ngrok-free.app</code>，不要加 https://。</td></tr>
+        <tr><td data-label="要準備的值"><code>NGROK_STATIC_DOMAIN</code></td><td data-label="從哪裡取得">ngrok Dashboard 的 Domains，保留自己方案可用的靜態網域</td><td data-label="之後填在哪裡">Colab Secrets。填主機名稱，例如 <code>xxxx.ngrok-free.app</code>，不要加 https://。</td></tr>
         <tr><td data-label="要準備的值"><code>ADMIN_TOKEN</code></td><td data-label="從哪裡取得">自己產生一組長且難猜的教師管理密碼</td><td data-label="之後填在哪裡">Colab Secrets；開教師頁時輸入同一組。</td></tr>
-        <tr><td data-label="要準備的值">Gemini API key</td><td data-label="從哪裡取得">Google AI Studio 的 Dashboard → API Keys</td><td data-label="之後填在哪裡">後端成功啟動後，貼在教師頁「Gemini API Key（主）」欄位。</td></tr>
+        <tr><td data-label="要準備的值">Gemini API key</td><td data-label="從哪裡取得">Google AI Studio 的 API key 頁面，使用自己的 Google Cloud 專案</td><td data-label="之後填在哪裡">貼在教師頁並儲存於後端設定。正式即時回饋依 README 建議使用付費 Gemini 2.5 Flash。</td></tr>
       </tbody>
     </table>
-    <div class="callout"><strong>2026 年的 Gemini key：</strong>AI Studio 可能建立新的授權型 key。依頁面顯示的狀態建立或查看 key，不要把舊的未限制標準 key 當成唯一選項。</div>
-    <div class="footer"><a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" rel="noreferrer">Google：Gemini API key</a><a href="https://ngrok.com/pricing" target="_blank" rel="noreferrer">ngrok：開發網域與方案</a></div>
+    <div class="callout"><strong>模型與費用：</strong>先載入自己的 key 可用模型，再選 <code>gemini-2.5-flash</code>。Gemma 可做成本優先的測試，採用前需檢查本題回覆時間與一致性。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#外部服務設定指南" target="_blank" rel="noreferrer">來源：README 外部服務與模型建議</a><a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" rel="noreferrer">Gemini key 官方說明</a></div>
   </section>
 
   <section class="slide" data-title="取得完整程式" style="--accent:var(--orange)">
-    <span class="slide-no">11 / 26</span>
+    <span class="slide-no">14 / 34</span>
     <p class="eyebrow">初階 · 取得程式</p>
     <h2>Colab 與自己的電腦各保留一份</h2>
     <div class="grid2">
       <div>
         <h3>Colab：給後端執行</h3>
-        <pre><code>!git clone https://github.com/byte-core-su/ScratchGrader.git
-%cd ScratchGrader
-!pip install -q -r requirements.txt</code></pre>
-        <p class="small dim" style="margin-top:12px">這會下載全部 Python 模組、測試與繁中積木資料。</p>
+        <pre><code># 在安全啟動 notebook 最上方新增一格
+!git clone https://github.com/byte-core-su/ScratchGrader.git
+%cd /content/ScratchGrader</code></pre>
+        <p class="small dim" style="margin-top:12px">整包取得所有 Python 模組與詞彙 JSON，再執行 notebook 原有的安裝、Secrets 與啟動格。</p>
       </div>
       <div>
         <h3>電腦：給瀏覽器開啟</h3>
         <div class="steps">
           <div class="n">1</div><div class="step"><b>開啟 GitHub 專案</b><p>按 Code，再選 Download ZIP。</p></div>
-          <div class="n">2</div><div class="step"><b>解壓縮</b><p>確認資料夾內有 teacher.html、student.html 與 app-config.js。</p></div>
+          <div class="n">2</div><div class="step"><b>解壓縮</b><p>確認有 <code>ScratchGrader_teacher.html</code>、<code>ScratchGrader_student.html</code> 與 <code>app-config.js</code>。</p></div>
           <div class="n">3</div><div class="step"><b>先不要搬動單一檔案</b><p>三個前端檔案要放在同一個資料夾。</p></div>
         </div>
       </div>
     </div>
-    <div class="callout"><strong>為什麼要整包：</strong>目前啟動說明只點名 core 與 server，但實際程式還會匯入排隊、校正、評分政策、ngrok 復原與繁中翻譯模組。</div>
+    <div class="callout"><strong>完整檔案：</strong>新版 README「Colab 啟動」已列出 11 個必要檔案，包含新增的 <code>grading_scoring.py</code>。初學者用整包取得，可避免漏傳模組。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noreferrer">來源：專案檔案與 import 關係</a><span class="tag">兩個位置、同一版程式</span></div>
   </section>
 
   <section class="slide light" data-title="建立 Colab 執行環境" style="--accent:var(--blue)">
-    <span class="slide-no">12 / 26</span>
+    <span class="slide-no">15 / 34</span>
     <p class="eyebrow">初階 · Colab 操作</p>
-    <h2>新的 Colab notebook 只需要三個程式儲存格</h2>
+    <h2>使用專案附的安全啟動 notebook</h2>
     <div class="steps">
-      <div class="n">1</div><div class="step"><b>開啟 colab.new</b><p>登入 Google 帳號後，將 notebook 改名為「ScratchGrader_我的版本」。</p></div>
-      <div class="n">2</div><div class="step"><b>第一格貼上下載與安裝指令</b><p>使用上一頁的三行程式，按左側播放鍵。第一次執行約需數十秒。</p></div>
-      <div class="n">3</div><div class="step"><b>確認目前資料夾</b><p>輸出中不應出現紅色 Traceback；最後一行的工作目錄應是 <code>/content/ScratchGrader</code>。</p></div>
-      <div class="n">4</div><div class="step"><b>保留 notebook 分頁</b><p>Colab 執行階段中斷後，後端就會離線。上課期間不要關閉或刪除 runtime。</p></div>
+      <div class="n">1</div><div class="step"><b>在 Colab 開啟啟動器</b><p>點下方「在 Colab 開啟」連結，或用 Colab「開啟筆記本／GitHub」找到 <code>ScratchGrader_Secure_Colab.ipynb</code>。</p></div>
+      <div class="n">2</div><div class="step"><b>儲存自己的副本</b><p>選「檔案／在雲端硬碟中儲存副本」，重新命名，再按右上角「連線」。</p></div>
+      <div class="n">3</div><div class="step"><b>最上方新增程式碼格</b><p>貼入上一頁的整包下載指令並播放。確認目前目錄是 <code>/content/ScratchGrader</code>，程式沒有紅色錯誤。</p></div>
+      <div class="n">4</div><div class="step"><b>設定 Secrets 後執行原有三格</b><p>依序執行安裝、讀取 Secrets、啟動服務。Colab runtime 中斷後，後端就會離線。</p></div>
     </div>
-    <div class="callout"><strong>看到「destination path already exists」：</strong>代表同一個 runtime 已下載過。不要再 clone；改執行 <code>%cd /content/ScratchGrader</code> 後繼續。</div>
-    <div class="footer"><a href="https://research.google.com/colaboratory/faq.html" target="_blank" rel="noreferrer">Google Colab：執行階段與自訂檔案</a><span class="tag">第 1 個儲存格</span></div>
+    <div class="callout"><strong>已經有資料夾：</strong>初次安裝可切到 <code>/content/ScratchGrader</code> 繼續。升級舊版時，先備份，再取得新版完整檔案並重新啟動工作階段。</div>
+    <div class="footer"><a href="https://colab.research.google.com/github/byte-core-su/ScratchGrader/blob/main/ScratchGrader_Secure_Colab.ipynb" target="_blank" rel="noreferrer">在 Colab 開啟安全啟動器</a><span class="tag">保留自己的副本</span></div>
   </section>
 
   <section class="slide" data-title="建立 Colab Secrets" style="--accent:var(--purple)">
-    <span class="slide-no">13 / 26</span>
+    <span class="slide-no">16 / 34</span>
     <p class="eyebrow">初階 · 保管祕密</p>
     <h2>三個 Secret 的名稱必須完全相同</h2>
     <div class="grid2">
@@ -676,11 +726,11 @@ CORS_ALLOWED_ORIGINS      *</code></pre>
   </section>
 
   <section class="slide light" data-title="啟動 ScratchGrader 後端" style="--accent:var(--green)">
-    <span class="slide-no">14 / 26</span>
+    <span class="slide-no">17 / 34</span>
     <p class="eyebrow">初階 · 啟動後端</p>
-    <h2>第二格讀取 Secrets，第三格啟動服務</h2>
+    <h2>讀取 Secrets 後啟動背景服務</h2>
     <div class="grid2">
-      <pre><code># 第 2 格：讀取三個必要 Secret
+      <pre><code># notebook 讀取必要與選用 Secrets
 import os
 from google.colab import userdata
 
@@ -690,23 +740,32 @@ required = ['NGROK_AUTHTOKEN',
 for name in required:
     os.environ[name] = userdata.get(name)
 
+# 新增選用 Secret 後也要讀入環境
+optional = ['CORS_ALLOWED_ORIGINS']
+for name in optional:
+    try:
+        os.environ[name] = userdata.get(name)
+    except Exception:
+        pass
+
 missing = [n for n in required if not os.environ.get(n)]
 if missing:
     raise RuntimeError('缺少：' + ', '.join(missing))</code></pre>
-      <pre><code># 第 3 格：啟動背景服務
-import importlib
+      <pre><code># 在全新或已重新啟動的工作階段執行
 import colab_server
-importlib.reload(colab_server)
 
 public_url = colab_server.serve_background()
-print('公開 API：', public_url)</code></pre>
+print('公開 API：', public_url)
+
+# 升級程式時，先重新啟動工作階段
+# 只 reload server 可能仍沿用舊核心模組</code></pre>
     </div>
-    <div class="callout"><strong>成功訊號：</strong>輸出出現「API 已上線（背景執行）」以及一個 <code>https://...ngrok-free.app</code> 網址。把完整網址複製到安全筆記。</div>
+    <div class="callout"><strong>實際操作：</strong>直接執行安全啟動器原有儲存格，會一併讀入 Firestore、Claude 等選用值。上方程式是最小流程說明，並非完整啟動器。成功後複製輸出的 HTTPS 網址。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/main/ScratchGrader_Secure_Colab.ipynb" target="_blank" rel="noreferrer">來源：安全啟動器</a><span class="tag">第 2、3 個儲存格</span></div>
   </section>
 
   <section class="slide" data-title="後端健康檢查" style="--accent:var(--cyan)">
-    <span class="slide-no">15 / 26</span>
+    <span class="slide-no">18 / 34</span>
     <p class="eyebrow">初階 · 第一個檢查點</p>
     <h2>健康檢查成功後，才開始處理網頁</h2>
     <div class="grid2">
@@ -719,19 +778,20 @@ print('公開 API：', public_url)</code></pre>
         <h3>成功回應的重點</h3>
         <pre><code>{
   "ok": true,
-  "version": "2026-09-23-calibration",
+  "version": "2026-10-03-evidence",
+  "analysis_revision": "2026-10-03-evidence-v2",
   "grading_queue": { ... },
   "anthropic_fallback": { ... }
 }</code></pre>
-        <p class="small dim" style="margin-top:12px">欄位順序可能不同；只要 <code>ok</code> 為 true 且有版本號，就代表後端可連線。</p>
+        <p class="small dim" style="margin-top:12px">範例省略了佇列內容。新版需同時核對 <code>version</code> 與 <code>analysis_revision</code>，不只看 <code>ok: true</code>。</p>
       </div>
     </div>
-    <div class="callout"><strong>若打不開：</strong>先回 Colab 看紅色錯誤。此時不用改 teacher.html，因為問題仍在後端或 ngrok。</div>
+    <div class="callout"><strong>版本仍舊或顯示 outdated-restart-required：</strong>在 Colab 重新啟動工作階段，確認新版完整檔案與目錄，再重跑啟動器。若網址打不開，先檢查 Colab 錯誤與 ngrok。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/main/colab_server.py" target="_blank" rel="noreferrer">來源：/api/health 路由</a><span class="tag">檢查點 A</span></div>
   </section>
 
   <section class="slide light" data-title="連接教師與學生網頁" style="--accent:var(--orange)">
-    <span class="slide-no">16 / 26</span>
+    <span class="slide-no">19 / 34</span>
     <p class="eyebrow">初階 · 連接前端</p>
     <h2>修改一行公開網址，兩個網頁就會共用同一後端</h2>
     <div class="grid2">
@@ -749,43 +809,117 @@ app-config.js
 ScratchGrader_teacher.html
 ScratchGrader_student.html</code></pre>
     </div>
-    <div class="callout"><strong>本機雙擊 HTML：</strong>Colab Secret 可暫設 <code>CORS_ALLOWED_ORIGINS=*</code>。正式放到學校網站或 GitHub Pages 後，改成該網站的確切 HTTPS 來源。</div>
+    <div class="callout"><strong>本機雙擊 HTML：</strong><code>CORS_ALLOWED_ORIGINS=*</code> 供測試。正式放到網站後，填確切 HTTPS 來源，例如 <code>https://帳號.github.io</code>，不含路徑。改 Secret 後重啟後端。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader#前端網址與-cors" target="_blank" rel="noreferrer">來源：前端網址與 CORS</a><span class="tag">檢查點 B</span></div>
   </section>
 
   <section class="slide" data-title="教師頁第一次設定" style="--accent:var(--purple)">
-    <span class="slide-no">17 / 26</span>
+    <span class="slide-no">20 / 34</span>
     <p class="eyebrow">初階 · 教師端</p>
     <h2>依頁面編號完成第一次作業設定</h2>
     <div class="steps">
       <div class="n">①</div><div class="step"><b>伺服器連線</b><p>開啟頁面時輸入 ADMIN_TOKEN。按「重新偵測」，確認連線狀態正常。</p></div>
-      <div class="n">②</div><div class="step"><b>金鑰與模型</b><p>貼上 Gemini key，按「讀取可用模型」。第一次建議選專案 README 推薦的模型。</p></div>
-      <div class="n">③</div><div class="step"><b>作業與門檻</b><p>填主題、逐條配分規則、75／90 分門檻，以及固定且唯一的關卡 ID，例如 <code>unit-1-list</code>。</p></div>
-      <div class="n">④</div><div class="step"><b>範本與參考解答</b><p>空白範本用來辨識未作答；教師完成版用來比對功能。兩個檔案不要相同。</p></div>
-      <div class="n">⑤</div><div class="step"><b>儲存設定</b><p>按下「儲存設定」並看到成功訊息。未儲存的規則不能進入正式校正。</p></div>
+      <div class="n">②</div><div class="step"><b>金鑰與模型</b><p>貼 key，載入可用模型。正式即時回饋建議付費 <code>gemini-2.5-flash</code>，冷卻先保留預設 13 秒。</p></div>
+      <div class="n">③</div><div class="step"><b>作業、關卡與門檻</b><p>填主題、唯一關卡 ID（例如 <code>unit-1-list</code>）與 75／90 分門檻。跨模型容許分差預設 10。</p></div>
+      <div class="n">④</div><div class="step"><b>上傳起始範本與完成解答</b><p>範本可含教師提供的角色與部分程式。各欄顯示「已轉換」再繼續，並自行保留原始 .sb3。</p></div>
+      <div class="n">④</div><div class="step"><b>依解答生成主題與規則</b><p>按「依參考解答自動生成主題與規則」。沒有完成解答時可手動寫規則，生成後仍需審閱。</p></div>
     </div>
-    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader#教師建立一個新關卡從解答到開放學生" target="_blank" rel="noreferrer">來源：教師建立新關卡</a><span class="tag">檢查點 C</span></div>
+    <div class="callout"><strong>下一步：</strong>生成的是草稿，尚未儲存或校正。審閱規則後，先在⑥一般試評，再按⑤儲存，最後回⑥做正式盲評。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#teacher-grading-workflow" target="_blank" rel="noreferrer">來源：核心教師操作</a><span class="tag">檢查點 C</span></div>
+  </section>
+
+  <section class="slide light" data-title="規則草稿與配分示例" style="--accent:var(--blue)">
+    <span class="slide-no">21 / 34</span>
+    <p class="eyebrow">初階 · 教師審閱草稿</p>
+    <h2>每項要求都有可查核功能與配分</h2>
+    <div class="grid2">
+      <div>
+        <h3>清單作業的示例配分</h3>
+        <div class="steps">
+          <div class="n">20</div><div class="step"><b>R1　處理前清空清單</b><p>有效程式完成清空，未達成扣 20 分。</p></div>
+          <div class="n">20</div><div class="step"><b>R2　加入三筆資料</b><p>透過程式加入，未達成扣 20 分。</p></div>
+          <div class="n">40</div><div class="step"><b>R3　迴圈依序讀取全部資料</b><p>索引需要正確變動，只重複讀第一筆扣 40 分。</p></div>
+          <div class="n">20</div><div class="step"><b>R4　用清單長度取得並顯示筆數</b><p>未達成扣 20 分。另可訂 B1：讀完切背景，加 10 分。</p></div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="n">1</div><div class="step"><b>基本合計 100，加分最多 10</b><p>額外加分題未完成不扣分，部分完成如何扣分需事先寫清楚。</p></div>
+        <div class="n">2</div><div class="step"><b>允許等效解法</b><p>名稱與積木排列可不同。只檢查本關教過、指定的功能；「A 或 B」是擇一。</p></div>
+        <div class="n">3</div><div class="step"><b>避免同一缺失重複扣分</b><p>規則使用唯一名稱，釐清扣分界線，不能把存檔資料當作執行成果。</p></div>
+      </div>
+    </div>
+    <div class="callout"><strong>示例用途：</strong>20／20／40／20 是 README 的清單題示例，不是系統固定配分。教師依本題要求調整，保留規則文字備份再覆寫草稿。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#teacher-grading-workflow" target="_blank" rel="noreferrer">來源：核心操作第 3 步</a><span class="tag">教師先決定標準</span></div>
+  </section>
+
+  <section class="slide" data-title="一般試評與儲存" style="--accent:var(--green)">
+    <span class="slide-no">22 / 34</span>
+    <p class="eyebrow">初階 · 規則定稿</p>
+    <h2>一般試評、儲存與正式校正的用途</h2>
+    <div class="grid3">
+      <div class="rule" style="--accent:var(--blue)"><strong>⑥ 一般試評</strong><p>選作品與供應商，按「一般試評」。可測③尚未儲存的規則，檢查扣分證據、講評與等效解法。</p></div>
+      <div class="rule" style="--accent:var(--purple)"><strong>⑤ 儲存設定</strong><p>修訂後按「儲存設定」。上傳或生成成功均不等於儲存，需看到成功與實際保存位置。</p></div>
+      <div class="rule" style="--accent:var(--orange)"><strong>⑥ 正式盲評</strong><p>使用已儲存標準與事先決定的期望範圍，按「校正並記錄此樣本」。一般試評不列入校正紀錄。</p></div>
+    </div>
+    <div class="callout"><strong>解答得到 100 分的原因：</strong>一般試評保留參考解答政策。勾選「與參考解答一致即滿分」時，可能走捷徑，仍需用正式盲評檢查模型判斷。</div>
+    <p class="small dim" style="margin-top:18px">確認扣分指向真正缺少的功能、沒有新增題外要求，且講評與扣分一致。API 或回覆格式失敗應修復重試，不算學生 0 分。</p>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#teacher-grading-workflow" target="_blank" rel="noreferrer">來源：核心操作第 4 步</a><span class="tag">先判斷、再定稿</span></div>
   </section>
 
   <section class="slide light" data-title="四份校正作品" style="--accent:var(--coral)">
-    <span class="slide-no">18 / 26</span>
+    <span class="slide-no">23 / 34</span>
     <p class="eyebrow">初階 · 正式開放前</p>
     <h2>四份作品要刻意測到四種不同情況</h2>
     <table class="setup-table">
       <thead><tr><th>樣本</th><th>怎麼準備</th><th>期望範圍</th></tr></thead>
       <tbody>
-        <tr><td data-label="樣本">完整解答</td><td data-label="怎麼準備">教師完成版或功能全部正確的作品</td><td data-label="期望範圍">預設 90～110</td></tr>
-        <tr><td data-label="樣本">少一條規則</td><td data-label="怎麼準備">複製完整版，只刪掉一項可明確辨識的功能</td><td data-label="期望範圍">初始估算為 100 減該項配分，再保留約 ±5 分觀察空間</td></tr>
-        <tr><td data-label="樣本">明顯未完成</td><td data-label="怎麼準備">只有少量積木，或核心任務尚未實作</td><td data-label="期望範圍">0～達成門檻前一分</td></tr>
-        <tr><td data-label="樣本">外觀相似但邏輯錯</td><td data-label="怎麼準備">角色、背景看似完成，但事件順序或判斷條件刻意寫錯</td><td data-label="期望範圍">0～達成門檻前一分</td></tr>
+        <tr><td data-label="樣本">完整解答</td><td data-label="怎麼準備">必要要求全成立，可用教師完成解答</td><td data-label="期望範圍">最低分不低於優秀門檻，預設 90～110；示例未做加分預期 100。</td></tr>
+        <tr><td data-label="樣本">少一條規則</td><td data-label="怎麼準備">複製完整版，只刪掉一項明確功能</td><td data-label="期望範圍">依該項配分計算。示例只缺 R4 且無加分，預期 80，不固定套 75～89。</td></tr>
+        <tr><td data-label="樣本">明顯未完成</td><td data-label="怎麼準備">核心任務未完成，且與初始範本不同</td><td data-label="期望範圍">最高分低於達成門檻，預設 0～74；按實際完成項目判斷，不必都是 0。</td></tr>
+        <tr><td data-label="樣本">外觀相似但邏輯錯</td><td data-label="怎麼準備">有積木但必要功能不成立</td><td data-label="期望範圍">最高分低於達成門檻。示例 R3 只讀第一筆，其餘成立且無加分，預期 60。</td></tr>
       </tbody>
     </table>
-    <div class="callout"><strong>操作方式：</strong>在教師頁選擇樣本類型、確認最低與最高分、上傳對應 .sb3，再按「校正並記錄此樣本」。四項狀態都通過後，學生端才會開放。</div>
+    <div class="callout"><strong>期望分數先決定：</strong>可設相同最低／最高分做嚴格檢查，或事先訂有理由的範圍。初始範本完全未改會由本機判 0，不能作為模型校正樣本。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader#每一關的試評與校正正式課堂必做" target="_blank" rel="noreferrer">來源：每關試評與校正</a><span class="tag">四份不同檔案</span></div>
   </section>
 
+  <section class="slide" data-title="盲評與跨模型校正" style="--accent:var(--purple)">
+    <span class="slide-no">24 / 34</span>
+    <p class="eyebrow">初階 · 正式校正</p>
+    <h2>四種樣本的盲評與跨模型比較</h2>
+    <div class="grid2">
+      <div class="steps">
+        <div class="n">1</div><div class="step"><b>先儲存，再逐份選樣本</b><p>在⑥選主模型、上傳作品、選樣本類型，填事先決定的最低／最高分。</p></div>
+        <div class="n">2</div><div class="step"><b>按「校正並記錄此樣本」</b><p>暫時移除參考解答、停用「相同即滿分」、不用快取，也不自動切換供應商。</p></div>
+        <div class="n">3</div><div class="step"><b>核對四項通過與保存位置</b><p>同一作品不能冒充兩種情境。沒有 Claude 時，主模型四項通過才開放。</p></div>
+      </div>
+      <div>
+        <h3>選用 Claude 時增加的步驟</h3>
+        <p class="small dim">部署端先啟用備援並提供 Anthropic key，在⑥改選 Claude，以同四份作品各測一次，會產生費用。</p>
+        <div class="rule" style="--accent:var(--orange)"><strong>兩模型各四項通過</strong><p>相同樣本的及格判定要一致，分差不得超過③「跨模型校正容許分差」，預設 10。</p></div>
+        <div class="rule" style="--accent:var(--green)"><strong>所有比較通過才開放</strong><p>教師指定主模型試評時，即使遇到 503／連續 500，也不會轉為 Claude。</p></div>
+      </div>
+    </div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#teacher-grading-workflow" target="_blank" rel="noreferrer">來源：核心操作第 5 步</a><span class="tag">跨模型容許分差是教師設定</span></div>
+  </section>
+
+  <section class="slide light" data-title="校正失敗後的修訂" style="--accent:var(--orange)">
+    <span class="slide-no">25 / 34</span>
+    <p class="eyebrow">初階 · 校正不符預期</p>
+    <h2>校正失敗的原因與修訂流程</h2>
+    <div class="grid2">
+      <div class="rule" style="--accent:var(--purple)"><strong>完整作品被扣題外要求</strong><p>在③明列教學範圍與等效解法，刪除模糊要求，再儲存與重測。</p></div>
+      <div class="rule" style="--accent:var(--blue)"><strong>缺功能卻拿滿分</strong><p>補上具體查核條件與部分完成界線。例如要求索引逐次變動，不能只寫「有迴圈」。</p></div>
+      <div class="rule" style="--accent:var(--coral)"><strong>跨模型分差過大</strong><p>比較兩邊扣了哪些規則，釐清措辭與配分。提高容許分差不能解決判斷分歧。</p></div>
+      <div class="rule" style="--accent:var(--green)"><strong>樣本或 API 有問題</strong><p>回 Scratch 修正樣本，或修復金鑰、模型與回覆格式後重試。服務失敗不算校正通過。</p></div>
+    </div>
+    <div class="callout"><strong>政策改動的流程：</strong>修改③標準，按⑤儲存，重新完成⑥全部校正。規則、範本、解答、模型、備援、門檻、容許分差或分析版本改動，都會使舊校正失效。</div>
+    <p class="small dim" style="margin-top:16px">只替換某情境樣本而未改政策時，其他情境可保留；所有啟用模型重測該份新作品。不要看完 AI 分數才放寬期望範圍，仍須覆核評語與證據。</p>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#teacher-grading-workflow" target="_blank" rel="noreferrer">來源：核心操作第 6 步</a><span class="tag">修訂、儲存、重新校正</span></div>
+  </section>
+
   <section class="slide" data-title="學生端完整驗收" style="--accent:var(--green)">
-    <span class="slide-no">19 / 26</span>
+    <span class="slide-no">26 / 34</span>
     <p class="eyebrow">初階 · 端到端測試</p>
     <h2>用第五份作品模擬一次真實學生操作</h2>
     <div class="check-grid">
@@ -793,15 +927,15 @@ ScratchGrader_student.html</code></pre>
       <div class="check"><span class="mark">2</span><div><b>輸入測試學號</b><p>例如 test-001。不要用真實學生資料做第一次測試。</p></div></div>
       <div class="check"><span class="mark">3</span><div><b>上傳第五份 .sb3</b><p>不要重用四份校正樣本，才能模擬未知作品。</p></div></div>
       <div class="check"><span class="mark">4</span><div><b>觀察排隊訊息</b><p>頁面會顯示等待時間、工作量與實測平均時間。</p></div></div>
-      <div class="check"><span class="mark">5</span><div><b>閱讀結果</b><p>確認星等、邏輯分析、扣分原因與修改建議都能理解。</p></div></div>
-      <div class="check"><span class="mark">6</span><div><b>回到教師頁</b><p>按「讀取學生成績」，確認 test-001 與評分時間出現。</p></div></div>
+      <div class="check"><span class="mark">5</span><div><b>閱讀結果</b><p>確認分析、扣分證據與建議可理解。分數與 0⭐／2⭐／3⭐ 可由教師分別設定顯示。</p></div></div>
+      <div class="check"><span class="mark">6</span><div><b>按保存方式驗收</b><p>有 Firestore 才回教師頁讀取 test-001 自評紀錄；未啟用時檢查本次回饋即可。</p></div></div>
     </div>
-    <div class="callout"><strong>初階完成線：</strong>健康檢查成功、教師設定已儲存、四項校正通過、學生取得回饋，且所有祕密都沒有出現在 HTML 或 GitHub。</div>
+    <div class="callout"><strong>初階完成線：</strong>兩個版本欄位正確、設定已儲存、所有啟用模型的校正與比較通過，學生得到回饋。同作品同政策重送會使用首次成功結果，不會重新抽分。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader#操作方式" target="_blank" rel="noreferrer">來源：教師與學生操作方式</a><span class="tag">檢查點 D</span></div>
   </section>
 
   <section class="slide light" data-title="新手分層排錯" style="--accent:var(--coral)">
-    <span class="slide-no">20 / 26</span>
+    <span class="slide-no">27 / 34</span>
     <p class="eyebrow">初階 · 排錯順序</p>
     <h2>從最前面的失敗點開始，不要同時亂改多處</h2>
     <div class="grid3">
@@ -809,15 +943,15 @@ ScratchGrader_student.html</code></pre>
       <article class="failure" style="--accent:var(--blue)"><b>/api/health 打不開</b><p>檢查 Secret 名稱、ngrok 網域與 Colab 紅色錯誤。此時先不要修改前端。</p></article>
       <article class="failure" style="--accent:var(--cyan)"><b>健康檢查正常但網頁紅燈</b><p>核對 app-config.js 網址、CORS 設定，以及三個前端檔案是否仍在同一資料夾。</p></article>
       <article class="failure" style="--accent:var(--orange)"><b>無法讀取 Gemini 模型</b><p>檢查 key 是否貼完整、是否可用或被封鎖。必要時回 AI Studio 建立新的有效 key。</p></article>
-      <article class="failure" style="--accent:var(--coral)"><b>學生端拒絕正式評分</b><p>確認關卡 ID、規則已儲存，且四份校正狀態全部通過。</p></article>
-      <article class="failure" style="--accent:var(--green)"><b>重啟後設定消失</b><p>最小版本只存在 Colab runtime。需要長期保存時再依進階段落啟用 Firestore。</p></article>
+      <article class="failure" style="--accent:var(--coral)"><b>學生端拒絕正式評分</b><p>確認設定已儲存、關卡 ID 正確、所有啟用模型與跨模型比較通過。政策改過要重新校正。</p></article>
+      <article class="failure" style="--accent:var(--green)"><b>重啟後設定消失或沒有紀錄</b><p>核對 Firestore 與保存位置。未啟用時不保存學生自評紀錄，本機設定也可能隨 runtime 遺失。</p></article>
     </div>
     <div class="callout"><strong>遇到 ERR_NGROK_334：</strong>代表同一靜態網域仍被舊 agent 使用。先重跑啟動格；仍失敗時到 ngrok Dashboard 停止舊 agent，或刪除舊 Colab runtime 後重開。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader#避免網域已被-agent-使用" target="_blank" rel="noreferrer">來源：ngrok 舊連線復原</a><span class="tag">初階排錯表</span></div>
   </section>
 
   <section class="slide section-slide" data-title="進階客製" style="--accent:var(--coral)">
-    <span class="slide-no">14 / 19</span>
+    <span class="slide-no">28 / 34</span>
     <p class="section-index">02</p>
     <h2>進階：依個人化需求調整</h2>
     <p class="lead">先判斷需求落在哪一層。只改該層與對應測試，能降低評分規則、資料格式與前端一起失控的風險。</p>
@@ -825,61 +959,90 @@ ScratchGrader_student.html</code></pre>
   </section>
 
   <section class="slide light" data-title="客製化檔案地圖" style="--accent:var(--purple)">
-    <span class="slide-no">15 / 19</span>
+    <span class="slide-no">29 / 34</span>
     <p class="eyebrow">進階 · 找到正確入口</p>
     <h2>需求不同，應修改的檔案也不同</h2>
     <div class="map">
       <article class="map-item" style="--accent:var(--blue)"><b>介面與文字</b><code>ScratchGrader_teacher.html<br>ScratchGrader_student.html</code><p>欄位、說明、結果呈現與前端驗證。API 回傳格式不變時，風險最低。</p></article>
-      <article class="map-item" style="--accent:var(--purple)"><b>Scratch 解析與 AI 提示詞</b><code>scratch_grader_core.py<br>scratch_translation.py</code><p>積木結構、專案事實、提示詞與模型呼叫。改提示詞後要提升版本並全關重校。</p></article>
+      <article class="map-item" style="--accent:var(--purple)"><b>Scratch 解析與 AI 提示詞</b><code>scratch_grader_core.py<br>scratch_translation.py</code><p>積木結構、專案事實、提示詞與模型呼叫。影響分析或正式評分時，要更新版本並重新校正。</p></article>
       <article class="map-item" style="--accent:var(--orange)"><b>API、權限與部署</b><code>colab_server.py<br>ngrok_recovery.py</code><p>路由、教師驗證、CORS、上傳限制與公開網址。</p></article>
       <article class="map-item" style="--accent:var(--green)"><b>一致性與容量</b><code>grading_queue.py<br>grading_policy.py<br>grading_calibration.py</code><p>佇列、快取身分、備援條件、校正範圍與失效規則。</p></article>
+      <article class="map-item" style="--accent:var(--coral)"><b>扣分證據、總分與成果</b><code>grading_scoring.py<br>grading_assessment.py</code><p>驗證扣分／加分明細與分數範圍，再依門檻轉成星等。模型格式改動要同步維持此契約。</p></article>
     </div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noreferrer">來源：儲存庫檔案與 import 關係</a><span class="tag">依責任分層</span></div>
   </section>
 
   <section class="slide" data-title="評分與回饋客製" style="--accent:var(--orange)">
-    <span class="slide-no">16 / 19</span>
+    <span class="slide-no">30 / 34</span>
     <p class="eyebrow">進階 · 評分策略</p>
     <h2>改門檻很容易，改評分語意要重新建立證據</h2>
     <div class="grid3">
-      <div class="rule" style="--accent:var(--green)"><strong>只改達成門檻</strong><p>教師頁調整 75／90 分即可。星等由 <code>grading_assessment.py</code> 固定換算，不必改提示詞。</p></div>
+      <div class="rule" style="--accent:var(--green)"><strong>只改達成門檻</strong><p>教師頁調整 75／90 分，星等由 <code>grading_assessment.py</code> 換算。儲存後舊校正失效，仍需重新校正。</p></div>
       <div class="rule" style="--accent:var(--blue)"><strong>改規則與配分</strong><p>把規則寫成可在積木流程中直接觀察的條件。儲存後，該關四份樣本重新校正。</p></div>
-      <div class="rule" style="--accent:var(--coral)"><strong>改提示詞或輸出</strong><p>調整 <code>generate_grading_prompt()</code>，提升 <code>GRADING_PROMPT_VERSION</code>，所有關卡重新校正。</p></div>
+      <div class="rule" style="--accent:var(--coral)"><strong>改提示詞或輸出</strong><p>提升 <code>GRADING_PROMPT_VERSION</code>，影響正式評分時也提升 <code>GRADING_POLICY_VERSION</code>。重啟並重新校正所有受影響關卡。</p></div>
     </div>
-    <div class="callout"><strong>避免只用一份「正確答案」測試：</strong>邏輯陷阱樣本能檢查 AI 是否只看外觀或角色數量；少一條規則樣本能檢查配分是否真的被遵守。</div>
+    <div class="callout"><strong>後端格式契約：</strong>分數為 100 − 扣分 + 加分，限制 0～110 並四捨五入。完全相同的重複扣分合併，同規則衝突、缺少明細或非法數值視為失敗，不保存正式成績。</div>
+    <p class="small dim" style="margin-top:18px">Claude 正式備援預設關閉，需在部署端同時設定啟用值與 Anthropic key。啟用後只在主模型 503 或連續兩次 500 時切換，429 額度限制不會自動轉為付費 Claude。</p>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/main/grading_calibration.py" target="_blank" rel="noreferrer">來源：校正指紋與四種案例</a><span class="tag">改變即重新校正</span></div>
   </section>
 
   <section class="slide light" data-title="班級規模與資料客製" style="--accent:var(--cyan)">
-    <span class="slide-no">17 / 19</span>
+    <span class="slide-no">31 / 34</span>
     <p class="eyebrow">進階 · 容量與資料</p>
     <h2>從個人試用走向班級使用，需要三個決定</h2>
     <div class="grid3">
-      <div class="rule" style="--accent:var(--blue)"><strong>同時多少人送出</strong><p><code>MAX_CONCURRENT_GRADES</code> 控制同時評分，<code>MAX_QUEUED_GRADES</code> 控制等候上限。先看實測平均時間與 API 額度，再提高。</p></div>
-      <div class="rule" style="--accent:var(--purple)"><strong>資料要保存多久</strong><p>需要跨 Colab 重啟時啟用 Firestore。不同班級至少分開 collection／document，避免最後儲存者覆蓋設定。</p></div>
+      <div class="rule" style="--accent:var(--blue)"><strong>同時多少人送出</strong><p>預設同時 3 份、等待 24 份，冷卻 13 秒。免費 Colab 先維持 2～3 份，再依實測時間與 API 用量調整。</p></div>
+      <div class="rule" style="--accent:var(--purple)"><strong>資料與班級怎麼隔離</strong><p>Firestore 保存設定、紀錄與正式結果。不同班級同時評分，使用隔離後端部署，並分開設定文件、自評紀錄與結果集合。</p></div>
       <div class="rule" style="--accent:var(--coral)"><strong>誰能管理</strong><p>單一 ADMIN_TOKEN 適合小型自用。多位教師、角色權限或正式校務資料，應改為真正的身分登入與稽核紀錄。</p></div>
     </div>
-    <div class="callout"><strong>容量不是只改一個數字：</strong>提高併發會同時增加 Colab 負載、模型請求速率與費用風險。佇列統計是調整依據，不是完成時間保證。</div>
+    <div class="callout"><strong>一個後端只有一份正在使用的作業設定：</strong>關卡 ID 不會自動載入主題、規則與範本。切關先載入內容、儲存並確認校正，正在收件時避免切到另一關。</div>
     <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/main/grading_queue.py" target="_blank" rel="noreferrer">來源：FIFO 佇列與 README 參數</a><span class="tag">先量測再放大</span></div>
   </section>
 
+  <section class="slide light" data-title="Firestore 保存與備份" style="--accent:var(--green)">
+    <span class="slide-no">32 / 34</span>
+    <p class="eyebrow">進階 · 從試用到保存紀錄</p>
+    <h2>Firestore 保存設定、校正與學生紀錄</h2>
+    <div class="grid2">
+      <div class="steps">
+        <div class="n">1</div><div class="step"><b>建立自己的專案與資料庫</b><p>Firebase Console 選 Production mode。服務帳戶授予 Firestore 必要權限，例如 Cloud Datastore User。</p></div>
+        <div class="n">2</div><div class="step"><b>在 Colab 設定三個 Secret</b><p><code>FIREBASE_ENABLED=true</code>、<code>FIREBASE_PROJECT_ID</code>、<code>FIREBASE_SERVICE_ACCOUNT_JSON</code>（完整 JSON）。</p></div>
+        <div class="n">3</div><div class="step"><b>重啟並核對保存位置</b><p>安全啟動器讀取選用值後，教師頁儲存設定與校正。確認顯示「已保存到 Firestore」，再用測試學號檢查紀錄。</p></div>
+      </div>
+      <div>
+        <h3>瀏覽器不直接連 Firestore</h3>
+        <pre><code>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}</code></pre>
+        <p class="small dim" style="margin-top:14px">後端服務帳戶經 IAM 讀寫，不需 Firebase Web API key。服務帳戶 JSON 只放 Secret。</p>
+      </div>
+    </div>
+    <div class="callout"><strong>備份仍需自己保留：</strong>後端保存解析文字，不長期保存原始 .sb3。另保留作品、人工預期與規則。未啟用 Firestore 時不保存學生自評紀錄，本機設定與快取可能遺失。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md#外部服務設定指南" target="_blank" rel="noreferrer">來源：Firestore 與資料保存參數</a><span class="tag">看實際保存位置</span></div>
+  </section>
+
   <section class="slide" data-title="安全改版循環" style="--accent:var(--green)">
-    <span class="slide-no">18 / 19</span>
+    <span class="slide-no">33 / 34</span>
     <p class="eyebrow">進階 · 開發方法</p>
     <h2>把個人化需求變成可回復、可驗證的改版</h2>
     <div class="change-ladder">
       <div style="--accent:var(--blue)"><b>界定影響層</b><span>先寫出需求會改介面、API、評分語意、資料或容量中的哪一項。</span></div>
       <div style="--accent:var(--purple)"><b>建立失敗案例</b><span>先準備會暴露問題的 .sb3 或單元測試，再修改程式。</span></div>
       <div style="--accent:var(--orange)"><b>小幅改動</b><span>盡量維持 API 與結果欄位相容，避免同時重寫前後端。</span></div>
-      <div style="--accent:var(--coral)"><b>版本與校正</b><span>提示詞或政策改動要提升版本，跑 19 項測試並重做受影響關卡校正。</span></div>
+      <div style="--accent:var(--coral)"><b>版本與校正</b><span>依影響更新提示詞與政策版本，跑完整測試、重啟後端，重做受影響關卡校正。</span></div>
       <div style="--accent:var(--green)"><b>小班試用</b><span>先看錯誤率、等待時間、評分落點與成本，再擴大使用。</span></div>
     </div>
-    <div class="callout"><strong>目前基線：</strong>本次檢視的 main 在 2026-09-23 執行 <code>python -m unittest discover -s tests -v</code>，19 項全部通過。</div>
-    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/tree/main/tests" target="_blank" rel="noreferrer">來源：tests/ 與本次執行結果</a><span class="tag">可驗證的客製</span></div>
+    <div class="callout"><strong>README 指定的測試：</strong><code>python -m unittest discover -s tests -v</code>。模組測試通過後，仍用真實作品檢查扣分判斷與回覆時間，不能只看測試項數。</div>
+    <div class="footer"><a href="https://github.com/byte-core-su/ScratchGrader/tree/c5767201c043b1cd67e31c20de28a5c4322d38e3/tests" target="_blank" rel="noreferrer">來源：新版 tests/ 與 README 開發流程</a><span class="tag">客製後必做</span></div>
   </section>
 
   <section class="slide light" data-title="來源與下一步" style="--accent:var(--orange)">
-    <span class="slide-no">19 / 19</span>
+    <span class="slide-no">34 / 34</span>
     <p class="eyebrow">來源與下一步</p>
     <h2>先完成一關，再決定值得客製的部分</h2>
     <div class="sources">
@@ -890,9 +1053,10 @@ ScratchGrader_student.html</code></pre>
       <a href="https://github.com/byte-core-su/ScratchGrader/commit/39aec03" target="_blank" rel="noreferrer"><span class="source-label">2026-08-10</span>部署硬化與排隊評分</a>
       <a href="https://github.com/byte-core-su/ScratchGrader/commit/277c179" target="_blank" rel="noreferrer"><span class="source-label">2026-09-15</span>一致性、備援與校正</a>
       <a href="https://github.com/byte-core-su/ScratchGrader/commit/5e94f12" target="_blank" rel="noreferrer"><span class="source-label">2026-09-23</span>逐關校正要求</a>
-      <a href="https://github.com/byte-core-su/ScratchGrader/blob/main/README.md" target="_blank" rel="noreferrer"><span class="source-label">操作依據</span>README 部署、安全與教師流程</a>
+      <a href="https://github.com/byte-core-su/ScratchGrader/commit/c5767201c043b1cd67e31c20de28a5c4322d38e3" target="_blank" rel="noreferrer"><span class="source-label">2026-10-03</span>證據算分、盲評校正與升級流程</a>
+      <a href="https://github.com/byte-core-su/ScratchGrader/blob/c5767201c043b1cd67e31c20de28a5c4322d38e3/README.md" target="_blank" rel="noreferrer"><span class="source-label">本次固定版本</span>README c576720，比對日期 2026-10-04</a>
     </div>
-    <p class="big-statement" style="margin-top:30px">復刻成功的證明，是<span class="accent">一個真實關卡通過四份校正</span>，並讓學生得到可採取行動的回饋。</p>
+    <p class="big-statement" style="margin-top:30px">復刻完成的檢查，是<span class="accent">真實關卡通過所有啟用模型的盲評與比較</span>，且學生能得到有證據、可修改的回饋。</p>
     <div class="footer"><span>ScratchGrader 網頁簡報</span><span class="tag">End</span></div>
   </section>
 </main>
@@ -940,6 +1104,22 @@ ScratchGrader_student.html</code></pre>
     announcer.textContent = `第 ${current + 1} 頁，共 ${slides.length} 頁：${slides[current].dataset.title || ''}`;
     document.title = `${slides[current].dataset.title || 'ScratchGrader'}｜ScratchGrader`;
     if (updateHash) history.replaceState(null, '', `#${current + 1}`);
+    fitCurrentSlide();
+  }
+
+  function fitCurrentSlide() {
+    const slide = slides[current];
+    slide.classList.remove('overflowing');
+    const footer = slide.querySelector('.footer');
+    const content = [...slide.children].filter(element =>
+      !element.classList.contains('footer') &&
+      !element.classList.contains('slide-no') &&
+      !element.classList.contains('block-stack'));
+    const contentBottom = Math.max(...content.map(element => element.getBoundingClientRect().bottom));
+    const overlapsFooter = footer && contentBottom > footer.getBoundingClientRect().top - 16;
+    if (slide.scrollHeight > slide.clientHeight + 1 || overlapsFooter) {
+      slide.classList.add('overflowing');
+    }
   }
 
   function toggleOverview(force) {
@@ -981,6 +1161,8 @@ ScratchGrader_student.html</code></pre>
     const next = Number(location.hash.replace('#','')) - 1;
     if (Number.isInteger(next) && next >= 0 && next < slides.length) show(next, false);
   });
+  addEventListener('resize', fitCurrentSlide);
+  document.fonts?.ready.then(fitCurrentSlide);
   show(current, false);
 })();
 </script>

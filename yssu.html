@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="今日講師：高雄市立前峰國中資訊科技教師蘇永勝。">
-  <title>今日講師｜蘇永勝</title>
+  <meta name="description" content="高雄市立前峰國中資訊科技教師蘇永勝：講師介紹與教學作品集。">
+  <title>講師介紹與作品集｜蘇永勝</title>
   <style>
     :root {
       /* 套用到其他課程時，主要只需調整這組顏色。 */
@@ -31,8 +31,162 @@
       text-rendering: optimizeLegibility;
     }
 
+    .page-nav {
+      width: min(1180px, calc(100% - 2 * var(--page-gutter)));
+      min-height: 76px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .nav-name { font-size: 15px; font-weight: 850; letter-spacing: .08em; }
+    .nav-links { display: flex; gap: clamp(16px, 3vw, 32px); }
+    .nav-links a {
+      padding: 12px 0;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .nav-links a[aria-current="page"] { color: var(--accent); border-color: var(--accent); }
+    .nav-links a:hover { color: var(--accent); }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    .js .page-panel[hidden] { display: none; }
+    .page-footer {
+      width: min(1180px, calc(100% - 2 * var(--page-gutter)));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .page-step {
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .page-step:disabled { opacity: .35; cursor: default; }
+    .page-step:not(:disabled):hover { border-color: var(--accent); color: var(--accent); }
+
+    .portfolio-page {
+      min-height: calc(100svh - 140px);
+      padding: clamp(28px, 4vh, 50px) var(--page-gutter);
+      display: grid;
+      place-items: center;
+    }
+    .portfolio {
+      width: min(1180px, 100%);
+      padding: clamp(26px, 4vw, 44px) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .portfolio::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: 120px;
+      height: 5px;
+      background: var(--accent);
+    }
+    .portfolio-header { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+    .portfolio h2 { margin: 0; font-size: clamp(42px, 5vw, 68px); letter-spacing: -.05em; line-height: 1.15; }
+    .portfolio-intro { margin: 0; max-width: 360px; color: var(--muted); font-size: 17px; line-height: 1.7; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 32px; }
+    .work-card {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 28px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      background: transparent;
+    }
+    .work-card:hover { border-color: var(--accent); }
+    .work-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--accent); font-size: 13px; font-weight: 850; letter-spacing: .08em; }
+    .work-card h3 { margin: 16px 0 10px; font-size: clamp(23px, 2.2vw, 31px); line-height: 1.3; letter-spacing: -.035em; }
+    .work-card p { margin: 0 0 22px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+    .work-link { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; font-weight: 800; display: flex; justify-content: space-between; }
+    .work-link span { color: var(--accent); }
+    .portfolio-note { margin: 22px 0 0; color: var(--muted); font-size: 13px; }
+    .work-category { margin-top: 34px; }
+    .category-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .category-heading h3 { margin: 0; font-size: 22px; font-weight: 850; }
+    .category-heading p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
+    .work-category .work-grid { margin-top: 20px; }
+    .category-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 30px 0 22px; }
+    .category-card {
+      min-width: 0;
+      padding: 19px 16px;
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .category-card[aria-pressed="true"], .category-card:hover { border-color: var(--accent); }
+    .category-card[aria-pressed="true"] .category-name { color: var(--accent); }
+    .category-name { display: block; margin: 10px 0 8px; font-size: 18px; font-weight: 850; line-height: 1.4; }
+    .category-name .keep { display: inline-block; }
+    .category-description { display: block; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .category-number { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .work-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+    .work-summary { margin: 0; color: var(--muted); font-size: 14px; }
+    .show-all { padding: 8px 12px; color: var(--accent); background: transparent; border: 1px solid var(--line); font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
+    .show-all[aria-pressed="true"] { border-color: var(--accent); }
+    .github-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .work-card[hidden] { display: none; }
+    .github-grid .work-meta { flex-wrap: wrap; letter-spacing: .025em; }
+    .github-grid .work-meta span { overflow-wrap: anywhere; }
+    .github-grid .work-card h3 { font-size: clamp(22px, 2vw, 28px); }
+    .sharing-details { margin-top: 36px; border-top: 1px solid var(--line); }
+    .sharing-details > summary { padding: 20px 0; color: var(--ink); font-size: 20px; font-weight: 850; cursor: pointer; }
+    .sharing-details .work-category { margin-top: 0; }
+    summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    @media (max-width: 1050px) {
+      .category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .github-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px) {
+      .portfolio-header { display: block; }
+      .portfolio-intro { margin-top: 18px; max-width: none; }
+      .work-grid { grid-template-columns: 1fr; }
+      .portfolio-page { padding-top: 24px; }
+    }
+    @media (max-width: 700px) {
+      .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .github-grid { grid-template-columns: 1fr; }
+      .category-card { padding: 16px 14px; }
+    }
+    @media (max-width: 480px) {
+      .nav-name { display: none; }
+      .page-nav { justify-content: center; min-height: 66px; }
+      .work-card { padding: 22px; }
+      .work-meta { letter-spacing: 0; }
+      .quote-copy { font-size: clamp(16px, 4.4vw, 21px); }
+      .quote-lead, .quote-follow { gap: 8px; grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr); }
+    }
+
     .instructor-page {
-      min-height: 100svh;
+      min-height: calc(100svh - 140px);
       display: grid;
       place-items: center;
       padding: clamp(38px, 6vh, 72px) var(--page-gutter);
@@ -305,13 +459,27 @@
     }
 
     @media print {
+      .page-nav, .page-footer { display: none; }
+      .category-grid, .work-toolbar { display: none; }
+      .work-card[hidden] { display: flex; }
+      .js .page-panel[hidden] { display: grid; }
+      .portfolio-page { break-before: page; }
+      .work-card { break-inside: avoid; }
       .instructor-page { min-height: auto; padding: 28px; }
       .instructor { break-inside: avoid; }
     }
   </style>
 </head>
 <body>
-  <main class="instructor-page">
+  <nav class="page-nav" aria-label="頁面導覽">
+    <span class="nav-name">蘇永勝 · 教學與實踐</span>
+    <div class="nav-links">
+      <a href="#instructor" aria-current="page">01 講師介紹</a>
+      <a href="#portfolio">02 作品集</a>
+    </div>
+  </nav>
+  <main>
+  <section class="instructor-page page-panel" id="instructor" aria-label="講師介紹">
     <article class="instructor" aria-labelledby="instructor-name">
       <figure class="portrait">
         <img src="yssu.png" alt="講師蘇永勝，背景為富士山與湖景" width="1254" height="1254">
@@ -352,6 +520,228 @@
         </blockquote>
       </section>
     </article>
+  </section>
+  <section class="portfolio-page page-panel" id="portfolio" aria-labelledby="portfolio-title">
+    <div class="portfolio">
+      <header class="portfolio-header">
+        <div>
+          <p class="eyebrow">SELECTED WORKS · 作品集</p>
+          <h2 id="portfolio-title">讓想法成為作品</h2>
+        </div>
+        <p class="portfolio-intro">從課程設計到數位工具<br>把教學現場的問題，轉化為可實踐的方案。</p>
+      </header>
+      <section class="work-category" aria-labelledby="github-work-title">
+        <header class="category-heading">
+          <h3 id="github-work-title">教學與實作作品</h3>
+          <p>11 件作品，從學生學習延伸到教學與班級日常</p>
+        </header>
+        <div class="category-grid" role="group" aria-label="依作品類別篩選">
+          <button class="category-card" type="button" data-filter="platform" aria-pressed="false" aria-controls="github-works">
+            <span class="category-number">01 / 3 件作品</span>
+            <span class="category-name"><span class="keep">學習平台</span></span>
+            <span class="category-description">串接任務、闖關進度與教師觀察</span>
+          </button>
+          <button class="category-card" type="button" data-filter="materials" aria-pressed="false" aria-controls="github-works">
+            <span class="category-number">02 / 3 件作品</span>
+            <span class="category-name"><span class="keep">互動教材</span></span>
+            <span class="category-description">透過模擬與實作理解資訊概念</span>
+          </button>
+          <button class="category-card" type="button" data-filter="maker" aria-pressed="false" aria-controls="github-works">
+            <span class="category-number">03 / 2 件作品</span>
+            <span class="category-name"><span class="keep">創客與</span><span class="keep">物聯網</span></span>
+            <span class="category-description">從積木程式走向軟硬體整合</span>
+          </button>
+          <button class="category-card" type="button" data-filter="assessment" aria-pressed="false" aria-controls="github-works">
+            <span class="category-number">04 / 1 件作品</span>
+            <span class="category-name"><span class="keep">AI 評量</span></span>
+            <span class="category-description">依教師規則提供作品自評與回饋</span>
+          </button>
+          <button class="category-card" type="button" data-filter="school" aria-pressed="false" aria-controls="github-works">
+            <span class="category-number">05 / 2 件作品</span>
+            <span class="category-name"><span class="keep">校務與</span><span class="keep">親師溝通</span></span>
+            <span class="category-description">整合年級事務與班級聯繫流程</span>
+          </button>
+        </div>
+        <div class="work-toolbar">
+          <p class="work-summary" id="work-summary" role="status" aria-live="polite" aria-atomic="true">全部作品 · 11 件</p>
+          <button class="show-all" type="button" data-filter="all" aria-pressed="true" aria-controls="github-works">查看全部</button>
+        </div>
+        <div class="work-grid github-grid" id="github-works">
+          <a class="work-card" data-category="platform" href="https://github.com/su-yung-sheng/course_115" target="_blank" rel="noopener noreferrer" aria-label="查看八年級資訊科技闖關系統 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>學習平台</span><span>course_115</span></div>
+            <h3><span class="keep">八年級</span><span class="keep">資訊科技</span><span class="keep">闖關系統</span></h3>
+            <p>整合資訊倫理、運算思維與 Scratch 任務，以闖關進度、AI 引導及作品回饋串起上下學期的學習。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="platform" href="https://github.com/su-yung-sheng/course_116" target="_blank" rel="noopener noreferrer" aria-label="查看九年級資訊科技闖關系統 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>學習平台</span><span>course_116</span></div>
+            <h3><span class="keep">九年級</span><span class="keep">資訊科技</span><span class="keep">闖關系統</span></h3>
+            <p>以分階任務與互動實驗站，串接數位資料、Python、系統平台、網路與多媒體專題。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="platform" href="https://github.com/byte-core-su/cs-11507" target="_blank" rel="noopener noreferrer" aria-label="查看流程圖與作品學習平台 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>學習平台</span><span>cs-11507</span></div>
+            <h3><span class="keep">流程圖與</span><span class="keep">作品學習</span><span class="keep">平台</span></h3>
+            <p>從流程排序、概念挑戰走向 Scratch 實作，搭配逐步提示、作品檢核與作答分析，支持教師掌握學習狀況。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="materials" href="https://github.com/byte-core-su/unforte_114" target="_blank" rel="noopener noreferrer" aria-label="查看 0 與 1 的藝術 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>互動教材</span><span>unforte_114</span></div>
+            <h3><span class="keep">0 與 1</span><span class="keep">的藝術</span></h3>
+            <p>透過二進位、文字編碼、聲音取樣與影像量化的互動模擬，探索現實資訊如何轉換為數位資料。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="materials" href="https://github.com/byte-core-su/unforte_115" target="_blank" rel="noopener noreferrer" aria-label="查看 Scratch 互動教材 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>互動教材</span><span>unforte_115</span></div>
+            <h3><span class="keep">Scratch</span><span class="keep">互動教材</span></h3>
+            <p>以星際任務帶入七、八年級的迴圈、變數、清單與演算法，結合積木排序、即時模擬、教案與教師資源。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="materials" href="https://github.com/byte-core-su/unforte_115/tree/main/pythonlab" target="_blank" rel="noopener noreferrer" aria-label="查看 Python Lab 教材原始碼，另開分頁">
+            <div class="work-meta"><span>互動教材</span><span>Python Lab</span></div>
+            <h3><span class="keep">從 Scratch</span><span class="keep">走向 Python</span></h3>
+            <p>以十二個單元銜接積木與文字程式，從預測、修改到執行驗證，搭配分階挑戰、語法小幫手與學習證書。</p>
+            <div class="work-link">查看 GitHub 教材<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="maker" href="https://github.com/suyungsheng-kh/esp32-2026" target="_blank" rel="noopener noreferrer" aria-label="查看 ESP32 物聯網創客課程 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>創客與物聯網</span><span>esp32-2026</span></div>
+            <h3><span class="keep">ESP32</span><span class="keep">物聯網</span><span class="keep">創客課程</span></h3>
+            <p>結合 motoBlockly、實體接線與感測器專題，提供分層任務、安全檢核、除錯護照及 XML 作品 AI 自評。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="maker" href="https://github.com/byte-core-su/5016b" target="_blank" rel="noopener noreferrer" aria-label="查看 5016B 智慧微課程 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>創客與物聯網</span><span>5016b</span></div>
+            <h3><span class="keep">5016B</span><span class="keep">智慧微課程</span></h3>
+            <p>以跨域專題串接 LED 矩陣、燈條、OLED 與感測控制，從單一模組逐步完成智慧停車場。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="assessment" href="https://github.com/byte-core-su/ScratchGrader" target="_blank" rel="noopener noreferrer" aria-label="查看 Scratch AI 自評與回饋 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>AI 評量</span><span>ScratchGrader</span></div>
+            <h3><span class="keep">Scratch</span><span class="keep">AI 自評與</span><span class="keep">回饋</span></h3>
+            <p>解析學生的 .sb3 作品，依教師評分規則提供邏輯分析與修改建議，支援作業管理與批改校正。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="school" href="https://github.com/suyungsheng-qfm/school-qfm" target="_blank" rel="noopener noreferrer" aria-label="查看年級事務公佈網 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>校務與親師溝通</span><span>school-qfm</span></div>
+            <h3><span class="keep">年級事務</span><span class="keep">公佈網</span></h3>
+            <p>集中年級公告、簽收、行事曆、投票與班務資料，讓導師與級導師能以手機完成日常行政協作。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="work-card" data-category="school" href="https://github.com/suyungsheng-qfm/class-contact-book" target="_blank" rel="noopener noreferrer" aria-label="查看班級聯絡簿 GitHub 專案，另開分頁">
+            <div class="work-meta"><span>校務與親師溝通</span><span>class-contact-book</span></div>
+            <h3><span class="keep">班級聯絡簿</span></h3>
+            <p>以手機整合每日公告、家長簽閱、請假、班群與私訊、相簿及表單，建立親師日常聯繫入口。</p>
+            <div class="work-link">查看 GitHub 專案<span aria-hidden="true">↗</span></div>
+          </a>
+        </div>
+        <p class="portfolio-note">介紹依各專案說明整理。點選作品，於新分頁開啟 GitHub 專案。</p>
+      </section>
+      <details class="sharing-details">
+      <summary>延伸閱讀 · 教學分享與開發歷程</summary>
+      <section class="work-category" aria-labelledby="teaching-work-title">
+        <header class="category-heading">
+          <h3 id="teaching-work-title">教學分享</h3>
+          <p>課程實踐、評量回饋與系統開發經驗</p>
+        </header>
+      <div class="work-grid">
+        <a class="work-card" href="20261008.html" target="_blank" rel="noopener noreferrer" aria-label="開啟 ESP32 × motoBlockly 課程設計，另開分頁">
+          <div class="work-meta"><span>01 / 課程設計</span><span>ESP32 × motoBlockly</span></div>
+          <h3><span class="keep">讓每個學生</span><span class="keep">用適合自己的步調學習</span></h3>
+          <p>以分層任務、安全檢核與除錯鷹架，設計學生能依自己的理解速度前進的學習路徑。</p>
+          <div class="work-link">查看課程設計分享<span aria-hidden="true">↗</span></div>
+        </a>
+        <a class="work-card" href="ScratchGrader.html" target="_blank" rel="noopener noreferrer" aria-label="開啟 ScratchGrader 從復刻到客製，另開分頁">
+          <div class="work-meta"><span>02 / 評量與回饋</span><span>ScratchGrader</span></div>
+          <h3><span class="keep">Scratch 作品</span><span class="keep">的 AI 評量與回饋</span></h3>
+          <p>從作品證據與教師評分規準出發，探索 AI 初步檢核、盲評校正與客製化回饋的做法。</p>
+          <div class="work-link">查看工具開發分享<span aria-hidden="true">↗</span></div>
+        </a>
+        <a class="work-card" href="20261003.html" target="_blank" rel="noopener noreferrer" aria-label="開啟教學系統的復刻指南與開發歷程，另開分頁">
+          <div class="work-meta"><span>03 / 教學系統</span><span>course_115</span></div>
+          <h3><span class="keep">教學系統的</span><span class="keep">復刻指南與開發歷程</span></h3>
+          <p>串起教材、學習進度與作業回饋，從現有系統理解架構，再建立可延伸的課程網站。</p>
+          <div class="work-link">查看系統開發工作坊<span aria-hidden="true">↗</span></div>
+        </a>
+        <a class="work-card" href="20261002/20261002.html" target="_blank" rel="noopener noreferrer" aria-label="開啟通用型系統開發工作流程，另開分頁">
+          <div class="work-meta"><span>04 / 開發方法</span><span>從構想到實踐</span></div>
+          <h3><span class="keep">通用型系統</span><span class="keep">開發工作流程</span></h3>
+          <p>以電子聯絡簿為案例，梳理從問題定義、小步開發到測試、發布與回饋的八個階段。</p>
+          <div class="work-link">查看開發流程分享<span aria-hidden="true">↗</span></div>
+        </a>
+      </div>
+      <p class="portfolio-note">點選作品，於新分頁開啟相關分享內容。</p>
+      </section>
+      </details>
+    </div>
+  </section>
   </main>
+  <footer class="page-footer" hidden>
+    <button class="page-step" id="previous-page" type="button" aria-label="上一頁">← 上一頁</button>
+    <span id="page-count" aria-live="polite">01 / 02</span>
+    <button class="page-step" id="next-page" type="button" aria-label="下一頁">作品集 →</button>
+  </footer>
+  <script>
+    (() => {
+      const ids = ['instructor', 'portfolio'];
+      const panels = ids.map(id => document.getElementById(id));
+      const links = [...document.querySelectorAll('.nav-links a')];
+      const previous = document.getElementById('previous-page');
+      const next = document.getElementById('next-page');
+      let current = 0;
+      document.documentElement.classList.add('js');
+      document.querySelector('.page-footer').hidden = false;
+
+      function render() {
+        const index = ids.indexOf(location.hash.slice(1));
+        current = index < 0 ? 0 : index;
+        panels.forEach((panel, i) => { panel.hidden = i !== current; });
+        links.forEach((link, i) => {
+          if (i === current) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+        previous.disabled = current === 0;
+        next.disabled = current === ids.length - 1;
+        document.getElementById('page-count').textContent = `0${current + 1} / 02`;
+        document.title = `${current === 0 ? '今日講師' : '作品集'}｜蘇永勝`;
+      }
+
+      function go(index) {
+        if (index < 0 || index >= ids.length) return;
+        location.hash = ids[index];
+      }
+
+      previous.addEventListener('click', () => go(current - 1));
+      next.addEventListener('click', () => go(current + 1));
+      const filterButtons = [...document.querySelectorAll('[data-filter]')];
+      const workCards = [...document.querySelectorAll('#github-works [data-category]')];
+      const categoryNames = {
+        all: '全部作品', platform: '學習平台', materials: '互動教材',
+        maker: '創客與物聯網', assessment: 'AI 評量', school: '校務與親師溝通'
+      };
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const category = button.dataset.filter;
+          filterButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+          let count = 0;
+          workCards.forEach(card => {
+            card.hidden = category !== 'all' && card.dataset.category !== category;
+            if (!card.hidden) count += 1;
+          });
+          document.getElementById('work-summary').textContent = `${categoryNames[category]} · ${count} 件`;
+        });
+      });
+      window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
+      document.addEventListener('keydown', event => {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+            event.target.closest('a, button, input, textarea, select, [contenteditable]')) return;
+        if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+          event.preventDefault(); go(current + 1);
+        } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+          event.preventDefault(); go(current - 1);
+        }
+      });
+      render();
+    })();
+  </script>
 </body>
 </html>

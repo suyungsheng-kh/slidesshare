@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="國中社會科教師 90 分鐘 AI 教學研習簡報：Edcafe、Gemini、素養導向試題與互動網頁。">
+  <meta name="description" content="國中社會科教師 90 分鐘 AI 教學研習簡報：Edcafe、Gemini、素養導向命題與教師命題自我分析。">
   <title>AI 協作的社會科課堂｜2026.10.22</title>
   <style>
     :root {
@@ -195,6 +195,8 @@
     }
     .line-item:first-child { border-top:3px solid var(--accent); }
     .line-item b { color:var(--accent); font-size:clamp(20px,1.65vw,28px); }
+    .self-review-slide .line-item { grid-template-columns:110px 1fr; }
+    .self-review-slide .line-item b { white-space:nowrap; }
     .line-item p { margin:0; font-size:clamp(19px,1.55vw,26px); line-height:1.45; }
     .flat-list { list-style:none; padding:0; margin:0; max-width:1120px; }
     .flat-list li {
@@ -483,9 +485,9 @@
   <section class="slide dark" data-title="封面" data-minutes="1" style="--accent:var(--aqua)">
     <p class="kicker">國中社會科教師研習 · 2026.10.22 · 90 分鐘</p>
     <h1>AI 協作的<br><span class="accent">社會科課堂</span></h1>
-    <p class="lead">Edcafe、Gemini、素養導向會考題與互動網頁實作</p>
+    <p class="lead">Edcafe、Gemini、素養導向命題與教師自我分析</p>
     <div class="footer"><span>附件分析：115 年國中教育會考社會科</span><span class="page"></span></div>
-    <aside class="speaker-note">開場說明兩條路線。初階組先處理 Edcafe 與 Adobe 授權；進階組可同步檢查 Gemini 教育版登入與 API 權限。兩組都會帶走一題經教師審查的題目；初階完成 Edcafe 小測，進階完成學生版 HTML。</aside>
+    <aside class="speaker-note">開場說明兩條路線。初階組先處理 Edcafe 與 Adobe 授權；進階組可同步檢查 Gemini 教育版登入與檔案上傳。兩組都會帶走一題經教師審查的題目；初階完成 Edcafe 小測，進階完成三題命題自我分析與教師確認版 md 報告。</aside>
   </section>
 
   <section class="slide" data-title="Edcafe 帳號準備" data-minutes="1" style="--accent:var(--teal)">
@@ -536,23 +538,23 @@
   </section>
 
 <section class="slide" data-title="研習成果" data-minutes="1" style="--accent:var(--coral)">
-    <p class="kicker">入場先選路徑</p>
-    <h2>兩條路線，共用命題自我檢核</h2>
+    <p class="kicker">教材出題、品質修訂、教師命題自我分析</p>
+    <h2>兩條路線，各有完成作品</h2>
     <div class="track-grid">
       <div class="track">
         <span class="track-label">A · 初階操作</span>
         <h3>修訂 Edcafe 小測，檢視命題習慣</h3>
-        <p>教材 PDF 上傳 Edcafe 出題；在 Gemini 分析會考題本、討論命題原則並存成 md，再開新對話修題。另認識整卷的題型與配分自我檢核。</p>
+        <p>教材 PDF 上傳 Edcafe 出題；在 Gemini 分析會考題本、討論命題原則並存成 md，再開新對話修題。至少留一題修訂前後對照；整卷自我分析課後選做。</p>
       </div>
       <div class="track advanced">
         <span class="track-label">B · 進階挑戰</span>
-        <h3>自行命題並製作學生網頁</h3>
-        <p>完成共用的題本分析與修題流程；另測試 API 出題，用 Canvas 設計命題表單及學生概念互動網頁。</p>
+        <h3>自行命題，檢視自己的試題分配</h3>
+        <p>完成共用分析與修題，自行命題、設計教師命題表單；再核對自編試題的命題分布，保存教師確認版 md 報告。</p>
       </div>
     </div>
     <div class="track-links"><a href="20261022_beginner.html" target="_blank">開啟初階操作單</a><a href="20261022_advanced.html" target="_blank">開啟進階挑戰單</a></div>
-    <div class="footer"><span>初階保存 md 原則與修訂小測；進階另做命題表單及學生網頁</span><span class="page"></span></div>
-    <aside class="speaker-note">兩組都使用 Gemini 一般對話。初階完成 A1–A4 分析與保存原則、B1–B2 修題，不要求 API 或 Canvas。進階在此基礎上加做網頁。API Key 若受校方限制，記錄障礙並改走無 Key 提示流程。教師出題介面只供教師使用；給學生的網頁只放定稿內容。</aside>
+    <div class="footer"><span>初階：md 原則與修訂小測；進階：命題表單、定稿題與自我分析報告</span><span class="page"></span></div>
+    <aside class="speaker-note">兩組都使用 Gemini 一般對話。初階完成 A1–A4 分析與保存原則、B1–B2 修題，不要求 Canvas 或寫程式。進階在此基礎上製作教師命題表單，並於 72–86 分鐘實作三題自我分析。現場統一使用 Gemini 一般對話，不需另外設定 Key。命題表單只供教師備課；自我分析報告私下保存，不作教師排名或公開試卷。</aside>
   </section>
 
 <section class="slide" data-title="90 分鐘流程" data-minutes="0" style="--accent:var(--amber)">
@@ -562,13 +564,13 @@
       <div><b>00–08</b><span>Edcafe、Adobe<br><i class="nowrap">授權申請</i><br><i class="nowrap">安全界線</i></span><small>共同設定</small></div>
       <div><b>08–20</b><span>初階：<i class="nowrap">教材 PDF</i><br>與 Edcafe<br><i class="nowrap">上傳檢查</i><br>進階：<i class="nowrap">題目素材</i></span><small>12 分鐘</small></div>
       <div><b>20–34</b><span>Gemini<br><i class="nowrap">登入帳號</i><br><i class="nowrap">上傳題本</i><br>A1 <i class="nowrap">辨識題號</i><br>A2 <i class="nowrap">分析題目</i></span><small>14 分鐘</small></div>
-      <div><b>34–54</b><span><i class="nowrap">題型對照</i><br>A3 <i class="nowrap">討論原則</i><br>A4 <i class="nowrap">定稿存 md</i><br><i class="nowrap">自我檢核示範</i></span><small>20 分鐘</small></div>
-      <div><b>54–72</b><span>初階：<br>B1 <i class="nowrap">確認資料</i><br>B2 <i class="nowrap">修訂題目</i><br>進階：<i class="nowrap">命題表單</i></span><small>18 分鐘</small></div>
-      <div><b>72–86</b><span>初階：<i class="nowrap">派送小測</i><br>進階：Canvas<br><i class="nowrap">概念互動</i></span><small>14 分鐘</small></div>
+      <div><b>34–54</b><span><i class="nowrap">題型對照</i><br>A3 <i class="nowrap">討論原則</i><br>A4 <i class="nowrap">定稿存 md</i><br><a href="#slide-26"><i class="nowrap">試卷自我分析</i></a></span><small>20 分鐘</small></div>
+      <div><b>54–72</b><span>初階：<br>B1 <i class="nowrap">確認資料</i><br>B2 <i class="nowrap">修訂題目</i><br>進階：<i class="nowrap">命題與表單</i></span><small>18 分鐘</small></div>
+      <div><b>72–86</b><span>初階：<i class="nowrap">派送小測</i><br>進階：<br><i class="nowrap">教師命題</i><br><i class="nowrap">自我分析</i></span><small>14 分鐘</small></div>
       <div><b>86–90</b><span>查核與<i class="nowrap">出口單</i></span><small>4 分鐘</small></div>
     </div>
-    <div class="footer"><span>A、B 為主流程對話；C 為延伸自我檢核，課內示範、課後完整操作</span><span class="page"></span></div>
-    <aside class="speaker-note">共同分析指定科目的會考題目，用官方說明交叉核對，再討論並保存原則。每步另送一則訊息，不在同一則中安排等待與後續任務。初階不要求 API 或網頁製作；進階要走完學生版 HTML 的分享與學生視角測試。</aside>
+    <div class="footer"><span>A、B 從空白對話分次輸入；進階課內分析三題，整卷課後延伸</span><span class="page"></span></div>
+    <aside class="speaker-note">共同分析指定科目的會考題目，用官方說明交叉核對，再討論並保存原則。每步另送一則訊息，不在同一則中安排等待與後續任務。初階不要求網頁製作；進階完成三題自我分析：逐題核對、討論分布、教師決定及 md 保存。</aside>
   </section>
 
   <section class="slide" data-title="教師把關流程" data-minutes="1" style="--accent:var(--teal)">
@@ -668,7 +670,7 @@
       <div class="license-step"><b>06 無法使用時</b><p>截記錯誤訊息。教育帳號服務須由 Workspace 管理員啟用，現場先觀看示範。</p></div>
     </div>
     <div class="footer"><span><a href="https://support.google.com/gemini/answer/13278668" target="_blank" rel="noreferrer">Google：Gemini 登入需求</a> · <a href="https://edu.google.com/gemini-built-for-education-higher-ed/" target="_blank" rel="noreferrer">Gemini for Education</a></span><span class="page"></span></div>
-    <aside class="speaker-note">帶兩組完成教育帳號辨識，再進入 Gemini 一般新對話。學校帳號能否使用 Gemini 由管理員控制；若無法存取，記錄錯誤並與同桌共作或觀摩示範，API Key 不能代替教育版登入。</aside>
+    <aside class="speaker-note">帶兩組完成教育帳號辨識，再進入 Gemini 一般新對話。學校帳號能否使用 Gemini 由管理員控制；若無法存取，記錄錯誤並與同桌共作或觀摩示範。現場先確認教育帳號可登入及上傳檔案。</aside>
   </section>
 
 <section class="slide" data-title="題本上傳與分次輸入" data-minutes="2" style="--accent:var(--amber)">
@@ -682,7 +684,7 @@
     </div>
     <div class="dual-summary">本研習主流程從電腦上傳，不依賴 Drive 內建 AI。模型久未出字時先試短問句或可用的快捷模式，保留教師查核。</div>
     <div class="footer"><span><a href="https://support.google.com/gemini/answer/14903178?hl=zh-Hant" target="_blank" rel="noreferrer">Google：上傳與分析檔案</a> · <a href="20261022_beginner.html#gemini-prepare" target="_blank">完整操作單</a></span><span class="page"></span></div>
-    <aside class="speaker-note">提醒教師先填本步空格再送出，等待回覆後由教師決定是否進入下一步。來源：https://support.google.com/gemini/answer/14903178?hl=zh-Hant。不要宣稱特定模型無法多步工作；本研習依實作安排採逐則輸入，保留人為確認。進階 API 設定保留於進階操作單及出題示範網站，不是本段初階的必要操作。</aside>
+    <aside class="speaker-note">提醒教師先填本步空格再送出，等待回覆後由教師決定是否進入下一步。來源：https://support.google.com/gemini/answer/14903178?hl=zh-Hant。不要宣稱特定模型無法多步工作；本研習依實作安排採逐則輸入，保留人為確認。初進階都用 Gemini 一般對話，不另設定 Key。</aside>
   </section>
 
 <section class="slide" data-title="A1 辨識會考題目" data-minutes="2" style="--accent:var(--teal)">
@@ -728,7 +730,7 @@
       <div class="track advanced"><span class="track-label">B · 進階挑戰</span><h3>多找一個反例</h3><ol><li>依相同 A1、A2 分次操作。</li><li>找出不適合套用某項原則的題目。</li><li>區分官方說明與 AI 的推論。</li></ol></div>
     </div>
     <div class="dual-summary">不要只回覆「繼續」讓 AI 猜任務；收到 A1 回覆後，另貼完整 A2。等待時先核對題本，不重複送出。</div>
-    <div class="footer"><span>API 連線與出題介面是進階加做；初階不需要 Key · <a href="20261022_beginner.html#exam-analysis" target="_blank">完整操作單</a></span><span class="page"></span></div>
+    <div class="footer"><span>先核對題本，下一步才討論命題原則 · <a href="20261022_beginner.html#exam-analysis" target="_blank">完整操作單</a></span><span class="page"></span></div>
     <aside class="speaker-note">若回覆過慢，先分析一題或少量完整頁面，保留題目所需圖表。未完成者可先共用同桌草稿，課後再走完，不壓縮教師查核時間。不要為了進度把 A1 與 A2 合併送出。</aside>
   </section>
 
@@ -837,21 +839,47 @@
     <aside class="speaker-note">只保存經教師確認的完整定稿，不保存最後一小段聊天。md 匯出依帳號畫面顯示，若無此選項，可複製完整定稿到記事本，以「所有檔案」、UTF-8 存為 .md；再上傳 Drive。檢查副檔名不是 .md.txt。Google 文件匯出是另一備援：https://support.google.com/gemini/answer/14184041?hl=zh-Hant。不要以對話文字聲稱已自動寫回 Drive。</aside>
   </section>
 
-  <section class="slide" data-title="命題風格自我檢核" data-minutes="2" style="--accent:var(--teal)">
-    <p class="kicker">共同示範 4 分鐘 · 完整分析留作延伸</p>
+<section class="slide" data-title="命題風格自我檢核" data-minutes="1" style="--accent:var(--teal)">
+    <p class="kicker">共同示範 4 分鐘 · 進階於 72–86 分鐘實作</p>
     <h2>我想考什麼？實際考了什麼？</h2>
     <p class="lead" style="font-size:clamp(22px,1.9vw,30px)">AI 也能協助教師檢視自己的試卷：題型是否集中？配分是否符合<span class="nowrap">教學目標</span>？哪些概念重複出題？</p>
     <div class="stack">
       <div class="line-item"><b>先記錄</b><p>看 AI 報告前，先寫下單元重點、教學節數與原訂配分。</p></div>
-      <div class="line-item"><b>再核對</b><p>C 新對話上傳去識別化試卷，先建逐題表。核對後另送下一則，才比較命題本意與實際分配。</p></div>
-      <div class="line-item"><b>留紀錄</b><p>教師確認後保存自我檢核 md，下次命題再回看。課內只示範三題，不能當作全卷比例。</p></div>
+      <div class="line-item"><b>再核對</b><p>另開 Gemini 空白 C 對話，上傳去識別試卷 PDF。先用 C1 核對逐題表，才另送 C2 比較命題本意與實際分配。</p></div>
+      <div class="line-item"><b>留紀錄</b><p>教師確認後保存自我檢核 md，下次命題再回看。討論確認後另送 C3 定稿；課內三題不當作全卷比例。</p></div>
     </div>
-    <div class="footer"><a href="20261022_beginner.html#self-review-start" target="_blank">C1、C2 完整操作與報告保存</a><span class="page"></span></div>
-    <aside class="speaker-note">素材來源：使用者提供《出題教師自我檢核流程_命題風格與試題分配.md》，核心問題與逐題分類、配分及雙向細目表觀點。未採其未驗證案例百分比及猜題命中率。一份試卷僅是一個樣本，不能評判教師優劣。課內演示三題的表格及教師提問，完整試卷分析為課後延伸。C 是選做新對話代號，與初階／進階分組無關。</aside>
+    <div class="footer"><a href="20261022_beginner.html#self-review-start" target="_blank">C1：逐題核對</a> · <a href="20261022_beginner.html#self-review-compare" target="_blank">C2、C3：討論與 md 保存</a><span class="page"></span></div>
+    <aside class="speaker-note">素材來源：使用者提供《出題教師自我檢核流程_命題風格與試題分配.md》，核心問題與逐題分類、配分及雙向細目表觀點。未採其未驗證案例百分比及猜題命中率。一份試卷僅是一個樣本，不能評判教師優劣。先演示三題的表格及教師提問；進階稍後實作三題，完整試卷分析為課後延伸。C 是自我分析新對話代號，與初階／進階分組無關。</aside>
   </section>
 
-  <section class="slide" data-title="C1：自我檢核的逐題表" data-minutes="1" style="--accent:var(--violet)">
-    <p class="kicker">延伸 · 另開 C 新對話 · 第一則輸入</p>
+  <section class="slide" data-title="C 對話：準備與逐題核對" data-minutes="2" style="--accent:var(--teal)">
+    <p class="kicker">共同示範 · Gemini 一般對話 · 第一階段</p>
+    <h2>自己的試卷，先建逐題核對表</h2>
+    <div class="license-steps" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <div class="license-step"><b>01 寫命題本意</b><p>先記核心概念、教學節數與原訂配分，另寫想了解的命題習慣。</p></div>
+      <div class="license-step"><b>02 另開 C 對話</b><p>登入 Gemini，點「新對話」。附去識別試卷 PDF；教材與正式答案有則附上。</p></div>
+      <div class="license-step"><b>03 只送 C1</b><p>填檔名、題號、頁序與配分，貼 C1 提示。這次只建表，暫不下<span class="nowrap">結論</span>。</p></div>
+      <div class="license-step"><b>04 教師逐題核對</b><p>對照 PDF 更正單元、認知要求與證據。缺頁或讀不清先<span class="nowrap">補正</span>，缺配分則註明，不讓 AI 猜。</p></div>
+    </div>
+    <div class="dual-summary">C 是另一個空白對話，不承接 A、B 的附件或聊天。先示範三題，進階稍後依同樣流程實作。</div>
+    <div class="footer"><span><a href="20261022_beginner.html#self-review-start" target="_blank">完整 C1 提示與上傳檢查</a></span><span class="page"></span></div>
+    <aside class="speaker-note">示範一般 Gemini 新對話，手動附上已清理且有權使用的 PDF。只複製 C1，一次只做逐題核對表；更正後把完整表格貼回同一 C 對話，明確取代初稿。沒有正式答案不分析答案位置，缺配分不假設等分。進階課內三題，完整試卷課後延伸。</aside>
+  </section>
+
+  <section class="slide self-review-slide" data-title="C 對話：討論與 md 報告" data-minutes="1" style="--accent:var(--violet)">
+    <p class="kicker">共同示範 · 第二階段與第三階段分次送出</p>
+    <h2>核對完成，再討論及保存</h2>
+    <div class="stack">
+      <div class="line-item"><b>C2 討論</b><p>另送命題本意與已核對表，比較題數、已知配分及<span class="nowrap">雙向細目表</span>。教師重新核算比例，以題號檢查推論。</p></div>
+      <div class="line-item"><b>教師決定</b><p>明確確認保留、調整與待查事項，寫理由與下次驗證方式。尚未採用的建議不算共識。</p></div>
+      <div class="line-item"><b>C3 定稿</b><p>討論完成後另送 C3，整理可獨立閱讀的報告。檢查識別資訊，匯出 md 後手動<span class="nowrap">回存 Drive</span>。</p></div>
+    </div>
+    <div class="footer"><span><a href="20261022_beginner.html#self-review-compare" target="_blank">C2、C3 提示與 md 保存步驟</a></span><span class="page"></span></div>
+    <aside class="speaker-note">C1、C2、C3 必須分次輸入，收到回覆並確認後才繼續，不要求模型在同一則訊息中等待兩階段。一般對話的分布由模型整理，教師仍需核算；沒有學生作答資料不估實測難度或鑑別度。匯出後開檔查全文，再手動上傳 Drive 私人資料夾。沒有匯出按鈕時以記事本存 UTF-8 的 .md。</aside>
+  </section>
+
+<section class="slide" data-title="C1：自我檢核的逐題表" data-minutes="0" style="--accent:var(--violet)">
+    <p class="kicker">Gemini 一般對話 · 進階課內／初階選做</p>
     <h2>C1：自我檢核的逐題表</h2>
     <div class="prompt-box"><button class="copy-btn" data-copy-target="workflow-c1">只複製 C1</button><pre id="workflow-c1">這是全新對話。我已確認使用權限，並將附件試卷去識別化。
 【科目／年級】＿＿　【試卷 PDF 檔名】＿＿
@@ -866,11 +894,11 @@
 本次只建逐題核對表，不作整卷結論、教師評分或出新題。</pre></div>
     <p class="note" style="margin-top:22px">先完成上傳檢查，再填檔名與範圍。讀不清就補正；核對逐題表後，才另送 C2。</p>
     <div class="footer"><a href="20261022_beginner.html#self-review-start" target="_blank">C1 操作單：附件準備與逐題核對</a><span class="page"></span></div>
-    <aside class="speaker-note">本頁為延伸流程示範，不要求現場跑完整份試卷。每次只複製本頁一則提示。先完成上傳檢查，再填檔名與範圍。讀不清就補正；核對逐題表後，才另送 C2。 素材來源：使用者提供《出題教師自我檢核流程_命題風格與試題分配.md》。</aside>
+    <aside class="speaker-note">本頁可供進階課內分析三題使用，不要求現場跑完整份試卷。每次只複製本頁一則提示。先完成上傳檢查，再填檔名與範圍。讀不清就補正；核對逐題表後，才另送 C2。 素材來源：使用者提供《出題教師自我檢核流程_命題風格與試題分配.md》。</aside>
   </section>
 
-  <section class="slide" data-title="C2：命題本意與實際分配" data-minutes="1" style="--accent:var(--violet)">
-    <p class="kicker">延伸 · 同一 C 對話 · 核對後另送</p>
+<section class="slide" data-title="C2：命題本意與實際分配" data-minutes="0" style="--accent:var(--violet)">
+    <p class="kicker">Gemini 一般對話 · 進階課內／初階選做</p>
     <h2>C2：命題本意與實際分配</h2>
     <div class="prompt-box"><button class="copy-btn" data-copy-target="workflow-c2">只複製 C2</button><pre id="workflow-c2">我已逐題核對並更正本對話的表格，現在分析這份試卷。
 【我在看報告前記錄的命題本意】＿＿
@@ -886,7 +914,7 @@
 結論僅限這份試卷，不推定為穩定風格；待我確認後再整理報告。</pre></div>
     <p class="note" style="margin-top:22px">一份試卷只是一個樣本。教師討論並確認後，再另請 AI 整理完整報告，匯出 md 回存。</p>
     <div class="footer"><a href="20261022_beginner.html#self-review-compare" target="_blank">C2 操作單：比較、討論與報告保存</a><span class="page"></span></div>
-    <aside class="speaker-note">本頁為延伸流程示範，不要求現場跑完整份試卷。每次只複製本頁一則提示。一份試卷只是一個樣本。教師討論並確認後，再另請 AI 整理完整報告，匯出 md 回存。 素材來源：使用者提供《出題教師自我檢核流程_命題風格與試題分配.md》。</aside>
+    <aside class="speaker-note">本頁可供進階課內分析三題使用，不要求現場跑完整份試卷。每次只複製本頁一則提示。一份試卷只是一個樣本。教師討論並確認後，再另請 AI 整理完整報告，匯出 md 回存。 素材來源：使用者提供《出題教師自我檢核流程_命題風格與試題分配.md》。</aside>
   </section>
 
 <section class="slide dark section-slide" data-title="試題生成" data-minutes="0" style="--accent:var(--coral)">
@@ -955,12 +983,12 @@
 四項同類，只有一個最佳答案，三個干擾項對應不同迷思。資料不足先指出缺漏，不補寫事實。
 提示要求 AI 輸出：題目、答案、逐項解析、材料證據、推理鏈及待查核項目，標示「AI 候選草稿」。
 提供「複製完整提示」「開啟 Gemini」「清空表單」按鈕。
-標示「將提示貼到新對話後，才由 AI 出題」。表單本身不用 API Key，也不呼叫 AI。
+標示「將提示貼到新對話後，才由 AI 出題」。表單只整理提示，不連線呼叫 AI。
 頁尾標註設計參考：高雄市立陽明國中吳宜蓉老師《素養命題小幫手》
 國中社會科命題模板 - 2026，https://share.gemini.google/MTitQWAr6ABS。本頁依研習規則另行設計。</pre>
     </div>
     <div class="footer"><span>先核對提示再出題 · <a href="20261022_advanced.html#teacher-form-design" target="_blank">完整設計操作單</a></span><span class="page"></span></div>
-    <aside class="speaker-note">初階組此時準備 B 對話所需的 md 與教材 PDF，並複製 Edcafe 原題。這段進階提示完全自足，教師在空白 Gemini 對話啟用 Canvas 後整段送出，不必先有其他對話。產生的是教師命題表單，並非學生互動活動。生成後填入自己的材料，核對預覽是否包含材料全文、來源、推理步驟與三個迷思，並試驗空白欄位是否會提示缺漏。複製組合好的提示，另開一個新的 Gemini 對話出題。接 API 是後續功能，可參考本課程既有出題介面。</aside>
+    <aside class="speaker-note">初階組此時準備 B 對話所需的 md 與教材 PDF，並複製 Edcafe 原題。這段進階提示完全自足，教師在空白 Gemini 對話啟用 Canvas 後整段送出，不必先有其他對話。產生的是教師命題表單，並非學生互動活動。生成後填入自己的材料，核對預覽是否包含材料全文、來源、推理步驟與三個迷思，並試驗空白欄位是否會提示缺漏。複製組合好的提示，另開一個新的 Gemini 對話出題。本課程聚焦於完整提示與教師查核，不串接 API。</aside>
   </section>
 
 <section class="slide" data-title="B1 確認修題資料" data-minutes="3" style="--accent:var(--coral)">
@@ -1021,135 +1049,128 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
         <ol><li>用 Canvas 提示生成表單，填入自選材料與來源。</li><li>核對完整提示，貼到另一個新的 Gemini 對話出題。</li><li>查核正解與三個迷思，請同伴找第二答案或捷徑。</li></ol>
       </div>
     </div>
-    <div class="dual-summary actionable"><span><b>教師定稿條件：</b>材料必須參與解題，四個選項同類，只有一個最佳答案，干擾項能對應迷思。未通過查核，仍是 <span class="nowrap">AI 候選草稿</span>。</span><a class="workshop-link" href="20261022_question.html" target="_blank">開啟出題介面參考版</a></div>
+    <div class="dual-summary actionable"><span><b>教師定稿條件：</b>材料必須參與解題，四個選項同類，只有一個最佳答案，干擾項能對應迷思。未通過查核，仍是 <span class="nowrap">AI 候選草稿</span>。</span><a class="workshop-link" href="20261022_advanced.html#teacher-form-design" target="_blank">查看教師命題表單設計</a></div>
     <div class="footer"><span>兩人一組互相找出歧義與捷徑</span><span class="page"></span></div>
     <aside class="speaker-note">初階組在 Gemini 完成 B1、B2 後，由教師查證並手動回 Edcafe 修改。進階組上傳參照題只為理解命題結構，新的材料、題幹與選項由教師決定。兩組都以原始資料查證，並用五關判斷是否可用。</aside>
   </section>
 
-  <section class="slide dark section-slide" data-title="學生作品" data-minutes="0" style="--accent:var(--aqua)">
+  <section class="slide dark section-slide" data-title="教師命題自我分析" data-minutes="0" style="--accent:var(--aqua)">
     <span class="section-no">05</span>
-    <p class="kicker">72–86 分鐘</p>
-    <h2>初階派送小測<br><span class="accent">進階製作概念互動</span></h2>
-    <p class="lead">初階用 Edcafe 預覽與派送；進階讓學生操作抽象概念、觀察變化，再用定稿題檢核理解。</p>
-    <div class="footer"><span>教師出題介面只供備課；學生版呈現概念、操作與檢核</span><span class="page"></span></div>
-    <aside class="speaker-note">初階組完成題目品質檢查與 Edcafe 派送。進階組用自己審定的一題找出背後的抽象概念，再設計能改變條件、觀察結果、解釋原因的互動活動；題目放在體驗後作檢核。不要把教師 API Key 或待審草稿放進學生版。</aside>
+    <p class="kicker">72–86 分鐘 · 兩組分流</p>
+    <h2>初階派送小測<br><span class="accent">進階檢視自己的命題</span></h2>
+    <p class="lead">進階先分析三題：比對命題本意與實際分配，記錄保留、調整與待查事項，最後保存 md 報告。</p>
+    <div class="footer"><span>本單元聚焦教師命題自我分析；整卷課後延伸</span><span class="page"></span></div>
+    <aside class="speaker-note">初階組完成品質檢查、Edcafe 學生預覽與派送。進階組改做教師命題自我分析，不製作學生概念互動網頁，也不要求分享網址或 Chrome QR Code。先用三題熟悉核對、統計、討論和保存流程；這三題不能代表整卷分布。教師命題表單原型仍保留在上一單元。</aside>
   </section>
 
-  <section class="slide" data-title="概念互動規格" data-minutes="2" style="--accent:var(--violet)">
-    <p class="kicker">B · 進階 · 學生版設計</p>
-    <h2>概念互動網頁的四個部分</h2>
-    <div class="prep-strip">
-      <div><b>01 核心概念</b><p>寫出要學的概念，附上材料來源。</p></div>
-      <div><b>02 可做的動作</b><p>調整位置、排列事件或選擇程序，讓學生主動操作。</p></div>
-      <div><b>03 看見變化</b><p>畫面回應每次操作，請學生依證據解釋原因。</p></div>
-      <div><b>04 題目檢核</b><p>體驗後完成教師審定題，檢查理解。</p></div>
-    </div>
-    <div class="callout" style="margin-top:28px">只選答案、看解析，仍是線上測驗；概念體驗要能「改變條件 → 看見結果 → 說明理由」。</div>
-    <div class="footer"><span>學生版不含 Gemini API Key，也不讓學生上傳個資</span><span class="page"></span></div>
-    <aside class="speaker-note">初階組在這段時間完成 Edcafe 學生預覽與派送設定。進階組先選一個值得被具體化的抽象概念，寫清楚學生動作與可觀察結果，再把定稿題作為最後的理解檢核。操作後的變化必須有教學依據，模擬數值要明確標示。</aside>
-  </section>
-
-  <section class="slide" data-title="三科概念互動示範" data-minutes="2" style="--accent:var(--teal)">
-    <p class="kicker">B · 進階體驗</p>
-    <h2>從定稿題找出可操作的概念</h2>
+  <section class="slide " data-title="自我分析：材料與命題本意" data-minutes="2" style="--accent:var(--violet)">
+    <p class="kicker">B · 進階 · 72–74 分鐘</p>
+    <h2>先寫命題本意，再看 AI 分析</h2>
     <div class="license-steps">
-      <div class="license-step"><b>地理 · 空間關係</b><p>調整就業地點與班次，觀察人口和通勤變化。</p></div>
-      <div class="license-step"><b>歷史 · 因果推論</b><p>重排茶葉出口事件卡，討論先後、多重原因與價格風險。</p></div>
-      <div class="license-step"><b>公民 · 程序參與</b><p>選擇參與者、公開方式與檢討時點，觀察程序是否周全。</p></div>
-      <div class="license-step"><b>延伸 · 理解檢核</b><p>示範先聚焦操作；教師可再加入審定題，檢查理解。</p></div>
+      <div class="license-step"><b>選定三題</b><p>選自編且有權使用的試題，記下科目、年級、題號、頁序與各題配分。</p></div>
+      <div class="license-step"><b>整理上傳副本</b><p>試卷先去識別化。教材與正式答案有則附，沒有就明寫未提供。</p></div>
+      <div class="license-step"><b>記錄原先想法</b><p>我想測什麼？單元教學節數、認知要求與原訂配分為何？</p></div>
     </div>
-    <div class="dual-summary actionable"><span>現場只選一科試做。把題目的推理過程轉成學生能改變、觀察並解釋的活動。</span><a class="workshop-link" href="20261022_canvas.html" target="_blank">開啟三科互動示範</a></div>
-    <div class="footer"><span>教師命題工具：<a href="20261022_question.html" target="_blank">社會科素養題實驗室</a></span><span class="page"></span></div>
-    <aside class="speaker-note">示範網站各從地理、歷史、公民示範題取一個概念。地理的數值為模擬，歷史排序不是唯一因果，公民程序不預設某種手機規範立場。進階組選一科體驗，再用自己定稿題的概念設計活動。教師出題介面仍供備課，不發給學生。</aside>
+    <div class="callout" style="margin-top:24px">出版社題目不可直接用於段考或公開上網；先確認上傳權限，自己與他人試卷都要移除校名等識別資料。</div>
+    <div class="footer"><span><a href="20261022_beginner.html#upload-check" target="_blank">上傳前檢查表</a> · <a href="20261022_advanced.html#self-review-practice" target="_blank">進階實作紀錄</a></span><span class="page"></span></div>
+    <aside class="speaker-note">先寫命題本意，避免看見 AI 結論後才回頭編理由。三題擷取必要頁面，保持題號、材料、配分與來源；先在本機完成去識別化，不把原始未清理試卷交給 AI 去識別。沒有可合法上傳的自己的試題時，可與同桌使用已清理且獲准的自編材料，報告只記本次樣本。</aside>
   </section>
 
-  <section class="slide" data-title="示範頁設計流程" data-minutes="2" style="--accent:var(--amber)">
-    <p class="kicker">B · 進階 · 以地理活動為例</p>
-    <h2>示範頁先有設計稿，才有程式碼</h2>
+  <section class="slide self-review-slide" data-title="自我分析：空白對話與逐題核對" data-minutes="3" style="--accent:var(--teal)">
+    <p class="kicker">B · 進階 · 74–77 分鐘 · 第一階段</p>
+    <h2>從空白對話建立逐題核對表</h2>
+    <div class="stack">
+      <div class="line-item"><b>開新對話</b><p>登入 Gemini 教育版，點「新對話」，上傳去識別試卷 PDF；教材、正式答案有則另附。</p></div>
+      <div class="line-item"><b>只送 C1</b><p>在 <a href="20261022_beginner.html#self-review-start" target="_blank">C1 操作頁</a>填檔名、三題題號與頁序，再複製送出。本次只建表，不下結論。</p></div>
+      <div class="line-item"><b>逐題核對</b><p>對照原 PDF 更正單元、配分、主要認知要求與分類證據。錯字、缺漏或誤判先修正。</p></div>
+    </div>
+    <div class="dual-summary">收到表格後先人工核對，再將完整更正表貼回同一 C 對話；確認 AI 已採用更正內容，才另送 C2。</div>
+    <div class="footer"><span><a href="#slide-29">查看 C1 提示</a> · <a href="20261022_advanced.html#self-review-practice" target="_blank">14 分鐘實作步驟</a></span><span class="page"></span></div>
+    <aside class="speaker-note">本次使用 Gemini 一般對話。所有附件在這個新對話重新提供，不假設 AI 記得 A、B 對話。收到表格後先核對三題，再送明確更正；待更正確認才進 C2。若模型仍在等待，保留核對紀錄與待辦，不宣稱已完成分析。</aside>
+  </section>
+
+  <section class="slide " data-title="自我分析：核算分布" data-minutes="2" style="--accent:var(--amber)">
+    <p class="kicker">B · 進階 · 77–79 分鐘 · 第二階段前先核算</p>
+    <h2>先確認統計算的是什麼</h2>
     <table class="compare">
-      <thead><tr><th>原題提供什麼</th><th>轉成學生能做的事</th><th>畫面如何回應</th></tr></thead>
+      <thead><tr><th>要看什麼</th><th>教師怎麼核對</th></tr></thead>
       <tbody>
-        <tr><th>就業中心與人口變化</th><td>切換主要就業中心的位置</td><td>比較兩區工作與青壯人口指標</td></tr>
-        <tr><th>公車班次與跨區通勤</th><td>調整乙區公車班次</td><td>顯示通勤指標如何改變</td></tr>
-        <tr><th>材料中的推理關係</th><td>操作兩次，再比較差異</td><td>請學生用畫面證據說明原因</td></tr>
+        <tr><th>單元與認知要求</th><td>核對單元 × 主要認知要求；每題只有一個主要認知分類。</td></tr>
+        <tr><th>題數與配分</th><td>三題題數相符；已知分數加總，缺配分另列，不能假設等分。</td></tr>
+        <tr><th>圖表、情境與跨課</th><td>標記可以重疊；比例須有分母，不要求各標記相加為 100%。</td></tr>
       </tbody>
     </table>
-    <div class="dual-summary">先寫清楚操作與回應規則。<a href="20261022_canvas.html" target="_blank">這份示範頁</a>是成品參考，教師要用自己的材料設計活動；模擬數值須明示。</div>
-    <div class="footer"><span>歷史可換成事件編排；公民可換成程序選擇</span><span class="page"></span></div>
-    <aside class="speaker-note">先打開地理示範，現場改動就業中心與公車班次各一次。請教師說出：哪個控制元件改變、畫面哪個指標跟著變，以及這個關係是否有材料支持。示範頁是教學成品參考，不代表 Gemini 會一次生成完全相同的頁面。歷史與公民也沿用「材料、學生動作、畫面回應、解釋任務」的設計順序。</aside>
+    <div class="dual-summary">這只是三題練習，不是全卷分析。沒有學生作答資料，不能推算實測難度或鑑別度。</div>
+    <div class="footer"><span>AI 依教師確認的表格統計，題數與配分仍須人工重新核算</span><span class="page"></span></div>
+    <aside class="speaker-note">先把三題對照表攤開，再看分布，避免直接接受模型輸出的比例。正式答案未提供時不分析答案位置。認知要求是教師依作答任務判斷，不以文字長度、圖表數量或模型名稱代表程度。整卷分析需補足全部題目並重做核對，不把樣本比例外推。</aside>
   </section>
 
-  <section class="slide" data-title="Canvas 學生版提示" data-minutes="3" style="--accent:var(--violet)">
-    <p class="kicker">B · 進階 · 另開一般新對話，啟用 Canvas</p>
-    <h2>從新對話建立概念互動網頁</h2>
-    <div class="prompt-box">
-      <button class="copy-btn" data-copy-target="canvas-activity-prompt">複製提示</button>
-      <pre id="canvas-activity-prompt">這是新對話的第一則訊息。請用 Gemini Canvas，把下方社會科抽象概念做成學生能操作的單一 HTML 網頁；不要只做選擇題畫面。
-先呈現材料與來源，再讓學生改變條件、排列事件或選擇程序。每次操作都要顯示變化，請學生依畫面證據說明原因，最後才呈現教師定稿題檢核理解。
-地理可調整位置與交通；歷史可重排事件並討論多重因果；公民可選參與者、公開與檢討程序。依下方科目只採用合適的一種。
-請輸出完整單一 HTML，CSS 與 JavaScript 都放在檔內；支援手機與鍵盤，可重新開始。不用外部函式庫、Gemini API、登入或網路，也不蒐集學生資料。
-模擬數值須標為模擬；史實、因果或制度依據不足時先指出缺漏，不要自行補寫。請說明取得 Canvas 分享網址與備援 HTML 檔的方法。
-【教師資料】科目與年級：＿＿；核心概念與學習目標：＿＿；材料與來源：＿＿；學生能做的動作：＿＿；預期變化及依據：＿＿；定稿檢核題、正解與解析：＿＿。</pre>
+  <section class="slide self-review-slide" data-title="自我分析：依題號討論" data-minutes="3" style="--accent:var(--violet)">
+    <p class="kicker">B · 進階 · 79–82 分鐘 · 第二階段</p>
+    <h2>用題號討論，不只看一句評語</h2>
+    <div class="stack">
+      <div class="line-item"><b>另送 C2</b><p>在同一 C 對話貼入已核對的表格與命題本意，另送 <a href="20261022_beginner.html#self-review-compare" target="_blank">C2 提示</a>，比較原訂目標與實際分布。</p></div>
+      <div class="line-item"><b>提出質疑</b><p>例如：「第＿＿題不讀圖也能答對，為什麼算圖表判讀？請依作答證據重新判斷。」</p></div>
+      <div class="line-item"><b>做出決定</b><p>至少記下一項保留、調整或待查，附題號與理由。不為了平均比例而硬改題。</p></div>
     </div>
-    <div class="footer"><a href="https://support.google.com/gemini/answer/16047321" target="_blank" rel="noreferrer">來源：Gemini Apps Help · Canvas</a><span class="page"></span></div>
-    <aside class="speaker-note">進階組從 Gemini 首頁開新對話、啟用 Canvas。先確認概念、可操作的變因與觀察結果，再填入底部教師資料，作為第一則訊息送出。若只產生答題頁，要求新增可改變條件並觀察結果的活動。題目放在操作後作檢核。若 Canvas 無法使用，要求輸出完整單一 HTML 程式碼。</aside>
+    <div class="footer"><span><a href="#slide-30">查看 C2 提示</a> · 每輪另送一則訊息；未同意的建議不算定稿</span><span class="page"></span></div>
+    <aside class="speaker-note">C2 與 C1 分開送。一般對話可貼入教師更正後的完整表格，明確以它取代初稿。第二階段沒有題幹全文時，不讓 AI 假裝重新讀過 PDF，必要時回第一階段確認。討論的是這份樣本，不是教師好壞。</aside>
   </section>
 
-  <section class="slide" data-title="Canvas 語法生成與修正" data-minutes="3" style="--accent:var(--teal)">
-    <p class="kicker">B · 進階 · 從空白對話開始</p>
-    <h2>Gemini 產碼後，先操作再修正</h2>
+  <section class="slide " data-title="自我分析：定稿與 md 保存" data-minutes="2" style="--accent:var(--teal)">
+    <p class="kicker">B · 進階 · 82–84 分鐘 · 第三階段</p>
+    <h2>教師確認後，才整理 md 報告</h2>
     <div class="prep-strip">
-      <div><b>01 開新對話</b><p>選 Canvas。<br>貼上前一頁的提示。</p></div>
-      <div><b>02 測試預覽</b><p>換兩種條件，檢查變化、解釋與重設。</p></div>
-      <div><b>03 看程式碼</b><p>點「程式碼」：HTML 是內容，CSS 是版面，JavaScript 控制互動。</p></div>
-      <div><b>04 指出錯誤</b><p>指出失效的操作，請 Gemini 修好後再測。</p></div>
+      <div><b>01 確認採用</b><p>保留、調整與待查分開寫，附題號證據與下次驗證方式。</p></div>
+      <div><b>02 另送 C3</b><p>從<a href="20261022_beginner.html#self-review-compare" target="_blank">操作單</a>複製 C3，請 AI 整理已確認內容，不新增結論。</p></div>
+      <div><b>03 匯出檢查</b><p>下載 .md，開檔確認內容完整、範圍正確，並再查<span class="nowrap">識別資訊</span>。</p></div>
+      <div><b>04 手動回存</b><p>上傳 Drive 私人資料夾，記錄檔名與位置，不開公開分享。</p></div>
     </div>
-    <div class="callout" style="margin-top:28px">示範修正語句：<b>「公車班次改了，通勤數值沒變。<br>請檢查 JavaScript，其他內容保持原樣。」</b></div>
-    <div class="footer"><a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">來源：Gemini Apps Help · Canvas 程式碼與修改</a><span class="page"></span></div>
-    <aside class="speaker-note">Canvas 本身不需要教師輸入 Gemini API Key。教師從新的空白對話開始，貼入上一頁完整提示；Gemini 產生後先在預覽區實際操作。若結果錯誤，指出具體操作與預期畫面，不要只說「再改好一點」。需要獨立 HTML 時，確認程式碼包含 HTML、CSS 與 JavaScript，複製完整內容存成 UTF-8 的 .html 檔。Google 官方說明：Canvas 右上角可切到程式碼，也可用主對話要求修改，並能查看預覽錯誤訊息。</aside>
+    <div class="dual-summary">C1 核對、C2 討論、C3 定稿分次輸入。AI 尚未完成時，先保存已核對資料與下一步，不以示範內容代替。</div>
+    <div class="footer"><span>範例：公民_三題命題自我檢核_教師確認版_v1.md；與會考命題原則分開存</span><span class="page"></span></div>
+    <aside class="speaker-note">報告必須註明只分析三題，不命名成整卷完整分析。匯出按鈕不可用時，將 Markdown 全文複製到記事本，以 UTF-8 另存 .md，再開檔查驗。下載不等於已回存 Drive，需手動上傳。尚未取得模型回覆時，先保存教師核對表與待辦，不把它當成已完成的 AI 分析報告。</aside>
   </section>
 
-  <section class="slide" data-title="學生網頁分享" data-minutes="2" style="--accent:var(--coral)">
-    <p class="kicker">發布前測試與分享</p>
-    <h2>分享網址，再用 Chrome 製作 QR Code</h2>
+  <section class="slide " data-title="兩組成果檢查" data-minutes="2" style="--accent:var(--coral)">
+    <p class="kicker">84–86 分鐘 · 各自確認成果</p>
+    <h2>兩組完成標準</h2>
     <div class="track-grid">
       <div class="track">
         <span class="track-label">A · 初階操作</span>
-        <h3>Edcafe 小測派送</h3>
-        <ol><li>在學生預覽完整作答一次。</li><li>確認答案與回饋後，取得 Edcafe 活動連結或 QR code。</li><li>用學生身分再開一次，確認可進入。</li></ol>
+        <h3>Edcafe 小測可派送</h3>
+        <ol><li>題目通過品質五關，留一題修訂前後對照。</li><li>以學生預覽完整作答，核對答案與回饋。</li><li>確認活動連結可進入，保存 md 命題原則。</li></ol>
       </div>
       <div class="track advanced">
         <span class="track-label">B · 進階挑戰</span>
-        <h3>Canvas 學生版快速分享</h3>
-        <ol><li>在 Canvas 按「分享及匯出 → 分享」，複製學生版網址。</li><li>用 Chrome 開啟網址，選「⋮ → 投放、儲存及分享 → 建立 QR Code」。</li><li>用學生帳號掃描，確認能操作、解釋變化並完成檢核題。</li></ol>
+        <h3>自我分析有證據、有決定</h3>
+        <ol><li>三題已核對，統計範圍、分母與缺漏清楚。</li><li>至少一項保留、調整或待查，附題號理由。</li><li>下載教師確認版 md，記錄私人回存位置。</li></ol>
       </div>
     </div>
-    <div class="dual-summary">QR Code 只代表網址，不會把本機 HTML 變成公開網頁。Canvas 連結須在 Gemini 開啟；若學生帳號無法使用，改由校方網站提供網址，或讓學生下載 HTML 檔。</div>
-    <div class="footer"><span><a href="https://support.google.com/chrome/answer/10051760?hl=zh-Hant" target="_blank" rel="noreferrer">Google Chrome：建立 QR Code</a> · <a href="https://support.google.com/gemini/answer/16047321?hl=zh-Hant" target="_blank" rel="noreferrer">Google Canvas 分享說明</a></span><span class="page"></span></div>
-    <aside class="speaker-note">先分享沒有 API Key、個資或教師命題內容的 Canvas 學生版。於 Canvas 取得分享網址後，在 Chrome 開啟並建立 QR Code。請先用學生帳號實際掃描操作並完成檢核；Canvas 連結只能在 gemini.google.com 開啟，未滿 18 歲目前不能複製或編輯共享 Canvas。若學生無法進入或操作，才改用獨立 HTML：複製完整程式碼、存成 UTF-8 的 .html 檔，放在校方核准的網站取得網址，或透過班級平台讓學生下載。本機 file:/// 網址或教師電腦的 localhost 不可直接製成學生可用的 QR Code。</aside>
+    <div class="footer"><span>三題是樣本，不外推全卷；原則與自我分析報告分開保存</span><span class="page"></span></div>
+    <aside class="speaker-note">初階維持 Edcafe 預覽與派送；進階交的是教師自我分析紀錄，不公開試卷或報告。完整試卷分析可課後依同樣步驟擴大範圍。若網路或模型等待導致未完成，保存已核對資料並記下下一步，不能用內建示例代替教師自己的分析。</aside>
   </section>
 
 <section class="slide" data-title="出口單" data-minutes="2" style="--accent:var(--amber)">
     <p class="kicker">86–88 分鐘</p>
     <h2>請留下三句話</h2>
     <div class="stack" style="width:min(1080px,100%)">
-      <div class="line-item"><b>作品</b><p>我的 Edcafe 小測／Canvas 概念互動已完成＿＿＿＿＿＿。</p></div>
-      <div class="line-item"><b>分享</b><p>學生會透過＿＿＿＿＿＿開啟並操作。</p></div>
+      <div class="line-item"><b>作品</b><p>我的修訂小測／三題命題自我分析已完成＿＿＿＿＿＿。</p></div>
+      <div class="line-item"><b>保存</b><p>我的原則／報告保存在＿＿＿＿＿＿，下一步是＿＿＿＿＿＿。</p></div>
       <div class="line-item"><b>查核</b><p>我想檢查的題目品質或命題習慣是＿＿＿＿＿＿。</p></div>
     </div>
     <div class="footer"><span>出口單可改成 Edcafe 短答活動</span><span class="page"></span></div>
-    <aside class="speaker-note">初階保存教師確認版 md、Drive 檔案與 Edcafe 題目修改紀錄；進階保存定稿題、Canvas 分享網址或 HTML 檔，以及學生視角測試結果。請大家寫出實際分享管道。</aside>
+    <aside class="speaker-note">初階保存教師確認版 md、Drive 檔案與 Edcafe 題目修改紀錄；進階保存定稿題、命題表單原型與教師確認版自我分析 md。請寫出實際保存位置與未完成的下一步。</aside>
   </section>
 
 <section class="slide dark resource-slide" data-title="資源與結語" data-minutes="2" style="--accent:var(--aqua)">
     <p class="kicker">88–90 分鐘</p>
     <h2>先把題目審好，再交給學生</h2>
-    <p class="lead"><b>初階保存 md 原則並完成修訂小測；進階完成可操作的社會科概念互動網頁。</b><br>兩條路線都要查證與試做；課後可用 C 對話檢視自己的命題習慣。</p>
+    <p class="lead"><b>初階保存 md 原則與修訂小測；進階保存命題作品與自我分析報告。</b><br>兩條路線都要教師查核；進階課內分析三題，整卷課後延伸。</p>
     <div class="sources">
       <a href="20261022_beginner.html" target="_blank">初階操作教材</a>
       <a href="20261022_advanced.html" target="_blank">進階挑戰教材</a>
-      <a href="20261022_question.html" target="_blank">社會科素養題實驗室</a>
-      <a href="20261022_canvas.html" target="_blank">Canvas 三科互動示範</a>
+      <a href="20261022_beginner.html#self-review-start" target="_blank">Gemini 命題自我分析與 md 報告</a>
+      <a href="20261022_canvas.html" target="_blank">課後概念互動參考（非課內任務）</a>
       <a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">高雄市 Edcafe 軟體授權網</a>
       <a href="https://ftp.kh.edu.tw/public/Edcafe/%E9%AB%98%E9%9B%84%E5%B8%82Edcafe%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6-115.01.01.pdf" target="_blank" rel="noreferrer">高雄市 Edcafe 官方操作文件</a>
       <a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">高雄市 Adobe 軟體授權網</a>
@@ -1159,11 +1180,11 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
       <a href="https://edu.google.com/gemini-built-for-education-higher-ed/" target="_blank" rel="noreferrer">Gemini for Education</a>
       <a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 教育版登入</a>
       <a href="https://support.google.com/gemini/answer/13278668" target="_blank" rel="noreferrer">Gemini 帳號與登入需求</a>
-      <a href="https://support.google.com/gemini/answer/16047321" target="_blank" rel="noreferrer">Gemini Canvas 使用與分享</a>
+      <a href="https://support.google.com/gemini/answer/16047321" target="_blank" rel="noreferrer">Gemini Canvas（教師命題表單）</a>
       <a href="https://cap-rcpet.rcpet.edu.tw/" target="_blank" rel="noreferrer">國中教育會考官方網站</a>
       <a href="https://jajh.hcc.edu.tw/p/406-1006-541909,r1.php" target="_blank" rel="noreferrer">115 年試題、答案與試題說明彙整</a>
     </div>
-    <p class="small" style="margin-top:16px">題本修題與命題自我檢核更新：2026.10.17。平台功能與授權仍以官方入口及現場帳號為準。</p>
+    <p class="small" style="margin-top:16px">課程大綱與對話流程同步更新：2026.10.17。平台功能與授權仍以官方入口及現場帳號為準。</p>
     <div class="footer"><span>方向鍵切換 · O 總覽 · N 講者筆記 · F 全螢幕</span><span class="page"></span></div>
     <aside class="speaker-note">結語只重申一件事：可用的 AI 教學內容，來自清楚的要求與教師查核。保留最後兩分鐘處理現場問題。</aside>
   </section>

@@ -12,7 +12,16 @@
     .toolbar a, .toolbar button { border:1px solid rgba(255,255,255,.3); background:transparent; color:white; padding:9px 14px; text-decoration:none; cursor:pointer; font-weight:800; }
     .sheet { width:210mm; min-height:297mm; margin:12px auto; padding:17mm 16mm 15mm; background:var(--paper); box-shadow:0 10px 30px rgba(0,0,0,.12); page-break-after:always; position:relative; }
     .sheet:last-of-type { page-break-after:auto; }
-    .workflow-sheet { scroll-margin-top:90px; }
+    .workflow-sheet { scroll-margin-top:110px; }
+    #edcafe-setup, #adobe-setup { scroll-margin-top:110px; }
+    .course-overview table { margin:10px 0; }
+    .course-overview th, .course-overview td { padding:6px 8px; }
+    .course-overview .course-table th:first-child { width:15%; }
+    .course-overview .course-table th:nth-child(2) { width:20%; }
+    .course-overview .course-table th:nth-child(3) { width:65%; }
+    .course-overview .resource-map th:first-child { width:26%; }
+    .course-overview .resource-map th:last-child { width:74%; }
+    .course-overview .success, .course-overview .notice { margin:10px 0; padding:8px 11px; }
     .workflow-sheet h1 { font-size:25pt; }
     .workflow-sheet h2 { font-size:16pt; margin-top:12px; }
     .workflow-sheet .lead { font-size:10.5pt; }
@@ -102,9 +111,23 @@
   </style>
 </head>
 <body>
-  <nav class="toolbar"><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="#upload-check">上傳前檢查</a><a href="#gemini-prepare">Gemini 操作</a><a href="#self-review-start">命題自我檢核</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
+  <nav class="toolbar"><a href="#course-outline">研習大綱</a><a href="20261022.html">回主簡報</a><a href="20261022_advanced.html">改選進階教材</a><a href="#upload-check">上傳前檢查</a><a href="#gemini-prepare">Gemini 操作</a><a href="#self-review-start">命題自我分析</a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a><a href="https://edcafe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Edcafe 授權</a><a href="https://adobe.kh.edu.tw/#/" target="_blank" rel="noreferrer">Adobe 授權</a><button onclick="window.print()">列印／存成 PDF</button></nav>
 
-<section class="sheet">
+<section class="sheet workflow-sheet course-overview" id="course-outline">
+    <p class="label">2026.10.22 · 國中社會科教師 · 初階操作</p>
+    <h1>研習大綱與教材入口</h1>
+    <p class="lead">90 分鐘，三個主軸：教材出題、品質修訂、教師命題自我分析。AI 提供草稿與分析，教師負責查證、判斷及定稿。</p>
+    <div class="success"><b>開場先送出授權申請：</b><a href="#edcafe-setup">Edcafe 操作</a>、<a href="#adobe-setup">Adobe 操作</a>。收到確認信再完成啟用，不停在信箱等待。</div>
+<table class="course-table"><tr><th>時間</th><th>單元</th><th>操作重點</th></tr><tr><td>0–8 分</td><td>帳號與授權</td><td>講師介紹，先申請 Edcafe、Adobe 授權，選初進階路線。</td></tr><tr><td>8–20 分</td><td>教材與出題</td><td>初階下載出版社 PDF，節錄、去識別化後用 Edcafe 出三題；進階備好<span class="nowrap">參照題</span>。</td></tr><tr><td>20–34 分</td><td>題本分析</td><td>登入 Gemini 教育版，新對話上傳會考 PDF。A1 辨識、核對後另送 <span class="nowrap">A2 分析三題</span>。</td></tr><tr><td>34–54 分</td><td>原則與自我檢核</td><td>對照會考題型，A3 討論、A4 定稿存 md 並回存 Drive；示範三題<span class="nowrap">自我分析</span>。</td></tr><tr><td>54–72 分</td><td>分流實作</td><td>初階另開 B 對話，上傳 md、教材 PDF，貼原題，分次核對及修訂；進階自行命題，設計<span class="nowrap">命題表單</span>。</td></tr><tr><td>72–86 分</td><td>分流成果實作</td><td>初階審題、預覽及派送；進階核對三題、討論命題分布，匯出教師確認版 <span class="nowrap">md 報告</span>。</td></tr><tr><td>86–90 分</td><td>成果整理</td><td>記錄完成作品、保存位置與待查問題。</td></tr></table>
+    <h2>初階完成作品</h2>
+    <p>保存教師確認版命題原則 md，完成 Edcafe 小測，至少保留一題修訂前後對照。初階不要求寫程式或自行製作網頁。</p>
+    <div class="notice"><b>共同檢核與課後延伸：</b>每階段分次輸入，核對後才繼續。題目須通過品質五關。先共同示範，再由進階於 72–86 分鐘實作三題自我分析；初階選做，整卷課後延伸。自我分析另開 C 對話，每階段核對後才送下一則。</div>
+    <h2>主簡報以外的三份教材</h2>
+    <table class="resource-map"><tr><th>檔案</th><th>用途</th></tr><tr><td><a href="20261022_beginner.html">初階操作單</a></td><td>帳號授權、教材 PDF、Edcafe、分次修題與查核。</td></tr><tr><td><a href="20261022_advanced.html">進階操作單</a></td><td>共用分析流程，加做自行命題、命題表單與教師自我分析。</td></tr><tr><td><a href="20261022_canvas.html">概念互動示範</a></td><td>課後參考，非課內任務；保留三科互動成品與生成提示。</td></tr></table>
+    <div class="footer"><span>課程安排與主簡報同步；Gemini 對話採各階段獨立確認</span><span>初階 1 / 13</span></div>
+  </section>
+
+  <section class="sheet" id="edcafe-setup">
     <p class="label">共同準備 · 高雄市教師 Edcafe 授權升級</p>
     <h1>一開場先升級為 Pro</h1>
     <p class="lead">高雄市政府教育局自民國 115 年 1 月 1 日起，提供全市國小、國中、高中職專任教師免費使用 Edcafe AI 教育專用授權。授權會綁定既有 Edcafe 帳號的 Email。</p>
@@ -121,10 +144,10 @@
     <div class="notice"><b>開場立即完成授權申請</b><br>送出申請後不必停在信箱等待。先聽共同說明，收到確認信時再點連結；尚未收到者先和同桌共作，請勿重複申請。</div>
     <table><tr><th>Edcafe Email</th><td class="write"></td></tr><tr><th>完成檢查</th><td>□ 能登入　□ 右上角顯示 Pro　□ 已開啟初階教材</td></tr><tr><th>需要協助</th><td class="write"></td></tr></table>
     <p><a href="https://ftp.kh.edu.tw/public/Edcafe/%E9%AB%98%E9%9B%84%E5%B8%82Edcafe%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6-115.01.01.pdf" target="_blank" rel="noreferrer">查看高雄市官方圖解操作文件</a></p>
-    <div class="footer"><span>請勿在本教材填寫密碼</span><span>初階 1 / 12</span></div>
+    <div class="footer"><span>請勿在本教材填寫密碼</span><span>初階 2 / 13</span></div>
   </section>
 
-<section class="sheet adobe-sheet">
+<section class="sheet adobe-sheet" id="adobe-setup">
     <p class="label">共同準備 · Adobe 授權與 PDF 上傳</p>
     <h1>先申請授權，再製作上傳版 PDF</h1>
     <p class="lead">Adobe ID 必須使用指定教育或公務網域：@go.edu.tw、@kh.edu.tw、@khc.edu.tw、@kcg.gov.tw 或 @mail.edu.tw。私人 Gmail 不適用。</p>
@@ -148,10 +171,10 @@
     </div>
     <div class="notice"><b>Adobe 尚未啟用：</b>以 Chrome 或 Edge 開啟 PDF，選「列印 → 指定頁碼 → 儲存為 PDF」。此法可節錄頁面，但不能取代去識別化，確認資料已移除後才上傳。</div>
     <p><a href="https://ftp.kh.edu.tw/public/Adobe/Adobe%20Creative%20Cloud%20K12%20%E7%B0%A1%E6%98%93%E7%89%88%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6.pdf" target="_blank" rel="noreferrer">查看高雄市 Adobe 115.1.29 操作文件</a></p>
-    <div class="footer"><span>密碼不要填在教材或貼給 AI</span><span>初階 2 / 12</span></div>
+    <div class="footer"><span>密碼不要填在教材或貼給 AI</span><span>初階 3 / 13</span></div>
   </section>
 
-  <section class="sheet workflow-sheet" id="upload-check">
+<section class="sheet workflow-sheet" id="upload-check">
     <p class="label">共同檢查 · Edcafe、Gemini 上傳前都適用</p>
     <h1>試卷上傳前的三項檢查</h1>
     <p class="lead">不論是自己的試卷、他人試卷或出版社資料，都先確認可否上傳。去識別化完成，也不代表已取得使用權限。</p>
@@ -171,7 +194,7 @@
     <p>建議使用校方核准的付費／進階授權，確認當下開放的模型、檔案與脈絡容量、用量額度，較利於取得較完整的解析報告。課內少量示範可先用現有可用帳號，不必現場購買。</p>
     <div class="notice">付費不保證可用最新模型、報告完整或答案正確；選到 Pro 模型也不等於已付費。個人付費帳號不等於教育資料保護，勿因升級而改用未獲校方核准的帳號。<a href="https://support.google.com/gemini/answer/14620100?co=DASHER._Family%3DEducation&amp;hl=zh-Hant" target="_blank" rel="noreferrer">Google 教育帳號功能與限制</a></div>
     <div class="success">□ 使用權限已確認　□ 去識別化後已重開查驗　□ 帳號與額度已確認<br>三項確認後，才選取去識別版檔案上傳。分析報告與回存檔案也須再檢查一次。</div>
-    <div class="footer"><span>保留來源與授權紀錄，不將試卷或分析報告直接公開</span><span>初階 3 / 12</span></div>
+    <div class="footer"><span>保留來源與授權紀錄，不將試卷或分析報告直接公開</span><span>初階 4 / 13</span></div>
   </section>
 
 <section class="sheet beginner-start">
@@ -207,7 +230,7 @@
       </ul>
       <table><tr><th>準備審查的題號</th><td></td></tr><tr><th>教材來源／頁碼</th><td class="write"></td></tr><tr><th>暫定答案</th><td></td></tr></table>
     </div>
-    <div class="footer"><span>2026.10.22 國中社會科 AI 研習</span><span>初階 4 / 12</span></div>
+    <div class="footer"><span>2026.10.22 國中社會科 AI 研習</span><span>初階 5 / 13</span></div>
   </section>
 
 <section class="sheet prompt-sheet workflow-sheet" id="gemini-prepare">
@@ -226,7 +249,7 @@
     <h2>檔案角色不要混淆</h2>
     <table><tr><th>會考題本 PDF</th><td>A 對話：分析命題結構、佐證原則的參照材料。</td></tr><tr><th>命題原則 .md</th><td>A4 共同確認的定稿；B 對話用來判斷怎麼修題。</td></tr><tr><th>教材 PDF</th><td>B 對話：這一題的事實與材料來源，需指定頁碼。</td></tr><tr><th>Edcafe 原題</th><td>直接貼文字，包含材料、題幹、四個選項、答案及解析。</td></tr></table>
     <p><a href="#exam-analysis">下一頁：A1、A2 分開操作</a> · <a href="https://support.google.com/gemini/answer/14903178?hl=zh-Hant" target="_blank" rel="noreferrer">Google 上傳檔案說明</a></p>
-    <div class="footer"><span>不需要 API Key；先確認教育帳號可登入</span><span>初階 5 / 12</span></div>
+    <div class="footer"><span>先確認教育帳號可登入，再從空白對話上傳檔案</span><span>初階 6 / 13</span></div>
   </section>
 
 <section class="sheet prompt-sheet workflow-sheet" id="exam-analysis">
@@ -253,7 +276,7 @@
 不將單一題本的特徵當作官方通則，不生成新題。</pre></div>
     <table><tr><th>我確認的科目／題號</th><td class="write"></td></tr><tr><th>AI 讀錯或待查之處</th><td class="write"></td></tr></table>
     <p>下一步：先對照主簡報的題型與官方說明，再送 A3 討論原則；不直接把 AI 草稿當作定稿。</p>
-    <div class="footer"><span>A1 回覆完成並核對後，才另送 A2</span><span>初階 6 / 12</span></div>
+    <div class="footer"><span>A1 回覆完成並核對後，才另送 A2</span><span>初階 7 / 13</span></div>
   </section>
 
 <section class="sheet prompt-sheet workflow-sheet" id="principles-save">
@@ -281,7 +304,7 @@
     <ol class="checks"><li>檢查原則、題號證據與限制確實符合自己的確認結果。</li><li>使用畫面提供的 .md 匯出／下載選項，檔名如「115會考_公民命題原則_教師確認版_v1.md」。開啟下載檔，確認不是只存最後一小段回覆。</li><li>開啟 Drive 的研習資料夾，選「新增→檔案上傳」，選剛下載的 .md。下載不等於已回存，請確認資料夾出現檔案。</li></ol>
     <div class="notice"><b>沒有 .md 匯出：</b>複製完整定稿到記事本，以「所有檔案」、UTF-8 存為 .md，避免變成 .md.txt；或匯出至 Google 文件保存。規則修訂後另存 v2，不混用舊版。</div>
     <p><a href="https://support.google.com/gemini/answer/14184041?hl=zh-Hant" target="_blank" rel="noreferrer">Google 回覆匯出說明（選項依帳號而異）</a></p>
-    <div class="footer"><span>A3 討論完成，才另送 A4；md 下載後手動回存 Drive</span><span>初階 7 / 12</span></div>
+    <div class="footer"><span>A3 討論完成，才另送 A4；md 下載後手動回存 Drive</span><span>初階 8 / 13</span></div>
   </section>
 
 <section class="sheet prompt-sheet workflow-sheet" id="revise-edcafe">
@@ -314,7 +337,7 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
 資料不足先詢問，不補寫史實、統計或法規，列出待查證事項。
 標示「AI 修訂候選稿」，不自行宣稱會考同等級，由教師定稿。</pre></div>
     <p><b>收到 B2 回覆後：</b>用教材核對事實、答案與修改理由，再到下一頁逐項審查。最後由教師手動改回 Edcafe，Gemini 不會自動同步。</p>
-    <div class="footer"><span>B1 只確認，B2 才修訂；兩個按鈕必須分兩次送出</span><span>初階 8 / 12</span></div>
+    <div class="footer"><span>B1 只確認，B2 才修訂；兩個按鈕必須分兩次送出</span><span>初階 9 / 13</span></div>
   </section>
 
 <section class="sheet quality-sheet" id="quality-check">
@@ -341,7 +364,7 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
         <tr><th>修改後重新檢查</th><td>□ 五項全過　□ 仍需再修</td></tr>
       </table>
     </div>
-    <div class="footer"><span>請保留修改前後版本與理由</span><span>初階 9 / 12</span></div>
+    <div class="footer"><span>請保留修改前後版本與理由</span><span>初階 10 / 13</span></div>
   </section>
 
 <section class="sheet delivery-sheet">
@@ -370,13 +393,17 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
     <h2>離場前記錄</h2>
     <table><tr><th>md 檔名／Drive 位置</th><td class="write"></td></tr><tr><th>Edcafe 活動名稱</th><td class="write"></td></tr><tr><th>我修過的題號</th><td class="write"></td></tr><tr><th>學生連結測試</th><td>□ 可進入　□ 可作答　□ 回饋正確</td></tr></table>
     <div class="success"><b>初階完成標準</b><br>已保存 md 並回存 Drive；B1、B2 分兩次輸入，至少一題留有前後對照；所有派送題目通過教師查核、學生預覽與連結測試。</div>
-    <div class="footer"><span>保存 Edcafe 活動與審題紀錄</span><span>初階 10 / 12</span></div>
+    <div class="footer"><span>保存 Edcafe 活動與審題紀錄</span><span>初階 11 / 13</span></div>
   </section>
 
+
+
+  
+
   <section class="sheet prompt-sheet workflow-sheet" id="self-review-start">
-    <p class="label">延伸 · C 新對話 · 教師命題自我檢核</p>
+    <p class="label">Gemini 一般對話 · 進階課內／初階選做</p>
     <h1>C1：自己的試卷，也能拿來反思</h1>
-    <p class="lead">核心問題：我以為在考什麼？實際上考了什麼？兩者差多少？課內只示範三題的逐題表，完整試卷分析留作課後延伸，不列為初階必交作品。</p>
+    <p class="lead">另開 Gemini 空白對話，附上去識別試卷 PDF，分次完成 C1 核對、C2 討論與 C3 報告。進階課內練三題，初階與整卷分析課後選做。</p>
     <h2>看 AI 報告前，先寫自己的想法</h2>
     <table><tr><th>本次命題本意</th><td class="write tall">想測的核心概念與能力：<br><br>各單元教學節數／原訂配分：</td></tr><tr><th>我想了解的習慣</th><td>□ 題型太集中？　□ 重複考點？　□ 配分符合教學目標？<br>□ 圖表有參與解題？　□ 其他：＿＿＿＿</td></tr></table>
     <h2>從空白對話開始，只送 C1</h2>
@@ -394,12 +421,12 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
 本次只建逐題核對表，不作整卷結論、教師評分或出新題。</pre></div>
     <h2>收到逐題表後，先人工核對</h2>
     <ul class="checks"><li>題號、頁序與實際題數對得上，缺頁、讀不清的圖表先補正。</li><li>逐題確認單元、來源、配分與認知要求，AI 分類不合命題本意時說明理由並更正。</li><li>核對後才在同一個 C 對話另送 C2；若只分析三題，後續也只能描述這三題。</li></ul>
-    <div class="notice">C 是延伸對話代號，與初階／進階無關。A 會考分析與 B 修訂 Edcafe 仍照原流程完成；C 不假設 AI 記得 A、B 的附件或聊天。</div>
-    <div class="footer"><span>課內示範，課後可選做整卷分析</span><span>初階 11 / 12</span></div>
+    <div class="notice">C 是自我分析對話代號，與初階／進階無關。A 會考分析與 B 修訂 Edcafe 仍照原流程完成；C 不假設 AI 記得 A、B 的附件或聊天。</div>
+    <div class="footer"><span>進階課內分析三題；初階與整卷分析課後選做</span><span>初階 12 / 13</span></div>
   </section>
 
-  <section class="sheet prompt-sheet workflow-sheet" id="self-review-compare">
-    <p class="label">延伸 · 同一 C 對話 · 每步另送一則</p>
+<section class="sheet prompt-sheet workflow-sheet" id="self-review-compare">
+    <p class="label">Gemini 一般對話 · 同一 C 對話 · 每步另送</p>
     <h1>C2：比較命題本意與試題分配</h1>
     <p class="lead">C1 逐題表核對完成後，把看報告前寫的命題本意填入下方，再另送 C2。題數與分數都要看，不能只比較課本頁數。</p>
     <div class="prompt"><button class="copy" data-copy="c2">只複製 C2</button><pre id="c2">我已逐題核對並更正本對話的表格，現在分析這份試卷。
@@ -425,7 +452,7 @@ A：＿＿　B：＿＿　C：＿＿　D：＿＿
     <p><b>回存方式：</b>檢查完整報告不含識別資訊，再匯出／下載 .md，開檔檢查後，手動上傳 Drive 的私人研習資料夾。沒有匯出按鈕時，依 <a href="#principles-save">A4 的記事本備援</a>保存。</p>
     <p>這份是「自己的命題檢核報告」，與「會考命題原則」分開命名，不互相覆寫。下次命題前查看採用的調整，下一份試卷再驗證；不以猜題命中率或教師排名作為成果。</p>
     <table><tr><th>我決定保留的做法</th><td class="write"></td></tr><tr><th>下次優先調整與理由</th><td class="write"></td></tr><tr><th>報告檔名／Drive 位置</th><td class="write"></td></tr></table>
-    <div class="footer"><span>參考：所附《出題教師自我檢核流程_命題風格與試題分配》</span><span>初階 12 / 12</span></div>
+    <div class="footer"><span>參考：所附《出題教師自我檢核流程_命題風格與試題分配》</span><span>初階 13 / 13</span></div>
   </section>
 
   <script>

@@ -175,9 +175,57 @@
     }
     @media print { .copy-status { display:none !important; } .table-scroll { overflow:visible; } }
   </style>
+  <style id="compact-toolbar">
+    .toolbar { position:sticky; flex-wrap:nowrap; align-items:center; gap:8px; padding:8px 12px; }
+    .toolbar > a, .toolbar > button, .toolbar-more > summary { flex:none; font:800 14px/1.4 "Noto Sans TC","Microsoft JhengHei",sans-serif; padding:9px 12px; white-space:nowrap; }
+    .toolbar-short { display:none; }
+    .toolbar-more { position:relative; flex:none; }
+    .toolbar-more > summary { display:flex; align-items:center; gap:8px; list-style:none; cursor:pointer; border:1px solid rgba(255,255,255,.3); color:white; }
+    .toolbar-more > summary::-webkit-details-marker { display:none; }
+    .toolbar-arrow { font-size:11px; }
+    .toolbar-more[open] .toolbar-arrow { transform:rotate(180deg); }
+    .toolbar-more > summary:focus-visible { outline:3px solid #fff0a6; outline-offset:3px; }
+    .toolbar-menu { position:absolute; right:0; top:calc(100% + 8px); z-index:6; width:min(300px,calc(100vw - 24px)); max-height:min(70vh,calc(100dvh - var(--toolbar-offset,64px) - 24px)); overflow-y:auto; padding:8px; background:var(--paper); color:var(--ink); border:1px solid var(--line); box-shadow:0 8px 24px #33433d33; }
+    .toolbar-more:not([open]) .toolbar-menu { display:none; }
+    .toolbar-menu-label { margin:8px 9px 4px; color:var(--muted); font-size:12px; line-height:1.5; font-weight:800; }
+    .toolbar .toolbar-menu a, .toolbar .toolbar-menu button { display:block; width:100%; padding:8px 10px; border:0; color:var(--ink); background:transparent; text-align:left; font:700 14px/1.5 "Noto Sans TC","Microsoft JhengHei",sans-serif; text-decoration:none; white-space:nowrap; }
+    .toolbar .toolbar-menu a:hover, .toolbar .toolbar-menu button:hover, .toolbar .toolbar-menu a:focus-visible, .toolbar .toolbar-menu button:focus-visible { background:#e7e2f0; outline:2px solid var(--violet); outline-offset:-2px; }
+    @media screen and (max-width:600px) {
+      .toolbar { justify-content:center; gap:5px; padding:8px; }
+      .toolbar > a, .toolbar > button, .toolbar-more > summary { font-size:12px; padding:8px 6px; }
+      .toolbar-wide { display:none; }
+      .toolbar-short { display:inline; }
+      .toolbar-more > summary { gap:5px; }
+      .toolbar-menu { position:fixed; top:var(--toolbar-offset,64px); right:12px; width:calc(100vw - 24px); }
+    }
+  </style>
 </head>
 <body>
-<nav class="toolbar"><a href="#workflow-map"><span class="nowrap">進階完整流程</span></a><a href="#prompt-checkpoint"><span class="nowrap">K1</span>／<span class="nowrap">V1</span> <span class="nowrap">核對</span></a><a href="#course-outline"><span class="nowrap">研習</span><span class="nowrap">大綱</span></a><a href="20261022.html#slide-2">回主<span class="nowrap">簡報</span></a><a href="20261022_beginner.html"><span class="nowrap">改選</span><span class="nowrap">初階</span><span class="nowrap">教材</span></a><a href="#principles-test"><span class="nowrap">會考</span><span class="nowrap">原則</span>單題<span class="nowrap">測試</span></a><a href="#style-loop"><span class="nowrap">個人</span><span class="nowrap">風格</span><span class="nowrap">重現</span></a><a href="#self-review-practice"><span class="nowrap">試題</span><span class="nowrap">自我</span><span class="nowrap">分析</span></a><a href="#personal-principles"><span class="nowrap">個人</span><span class="nowrap">命題原則</span></a><a href="#prompt-index"><span class="nowrap">提示詞</span><span class="nowrap">索引</span></a><a href="https://gemini.google.com/" target="_blank" rel="noreferrer"><span class="nowrap">Gemini</span> <span class="nowrap">登入</span></a><button onclick="window.print()"><span class="nowrap">列印</span>／存成 PDF</button><button type="button" id="progress-settings" aria-haspopup="dialog" aria-controls="progress-dialog" hidden>本機勾選</button><a href="#workflow-download"><span class="nowrap">流程下載</span></a><a href="downloads/20261022_manual.html" target="_blank" rel="noopener"><span class="nowrap">完整</span><span class="nowrap">操作手冊</span></a></nav>
+<nav class="toolbar" aria-label="進階教材工具列">
+  <a href="20261022.html#slide-2" aria-label="回主簡報"><span class="toolbar-wide">回主簡報</span><span class="toolbar-short">主簡報</span></a>
+  <a href="#prompt-index" aria-label="提示詞索引"><span class="toolbar-wide">提示詞索引</span><span class="toolbar-short">提示詞</span></a>
+  <button type="button" id="progress-settings" aria-haspopup="dialog" aria-controls="progress-dialog" hidden>本機勾選</button>
+  <details class="toolbar-more">
+    <summary aria-label="更多功能"><span class="toolbar-wide">更多功能</span><span class="toolbar-short">更多</span><span class="toolbar-arrow" aria-hidden="true">▾</span></summary>
+    <div class="toolbar-menu" aria-label="其他教材功能">
+      <p class="toolbar-menu-label">課程與任務</p>
+      <a href="#workflow-map">進階完整流程</a>
+      <a href="#prompt-checkpoint">K1／V1 核對</a>
+      <a href="#course-outline">研習大綱</a>
+      <a href="#self-review-practice">試題自我分析</a>
+      <a href="#personal-principles">個人命題原則</a>
+      <a href="#style-loop">個人風格重現</a>
+      <a href="#principles-test">會考原則單題測試</a>
+      <p class="toolbar-menu-label">其他教材與平台</p>
+      <a href="20261022_beginner.html">改選初階教材</a>
+      <a href="downloads/20261022_manual.html" target="_blank" rel="noopener">完整操作手冊</a>
+      <a href="#workflow-download">流程下載</a>
+      <a href="https://gemini.google.com/" target="_blank" rel="noreferrer">Gemini 登入</a>
+      <p class="toolbar-menu-label">列印</p>
+      <button type="button" onclick="window.print()">列印／存成 PDF</button>
+    </div>
+  </details>
+</nav>
 
 <section class="sheet workflow-sheet course-overview" id="course-outline">
     <p class="label">2026.10.22 · <span class="nowrap">國中</span><span class="nowrap">社會</span>科<span class="nowrap">教師</span> · 進階<span class="nowrap">挑戰</span></p>
@@ -787,6 +835,23 @@
     table.before(wrapper);
     wrapper.appendChild(table);
   });
+})();
+</script>
+<script>
+(() => {
+  const more = document.querySelector('.toolbar-more');
+  const summary = more.querySelector('summary');
+  document.addEventListener('click', event => {
+    if (!more.contains(event.target) || event.target.closest('a, button')) more.open = false;
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && more.open) {
+      more.open = false;
+      summary.focus();
+      event.preventDefault();
+    }
+  });
+  window.addEventListener('hashchange', () => { more.open = false; });
 })();
 </script>
 </body>
